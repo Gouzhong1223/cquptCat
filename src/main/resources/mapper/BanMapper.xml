@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gouzhong1223.cymmtj.mapper.BanMapper">
+  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.Ban">
+    <!--@mbg.generated-->
+    <!--@Table tb_ban-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="banName" jdbcType="VARCHAR" property="banName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, banName
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tb_ban
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from tb_ban
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.Ban">
+    <!--@mbg.generated-->
+    insert into tb_ban (id, banName)
+    values (#{id,jdbcType=INTEGER}, #{banName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.Ban">
+    <!--@mbg.generated-->
+    insert into tb_ban
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="banName != null and banName != ''">
+        banName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="banName != null and banName != ''">
+        #{banName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.pojo.Ban">
+    <!--@mbg.generated-->
+    update tb_ban
+    <set>
+      <if test="banName != null and banName != ''">
+        banName = #{banName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.pojo.Ban">
+    <!--@mbg.generated-->
+    update tb_ban
+    set banName = #{banName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
