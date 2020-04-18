@@ -25,4 +25,10 @@ mybatis:
     - classpath*:com/**/mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+oss:
+  endpoint: oss-cn-shanghai.aliyuncs.com
+  keyid: 去OSS控制台获取
+  keysecret: 去OSS控制台获取
+  bucketname: java4all-file
+  filehost: blog
 

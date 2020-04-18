@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -42,12 +43,6 @@ public class Cat implements Serializable {
     private String name;
 
     /**
-     * 猫咪所属楼栋
-     */
-    @ApiModelProperty(value = "猫咪所属楼栋")
-    private String ban;
-
-    /**
      * 猫咪毛色
      */
     @ApiModelProperty(value = "猫咪毛色")
@@ -75,19 +70,13 @@ public class Cat implements Serializable {
      * 更新时间
      */
     @ApiModelProperty(value = "更新时间")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     /**
      * 猫咪所属分类
      */
     @ApiModelProperty(value = "猫咪所属分类")
     private String type;
-
-    @ApiModelProperty(value = "猫咪图片")
-    private List<Pic> catPics;
-
-    @ApiModelProperty(value = "猫咪楼栋")
-    private List<Ban> catBan;
 
     private static final long serialVersionUID = 1L;
 }
