@@ -42,6 +42,6 @@ public class CatServiceImpl implements CatService {
 
     @Override
     public void insertOrUpdateCat(Cat cat) {
-
+        int i = catMapper.insertSelective(cat);
     }
 }

@@ -16,6 +16,8 @@
 
 package org.gouzhong1223.cymmtj.service;
 
+import org.gouzhong1223.cymmtj.pojo.CatPic;
+import org.gouzhong1223.cymmtj.pojo.Pic;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -38,8 +40,8 @@ public interface PicService {
      *
      * @param files {@link MultipartFile} 文件
      * @param catId 猫咪 Id
-     * @return 上传之后的 URL
+     * @return {@link Pic}
      */
-    String insertPics(List<MultipartFile> files, Integer catId);
+    List<Pic> insertPics(List<MultipartFile> files, Integer catId);
 
 }

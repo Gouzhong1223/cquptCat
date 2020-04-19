@@ -17,9 +17,12 @@
 package org.gouzhong1223.cymmtj.controller.admin;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.gouzhong1223.cymmtj.common.ResultCode;
+import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.req.CatRequest;
 import org.gouzhong1223.cymmtj.pojo.Cat;
+import org.gouzhong1223.cymmtj.pojo.Pic;
 import org.gouzhong1223.cymmtj.service.CatService;
 import org.gouzhong1223.cymmtj.service.PicService;
 import org.gouzhong1223.cymmtj.util.RandomNumber;
@@ -65,44 +68,16 @@ public class AdminCatController {
 
         if (catRequest != null && CollectionUtils.isNotEmpty(files)) {
             Integer catId = RandomNumber.createNumber();
-            picService.insertPics(files,catId);
-            Cat cat = new Cat();
-            BeanUtils.copyProperties(catRequest, cat);
-            cat.setId(catId);
-            catService.insertOrUpdateCat(cat);
-        }
-
-        return null;
-    }
-
-    public static void main(String[] args) {
-
-        ExecutorService executorService = Executors.newCachedThreadPool();
-        ArrayList<Future<String>> futureArrayList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            int finalI = i;
-            Future<String> future = executorService.submit(() -> {
-                Thread.sleep(10000);
-                return String.valueOf(finalI);
-            });
-            futureArrayList.add(future);
-        }
-
-        ArrayList<String> stringArrayList = new ArrayList<>();
-
-        futureArrayList.forEach(e -> {
-            try {
-                stringArrayList.add(e.get());
-            } catch (InterruptedException interruptedException) {
-                interruptedException.printStackTrace();
-            } catch (ExecutionException executionException) {
-                executionException.printStackTrace();
+            List<Pic> pics = picService.insertPics(files, catId);
+            if (CollectionUtils.isNotEmpty(pics)) {
+                Cat cat = new Cat();
+                BeanUtils.copyProperties(catRequest, cat);
+                cat.setId(catId);
+                catService.insertOrUpdateCat(cat);
+                return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage());
             }
-        });
-
-        executorService.shutdown();
-
-        System.out.println(stringArrayList);
+        }
+        return ResponseDto.builder().code(ResultCode.FAIL.getCode()).message(ResultMessage.FAIL.getMessaage()).build();
     }
 
 }
