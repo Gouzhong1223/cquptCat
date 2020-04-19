@@ -1,4 +1,6 @@
 package org.gouzhong1223.cymmtj.mapper;
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
 
 import org.gouzhong1223.cymmtj.pojo.Pic;
 
@@ -25,4 +27,8 @@ public interface PicMapper {
     int updateByPrimaryKeySelective(Pic record);
 
     int updateByPrimaryKey(Pic record);
+
+    int insertList(@Param("list")List<Pic> list);
+
+
 }

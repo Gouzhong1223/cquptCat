@@ -1,9 +1,27 @@
 spring:
   datasource:
-    username: root
-    password: Aabc123456789
-    url: jdbc:mysql://localhost:3306/cymmtj?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    name: druidDataSource
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/cymmtj?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: Aabc123456789
+      filters: stat,wall,log4j,config
+      max-active: 100
+      initial-size: 1
+      max-wait: 60000
+      min-idle: 1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-open-prepared-statements: 50
+      max-pool-prepared-statement-per-connection-size: 20
+
 logging:
   level:
     root: info
@@ -25,10 +43,11 @@ mybatis:
     - classpath*:com/**/mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-oss:
-  endpoint: oss-cn-shanghai.aliyuncs.com
-  keyid: 去OSS控制台获取
-  keysecret: 去OSS控制台获取
-  bucketname: java4all-file
-  filehost: blog
+aliyun:
+  oss:
+    endpoint: xtslife-oss.oss-cn-chengdu.aliyuncs.com # oss对外服务的访问域名
+    accessKeyId: test # 访问身份验证中用到用户标识
+    accessKeySecret: test # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
+    bucketName: xtslife-oss # oss的存储空间
+    filehost: cquptcat
 

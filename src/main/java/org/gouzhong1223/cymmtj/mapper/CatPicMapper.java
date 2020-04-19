@@ -1,4 +1,6 @@
 package org.gouzhong1223.cymmtj.mapper;
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
 
 import org.gouzhong1223.cymmtj.pojo.CatPic;
 
@@ -17,4 +19,7 @@ public interface CatPicMapper {
     int insert(CatPic record);
 
     int insertSelective(CatPic record);
+
+    int insertList(@Param("list")List<CatPic> list);
+
 }

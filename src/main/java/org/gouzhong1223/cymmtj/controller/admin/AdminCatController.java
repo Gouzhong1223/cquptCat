@@ -16,17 +16,23 @@
 
 package org.gouzhong1223.cymmtj.controller.admin;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.req.CatRequest;
 import org.gouzhong1223.cymmtj.pojo.Cat;
 import org.gouzhong1223.cymmtj.service.CatService;
+import org.gouzhong1223.cymmtj.service.PicService;
 import org.gouzhong1223.cymmtj.util.RandomNumber;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
 
 
 /**
@@ -44,23 +50,59 @@ import java.util.List;
 @RequestMapping("/admin/cat")
 public class AdminCatController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminCatController.class);
 
     private CatService catService;
+    private PicService picService;
 
-    public AdminCatController(CatService catService) {
+    public AdminCatController(CatService catService, PicService picService) {
         this.catService = catService;
+        this.picService = picService;
     }
 
     @PostMapping(value = "/insert")
     public ResponseDto insertCat(@RequestBody CatRequest catRequest, @RequestParam("files") List<MultipartFile> files) {
-        files.forEach(e->{
 
-        });
-        Cat cat = new Cat();
-        BeanUtils.copyProperties(catRequest, cat);
-        cat.setId(RandomNumber.createNumber());
-        catService.insertOrUpdateCat(cat);
+        if (catRequest != null && CollectionUtils.isNotEmpty(files)) {
+            Integer catId = RandomNumber.createNumber();
+            picService.insertPics(files,catId);
+            Cat cat = new Cat();
+            BeanUtils.copyProperties(catRequest, cat);
+            cat.setId(catId);
+            catService.insertOrUpdateCat(cat);
+        }
+
         return null;
+    }
+
+    public static void main(String[] args) {
+
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        ArrayList<Future<String>> futureArrayList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            int finalI = i;
+            Future<String> future = executorService.submit(() -> {
+                Thread.sleep(10000);
+                return String.valueOf(finalI);
+            });
+            futureArrayList.add(future);
+        }
+
+        ArrayList<String> stringArrayList = new ArrayList<>();
+
+        futureArrayList.forEach(e -> {
+            try {
+                stringArrayList.add(e.get());
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            } catch (ExecutionException executionException) {
+                executionException.printStackTrace();
+            }
+        });
+
+        executorService.shutdown();
+
+        System.out.println(stringArrayList);
     }
 
 }
