@@ -14,37 +14,24 @@
  *    limitations under the License.
  */
 
-package org.gouzhong1223.cymmtj.service;
+package org.gouzhong1223.cymmtj.service.impl;
 
-import org.gouzhong1223.cymmtj.common.PageResult;
-import org.gouzhong1223.cymmtj.pojo.Cat;
-
-import java.util.List;
+import org.gouzhong1223.cymmtj.service.BanService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description : CatService
- * @Date : create by QingSong in 2020-04-18 8:03 下午
+ * @Description : {@link BanService}实现类，处理 User 业务
+ * @Date : create by QingSong in 2020-04-19 2:22 下午
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
- * @PackageName : org.gouzhong1223.cymmtj.service
+ * @PackageName : org.gouzhong1223.cymmtj.service.impl
  * @ProjectName : cymmtj
  * @Version : 1.0.0
  */
-public interface CatService {
-
-    /**
-     * 新增或者更新 Cat info
-     *
-     * @param cat
-     */
-    void insertOrUpdateCat(Cat cat);
-
-    /**
-     * 分页查询 CatInfo
-     *
-     * @return {@link PageResult<Cat>} 分页查询结果
-     */
-    PageResult<Cat> pagingListCat(Integer pageNum, Integer pageSize);
+@Service
+@Transactional
+public class BanServiceImpl implements BanService {
 }

@@ -16,35 +16,16 @@
 
 package org.gouzhong1223.cymmtj.service;
 
-import org.gouzhong1223.cymmtj.common.PageResult;
-import org.gouzhong1223.cymmtj.pojo.Cat;
-
-import java.util.List;
-
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description : CatService
- * @Date : create by QingSong in 2020-04-18 8:03 下午
+ * @Description :
+ * @Date : create by QingSong in 2020-04-19 2:23 下午
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
  * @PackageName : org.gouzhong1223.cymmtj.service
  * @ProjectName : cymmtj
  * @Version : 1.0.0
  */
-public interface CatService {
-
-    /**
-     * 新增或者更新 Cat info
-     *
-     * @param cat
-     */
-    void insertOrUpdateCat(Cat cat);
-
-    /**
-     * 分页查询 CatInfo
-     *
-     * @return {@link PageResult<Cat>} 分页查询结果
-     */
-    PageResult<Cat> pagingListCat(Integer pageNum, Integer pageSize);
+public interface UserService {
 }

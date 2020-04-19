@@ -2,12 +2,8 @@ package org.gouzhong1223.cymmtj.pojo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,8 +12,8 @@ import lombok.NoArgsConstructor;
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description : Cat 实体类
- * @Date : create by QingSong in 2020-04-18 6:18 下午
+ * @Description :
+ * @Date : create by QingSong in 2020-04-19 12:32 下午
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
  * @PackageName : org.gouzhong1223.cymmtj.pojo
@@ -70,7 +66,7 @@ public class Cat implements Serializable {
      * 更新时间
      */
     @ApiModelProperty(value = "更新时间")
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     /**
      * 猫咪所属分类
@@ -79,4 +75,8 @@ public class Cat implements Serializable {
     private String type;
 
     private static final long serialVersionUID = 1L;
+
+    public static CatBuilder builder() {
+        return new CatBuilder();
+    }
 }

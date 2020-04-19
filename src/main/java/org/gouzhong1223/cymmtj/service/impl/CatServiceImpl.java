@@ -16,16 +16,21 @@
 
 package org.gouzhong1223.cymmtj.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.mapper.CatMapper;
 import org.gouzhong1223.cymmtj.pojo.Cat;
 import org.gouzhong1223.cymmtj.service.CatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description :
+ * @Description : {@link CatService} 实现类，处理 Cat 增删改查业务
  * @Date : create by QingSong in 2020-04-18 8:05 下午
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
@@ -44,4 +49,14 @@ public class CatServiceImpl implements CatService {
     public void insertOrUpdateCat(Cat cat) {
         int i = catMapper.insertSelective(cat);
     }
+
+    @Override
+    public PageResult<Cat> pagingListCat(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Cat> cats = catMapper.selectAllCats();
+        PageInfo<Cat> catPageInfo = new PageInfo<>(cats);
+        return new PageResult<>(catPageInfo.getPageNum(), catPageInfo.getPageSize(), catPageInfo.getTotal(), catPageInfo.getPages(), catPageInfo.getList());
+    }
+
+
 }
