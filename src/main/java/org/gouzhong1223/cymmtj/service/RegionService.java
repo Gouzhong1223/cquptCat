@@ -16,7 +16,7 @@
 
 package org.gouzhong1223.cymmtj.service;
 
-import org.gouzhong1223.cymmtj.dto.rep.PopularCat;
+import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.pojo.Cat;
 import org.gouzhong1223.cymmtj.pojo.Region;
 
@@ -42,7 +42,7 @@ public interface RegionService {
      * @param regionId
      * @return
      */
-    ArrayList<PopularCat> selectCatsByRegionId(Integer regionId);
+    ArrayList<ResultCat> selectCatsByRegionId(Integer regionId);
 
     /**
      * 查询所有区域

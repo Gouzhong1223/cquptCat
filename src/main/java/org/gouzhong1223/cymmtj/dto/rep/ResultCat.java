@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PopularCat {
+public class ResultCat {
     private Integer id;
     private String name;
     private String commont;

@@ -16,7 +16,7 @@
 
 package org.gouzhong1223.cymmtj.mapper;
 
-import org.gouzhong1223.cymmtj.dto.rep.PopularCat;
+import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 
 import org.apache.ibatis.annotations.Param;
 import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
@@ -59,8 +59,20 @@ public interface CatMapper {
      *
      * @return
      */
-    List<PopularCat> selectIdAndNameAndCommontOrderByPraiseDesc();
+    List<ResultCat> selectIdAndNameAndCommontOrderByPraiseDesc();
 
+    /**
+     * 根据 id 查询 id，name，commont
+     *
+     * @param id
+     * @return
+     */
+    ResultCat selectIdAndNameAndCommontByPrimaryKey(@Param("id") Integer id);
 
-    PopularCat selectIdAndNameAndCommontByPrimaryKey(@Param("id") Integer id);
+    /**
+     * 查询所有的 id ，name，commont
+     *
+     * @return
+     */
+    List<ResultCat> selectIdAndNameAndCommont();
 }

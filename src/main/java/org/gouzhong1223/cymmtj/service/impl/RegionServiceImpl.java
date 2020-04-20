@@ -16,7 +16,7 @@
 
 package org.gouzhong1223.cymmtj.service.impl;
 
-import org.gouzhong1223.cymmtj.dto.rep.PopularCat;
+import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.mapper.CatMapper;
 import org.gouzhong1223.cymmtj.mapper.CatRegionMapper;
 import org.gouzhong1223.cymmtj.mapper.PicMapper;
@@ -60,15 +60,15 @@ public class RegionServiceImpl implements RegionService {
     }
 
     @Override
-    public ArrayList<PopularCat> selectCatsByRegionId(Integer regionId) {
+    public ArrayList<ResultCat> selectCatsByRegionId(Integer regionId) {
         java.util.List<CatRegion> catRegions = catRegionMapper.selectAllByRegionId(regionId);
-        ArrayList<PopularCat> popularCats = new ArrayList<>();
+        ArrayList<ResultCat> resultCats = new ArrayList<>();
         catRegions.forEach(e -> {
-            PopularCat popularCat = catMapper.selectIdAndNameAndCommontByPrimaryKey(e.getCatId());
-            popularCat.setPicLink(picMapper.selectFirstLinkById(e.getCatId()));
-            popularCats.add(popularCat);
+            ResultCat resultCat = catMapper.selectIdAndNameAndCommontByPrimaryKey(e.getCatId());
+            resultCat.setPicLink(picMapper.selectFirstLinkById(e.getCatId()));
+            resultCats.add(resultCat);
         });
-        return popularCats;
+        return resultCats;
     }
 
     @Override

@@ -16,12 +16,11 @@
 
 package org.gouzhong1223.cymmtj.controller;
 
-import net.sf.json.JSONObject;
 import org.apache.commons.collections.CollectionUtils;
 import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
-import org.gouzhong1223.cymmtj.dto.rep.PopularCat;
+import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.pojo.Cat;
 import org.gouzhong1223.cymmtj.pojo.Pic;
@@ -64,21 +63,26 @@ public class CatController {
     public ResponseDto pagingListCatInfo(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                          @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
-        PageResult<Cat> catPageResult = catService.pagingListCat(pageNum, pageSize);
-        if (CollectionUtils.isNotEmpty(catPageResult.getList())) {
-            return ResponseDto.builder().code(ResultCode.SUCCESS.getCode()).message(ResultMessage.SUCCESS.getMessaage()).data(catPageResult).build();
-        }
+        // 获取分页结果
+        PageResult<ResultCat> resultCatPageResult = catService.pagingListCat(pageNum, pageSize);
 
-        return null;
+        if (CollectionUtils.isNotEmpty(resultCatPageResult.getList())) {
+            // 设置首图
+            resultCatPageResult.getList().forEach(e -> {
+                e.setPicLink(picService.selectFirstPic(e.getId()));
+            });
+            return ResponseDto.builder().code(ResultCode.SUCCESS.getCode()).message(ResultMessage.SUCCESS.getMessaage()).data(resultCatPageResult).build();
+        }
+        return ResponseDto.builder().code(ResultCode.SUCCESS.getCode()).message(ResultMessage.SUCCESS.getMessaage()).build();
     }
 
     @GetMapping("/popularCat")
     public ResponseDto listPopularCats() {
-        List<PopularCat> popularCats = catService.selectPopularCats();
-        popularCats.forEach(e -> {
+        List<ResultCat> resultCats = catService.selectPopularCats();
+        resultCats.forEach(e -> {
             e.setPicLink(picService.selectFirstPic(e.getId()));
         });
-        return new ResponseDto<>(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), popularCats);
+        return new ResponseDto<>(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), resultCats);
     }
 
     @GetMapping("catDetail/{id}")
@@ -94,14 +98,6 @@ public class CatController {
             return new ResponseDto<>(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), hashMap);
         }
         return new ResponseDto<>(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage());
-    }
-
-    public static void main(String[] args) {
-        Cat cat = new Cat();
-        ResponseDto<Cat> catResponseDto = new ResponseDto<>(100, "100", cat);
-        JSONObject jsonObject = JSONObject.fromObject(catResponseDto);
-        System.out.println(jsonObject.toString());
-
     }
 
 }

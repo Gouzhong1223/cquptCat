@@ -17,7 +17,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.CatMapper">
-    <resultMap id="PopularCat" type="org.gouzhong1223.cymmtj.dto.rep.PopularCat">
+    <resultMap id="PopularCat" type="org.gouzhong1223.cymmtj.dto.rep.ResultCat">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="commont" property="commont"/>
@@ -237,5 +237,10 @@
             </if>
         </where>
     </select>
+
+    <select id="selectIdAndNameAndCommont" resultMap="PopularCat">
+    select id, `name`, commont
+    from tb_cat
+  </select>
 
 </mapper>

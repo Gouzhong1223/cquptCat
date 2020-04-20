@@ -19,7 +19,7 @@ package org.gouzhong1223.cymmtj.controller;
 import org.apache.commons.collections.CollectionUtils;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
-import org.gouzhong1223.cymmtj.dto.rep.PopularCat;
+import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.pojo.Region;
 import org.gouzhong1223.cymmtj.service.RegionService;
@@ -52,7 +52,7 @@ public class RegionController {
 
     @GetMapping("/catsByRegionId/{regionId}")
     public ResponseDto selectCatsByRegionId(@PathVariable("regionId") Integer regionId) {
-        ArrayList<PopularCat> CatList = regionService.selectCatsByRegionId(regionId);
+        ArrayList<ResultCat> CatList = regionService.selectCatsByRegionId(regionId);
         return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), CatList);
     }
 

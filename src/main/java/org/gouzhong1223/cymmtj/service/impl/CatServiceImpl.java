@@ -20,7 +20,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
-import org.gouzhong1223.cymmtj.dto.rep.PopularCat;
+import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.mapper.CatMapper;
 import org.gouzhong1223.cymmtj.pojo.Cat;
 import org.gouzhong1223.cymmtj.service.CatService;
@@ -55,11 +55,11 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public PageResult<Cat> pagingListCat(Integer pageNum, Integer pageSize) {
+    public PageResult<ResultCat> pagingListCat(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Cat> cats = catMapper.selectAllCats();
-        PageInfo<Cat> catPageInfo = new PageInfo<>(cats);
-        return new PageResult<>(catPageInfo.getPageNum(), catPageInfo.getPageSize(), catPageInfo.getTotal(), catPageInfo.getPages(), catPageInfo.getList());
+        List<ResultCat> resultCats = catMapper.selectIdAndNameAndCommont();
+        PageInfo<ResultCat> resultCatPageInfo = new PageInfo<>(resultCats);
+        return new PageResult<>(resultCatPageInfo.getPageNum(), resultCatPageInfo.getPageSize(), resultCatPageInfo.getTotal(), resultCatPageInfo.getPages(), resultCatPageInfo.getList());
     }
 
     @Override
@@ -68,9 +68,9 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public List<PopularCat> selectPopularCats() {
-        List<PopularCat> popularCats = catMapper.selectIdAndNameAndCommontOrderByPraiseDesc();
-        return popularCats;
+    public List<ResultCat> selectPopularCats() {
+        List<ResultCat> resultCats = catMapper.selectIdAndNameAndCommontOrderByPraiseDesc();
+        return resultCats;
     }
 
     @Override
