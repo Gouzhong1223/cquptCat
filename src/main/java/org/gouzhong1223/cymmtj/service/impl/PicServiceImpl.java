@@ -70,7 +70,7 @@ public class PicServiceImpl implements PicService {
         ArrayList<Future<String>> futures = new ArrayList<>();
 
         ExecutorService executorService = Executors.newCachedThreadPool();
-        for (MultipartFile file : files) {
+        files.forEach(file -> {
             // 执行上传图片的任务并得到返回结果
             Future<String> submit = executorService.submit(() -> {
                 LOGGER.info("开始上传图片");
@@ -85,7 +85,7 @@ public class PicServiceImpl implements PicService {
                 return uploadUrl;
             });
             futures.add(submit);
-        }
+        });
 
         ArrayList<Pic> pics = new ArrayList<>();
         futures.forEach(e -> {
@@ -116,5 +116,11 @@ public class PicServiceImpl implements PicService {
             }
         });
         return pics;
+    }
+
+    @Override
+    public String selectFirstPic(Integer id) {
+        String picLink = picMapper.selectFirstLinkById(id);
+        return picLink;
     }
 }

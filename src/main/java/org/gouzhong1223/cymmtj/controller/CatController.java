@@ -16,18 +16,22 @@
 
 package org.gouzhong1223.cymmtj.controller;
 
+import net.sf.json.JSONObject;
 import org.apache.commons.collections.CollectionUtils;
 import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
+import org.gouzhong1223.cymmtj.dto.rep.PopularCat;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.pojo.Cat;
-import org.gouzhong1223.cymmtj.service.BanService;
 import org.gouzhong1223.cymmtj.service.CatService;
+import org.gouzhong1223.cymmtj.service.PicService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 
 /**
@@ -46,7 +50,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class CatController {
 
     private CatService catService;
-    private BanService banService;
+    private PicService picService;
+
+    public CatController(CatService catService, PicService picService) {
+        this.catService = catService;
+        this.picService = picService;
+    }
 
     @GetMapping("pagingListCat")
     public ResponseDto pagingListCatInfo(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
@@ -58,6 +67,23 @@ public class CatController {
         }
 
         return null;
+    }
+
+    @GetMapping("/popularCat")
+    public ResponseDto listPopularCats() {
+        List<PopularCat> popularCats = catService.selectPopularCats();
+        popularCats.forEach(e -> {
+            e.setPicLink(picService.selectFirstPic(e.getId()));
+        });
+        return new ResponseDto<>(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), popularCats);
+    }
+
+    public static void main(String[] args) {
+        Cat cat = new Cat();
+        ResponseDto<Cat> catResponseDto = new ResponseDto<>(100, "100", cat);
+        JSONObject jsonObject = JSONObject.fromObject(catResponseDto);
+        System.out.println(jsonObject.toString());
+
     }
 
 }

@@ -19,6 +19,8 @@ package org.gouzhong1223.cymmtj.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.gouzhong1223.cymmtj.common.PageResult;
+import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
+import org.gouzhong1223.cymmtj.dto.rep.PopularCat;
 import org.gouzhong1223.cymmtj.mapper.CatMapper;
 import org.gouzhong1223.cymmtj.pojo.Cat;
 import org.gouzhong1223.cymmtj.service.CatService;
@@ -56,6 +58,17 @@ public class CatServiceImpl implements CatService {
         List<Cat> cats = catMapper.selectAllCats();
         PageInfo<Cat> catPageInfo = new PageInfo<>(cats);
         return new PageResult<>(catPageInfo.getPageNum(), catPageInfo.getPageSize(), catPageInfo.getTotal(), catPageInfo.getPages(), catPageInfo.getList());
+    }
+
+    @Override
+    public PageResult<CatResponse> selectCatIdAndName(Integer pageNum, Integer pageSize) {
+        return null;
+    }
+
+    @Override
+    public List<PopularCat> selectPopularCats() {
+        List<PopularCat> popularCats = catMapper.selectIdAndNameAndCommontOrderByPraiseDesc();
+        return popularCats;
     }
 
 

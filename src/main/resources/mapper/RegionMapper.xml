@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.gouzhong1223.cymmtj.mapper.BanMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.Ban">
+<mapper namespace="org.gouzhong1223.cymmtj.mapper.RegionMapper">
+  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.Region">
     <!--@mbg.generated-->
-    <!--@Table tb_ban-->
+    <!--@Table `tb_ region`-->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="banName" jdbcType="VARCHAR" property="banName" />
   </resultMap>
@@ -15,22 +15,22 @@
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
-    from tb_ban
+    from `tb_ region`
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
-    delete from tb_ban
+    delete from `tb_ region`
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.Ban">
+  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.Region">
     <!--@mbg.generated-->
-    insert into tb_ban (id, banName)
+    insert into `tb_ region` (id, banName)
     values (#{id,jdbcType=INTEGER}, #{banName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.Ban">
+  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.Region">
     <!--@mbg.generated-->
-    insert into tb_ban
+    insert into `tb_ region`
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -48,9 +48,9 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.pojo.Ban">
+  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.pojo.Region">
     <!--@mbg.generated-->
-    update tb_ban
+    update `tb_ region`
     <set>
       <if test="banName != null and banName != ''">
         banName = #{banName,jdbcType=VARCHAR},
@@ -58,9 +58,9 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.pojo.Ban">
+  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.pojo.Region">
     <!--@mbg.generated-->
-    update tb_ban
+    update `tb_ region`
     set banName = #{banName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

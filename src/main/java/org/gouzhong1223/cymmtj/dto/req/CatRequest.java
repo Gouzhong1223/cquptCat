@@ -17,10 +17,10 @@
 package org.gouzhong1223.cymmtj.dto.req;
 
 import io.swagger.annotations.ApiModelProperty;
-import org.gouzhong1223.cymmtj.pojo.Ban;
 import org.gouzhong1223.cymmtj.pojo.Cat;
+import org.gouzhong1223.cymmtj.pojo.Region;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -40,29 +40,29 @@ public class CatRequest extends Cat {
      * 猫咪楼栋
      */
     @ApiModelProperty(value = "猫咪楼栋")
-    private List<Ban> catBan;
+    private List<Region> regions;
 
-    public CatRequest(List<Ban> catBan) {
-        this.catBan = catBan;
+    public CatRequest(List<Region> regions) {
+        this.regions = regions;
     }
 
-    public CatRequest(Integer id, String name, String color, String sex, String foreignTrade, String character, Date updateTime, String type, List<Ban> catBan) {
-        super(id, name, color, sex, foreignTrade, character, updateTime, type);
-        this.catBan = catBan;
-    }
-
-    public List<Ban> getCatBan() {
-        return catBan;
-    }
-
-    public void setCatBan(List<Ban> catBan) {
-        this.catBan = catBan;
+    public CatRequest(Integer id, String name, String color, String sex, String foreignTrade, String character, LocalDateTime updateTime, String type, Integer praise, String commont, List<Region> regions) {
+        super(id, name, color, sex, foreignTrade, character, updateTime, type, praise, commont);
+        this.regions = regions;
     }
 
     @Override
     public String toString() {
         return "CatRequest{" +
-                "catBan=" + catBan +
+                "regions=" + regions +
                 '}';
+    }
+
+    public List<Region> getRegions() {
+        return regions;
+    }
+
+    public void setRegions(List<Region> regions) {
+        this.regions = regions;
     }
 }

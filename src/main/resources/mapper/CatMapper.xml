@@ -1,139 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.CatMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.Cat">
-    <!--@mbg.generated-->
-    <!--@Table tb_cat-->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="color" jdbcType="VARCHAR" property="color" />
-    <result column="sex" jdbcType="VARCHAR" property="sex" />
-    <result column="foreignTrade" jdbcType="VARCHAR" property="foreignTrade" />
-    <result column="character" jdbcType="VARCHAR" property="character" />
-    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, `name`, color, sex, foreignTrade, `character`, updateTime, `type`
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from tb_cat
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--@mbg.generated-->
-    delete from tb_cat
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.Cat">
-    <!--@mbg.generated-->
-    insert into tb_cat (id, `name`, color, 
-      sex, foreignTrade, `character`, 
-      updateTime, `type`)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=VARCHAR}, #{foreignTrade,jdbcType=VARCHAR}, #{character,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.Cat">
-    <!--@mbg.generated-->
-    insert into tb_cat
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null and name != ''">
-        `name`,
-      </if>
-      <if test="color != null and color != ''">
-        color,
-      </if>
-      <if test="sex != null and sex != ''">
-        sex,
-      </if>
-      <if test="foreignTrade != null and foreignTrade != ''">
-        foreignTrade,
-      </if>
-      <if test="character != null and character != ''">
-        `character`,
-      </if>
-      <if test="updateTime != null">
-        updateTime,
-      </if>
-      <if test="type != null and type != ''">
-        `type`,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null and name != ''">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="color != null and color != ''">
-        #{color,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null and sex != ''">
-        #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="foreignTrade != null and foreignTrade != ''">
-        #{foreignTrade,jdbcType=VARCHAR},
-      </if>
-      <if test="character != null and character != ''">
-        #{character,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="type != null and type != ''">
-        #{type,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.pojo.Cat">
-    <!--@mbg.generated-->
-    update tb_cat
-    <set>
-      <if test="name != null and name != ''">
-        `name` = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="color != null and color != ''">
+    <resultMap id="PopularCat" type="org.gouzhong1223.cymmtj.dto.rep.PopularCat">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="commont" property="commont"/>
+    </resultMap>
+    <resultMap id="PopularCat" type="org.gouzhong1223.cymmtj.dto.rep.PopularCat">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="commont" property="commont"/>
+    </resultMap>
+    <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.Cat">
+        <!--@mbg.generated-->
+        <!--@Table tb_cat-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="color" jdbcType="VARCHAR" property="color"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="foreignTrade" jdbcType="VARCHAR" property="foreignTrade"/>
+        <result column="character" jdbcType="VARCHAR" property="character"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="praise" jdbcType="INTEGER" property="praise"/>
+        <result column="commont" jdbcType="VARCHAR" property="commont"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, `name`, color, sex, foreignTrade, `character`, updateTime, `type`, praise, commont
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from tb_cat
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete from tb_cat
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.Cat">
+        <!--@mbg.generated-->
+        insert into tb_cat (id, `name`, color,
+        sex, foreignTrade, `character`,
+        updateTime, `type`, praise,
+        commont)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR},
+        #{sex,jdbcType=VARCHAR}, #{foreignTrade,jdbcType=VARCHAR}, #{character,jdbcType=VARCHAR},
+        #{updateTime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}, #{praise,jdbcType=INTEGER},
+        #{commont,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.Cat">
+        <!--@mbg.generated-->
+        insert into tb_cat
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null and name != ''">
+                `name`,
+            </if>
+            <if test="color != null and color != ''">
+                color,
+            </if>
+            <if test="sex != null and sex != ''">
+                sex,
+            </if>
+            <if test="foreignTrade != null and foreignTrade != ''">
+                foreignTrade,
+            </if>
+            <if test="character != null and character != ''">
+                `character`,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="type != null and type != ''">
+                `type`,
+            </if>
+            <if test="praise != null">
+                praise,
+            </if>
+            <if test="commont != null and commont != ''">
+                commont,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null and name != ''">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="color != null and color != ''">
+                #{color,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null and sex != ''">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="foreignTrade != null and foreignTrade != ''">
+                #{foreignTrade,jdbcType=VARCHAR},
+            </if>
+            <if test="character != null and character != ''">
+                #{character,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null and type != ''">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="praise != null">
+                #{praise,jdbcType=INTEGER},
+            </if>
+            <if test="commont != null and commont != ''">
+                #{commont,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.pojo.Cat">
+        <!--@mbg.generated-->
+        update tb_cat
+        <set>
+            <if test="name != null and name != ''">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="color != null and color != ''">
+                color = #{color,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="foreignTrade != null and foreignTrade != ''">
+                foreignTrade = #{foreignTrade,jdbcType=VARCHAR},
+            </if>
+            <if test="character != null and character != ''">
+                `character` = #{character,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null and type != ''">
+                `type` = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="praise != null">
+                praise = #{praise,jdbcType=INTEGER},
+            </if>
+            <if test="commont != null and commont != ''">
+                commont = #{commont,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.pojo.Cat">
+        <!--@mbg.generated-->
+        update tb_cat
+        set `name` = #{name,jdbcType=VARCHAR},
         color = #{color,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null and sex != ''">
         sex = #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="foreignTrade != null and foreignTrade != ''">
         foreignTrade = #{foreignTrade,jdbcType=VARCHAR},
-      </if>
-      <if test="character != null and character != ''">
         `character` = #{character,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
         updateTime = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="type != null and type != ''">
         `type` = #{type,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.pojo.Cat">
-    <!--@mbg.generated-->
-    update tb_cat
-    set `name` = #{name,jdbcType=VARCHAR},
-      color = #{color,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=VARCHAR},
-      foreignTrade = #{foreignTrade,jdbcType=VARCHAR},
-      `character` = #{character,jdbcType=VARCHAR},
-      updateTime = #{updateTime,jdbcType=TIMESTAMP},
-      `type` = #{type,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        praise = #{praise,jdbcType=INTEGER},
+        commont = #{commont,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <resultMap id="CatResponse" type="org.gouzhong1223.cymmtj.dto.rep.CatResponse">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+    </resultMap>
 
     <!--auto generated by MybatisCodeHelper on 2020-04-19-->
     <insert id="insertList">
@@ -163,7 +201,20 @@
 
     <select id="selectAllCats" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from tb_cat
     </select>
+
+    <!--auto generated by MybatisCodeHelper on 2020-04-20-->
+    <select id="selectIdAndName" resultMap="CatResponse">
+    select id, `name`
+    from tb_cat
+  </select>
+
+    <!--auto generated by MybatisCodeHelper on 2020-04-20-->
+    <select id="selectIdAndNameAndCommontOrderByPraiseDesc" resultMap="PopularCat">
+    select id, `name`, commont
+    from tb_cat order by praise desc
+    limit 4
+  </select>
 </mapper>

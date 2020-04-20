@@ -14,18 +14,21 @@
  *    limitations under the License.
  */
 
-package org.gouzhong1223.cymmtj.service;
+package org.gouzhong1223.cymmtj.dto.rep;
 
-/**
- * @Author : Gouzhong
- * @Blog : www.gouzhong1223.com
- * @Description :
- * @Date : create by QingSong in 2020-04-19 2:22 下午
- * @Email : gouzhong1223@gmail.com
- * @Since : JDK 1.8
- * @PackageName : org.gouzhong1223.cymmtj.service
- * @ProjectName : cymmtj
- * @Version : 1.0.0
- */
-public interface BanService {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class PopularCat {
+    private Integer id;
+    private String name;
+    private String commont;
+    private String picLink;
 }
+

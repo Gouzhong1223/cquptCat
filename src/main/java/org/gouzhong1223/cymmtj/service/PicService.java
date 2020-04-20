@@ -44,4 +44,11 @@ public interface PicService {
      */
     List<Pic> insertPics(List<MultipartFile> files, Integer catId);
 
+    /**
+     * 根据 Cat ID 查询所属第一张图片
+     *
+     * @param id
+     * @return
+     */
+    String selectFirstPic(Integer id);
 }

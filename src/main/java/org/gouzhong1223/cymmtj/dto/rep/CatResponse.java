@@ -14,24 +14,23 @@
  *    limitations under the License.
  */
 
-package org.gouzhong1223.cymmtj.service.impl;
+package org.gouzhong1223.cymmtj.dto.rep;
 
-import org.gouzhong1223.cymmtj.service.BanService;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-/**
- * @Author : Gouzhong
- * @Blog : www.gouzhong1223.com
- * @Description : {@link BanService}实现类，处理 User 业务
- * @Date : create by QingSong in 2020-04-19 2:22 下午
- * @Email : gouzhong1223@gmail.com
- * @Since : JDK 1.8
- * @PackageName : org.gouzhong1223.cymmtj.service.impl
- * @ProjectName : cymmtj
- * @Version : 1.0.0
- */
-@Service
-@Transactional
-public class BanServiceImpl implements BanService {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.gouzhong1223.cymmtj.pojo.Pic;
+
+import java.util.List;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class CatResponse {
+    private Integer id;
+    private String name;
+    private List<Pic> pics;
 }

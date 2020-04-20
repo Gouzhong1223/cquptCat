@@ -17,6 +17,8 @@
 package org.gouzhong1223.cymmtj.service;
 
 import org.gouzhong1223.cymmtj.common.PageResult;
+import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
+import org.gouzhong1223.cymmtj.dto.rep.PopularCat;
 import org.gouzhong1223.cymmtj.pojo.Cat;
 
 import java.util.List;
@@ -47,4 +49,18 @@ public interface CatService {
      * @return {@link PageResult<Cat>} 分页查询结果
      */
     PageResult<Cat> pagingListCat(Integer pageNum, Integer pageSize);
+
+    /**
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    PageResult<CatResponse> selectCatIdAndName(Integer pageNum, Integer pageSize);
+
+    /**
+     * 获取前四个最受欢迎的猫咪
+     *
+     * @return
+     */
+    List<PopularCat> selectPopularCats();
 }

@@ -1,12 +1,18 @@
 package org.gouzhong1223.cymmtj.mapper;
 
-import org.apache.ibatis.annotations.Param;import org.gouzhong1223.cymmtj.pojo.Cat;import java.util.List;
+import org.gouzhong1223.cymmtj.dto.rep.PopularCat;
+
+import org.apache.ibatis.annotations.Param;
+import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
+import org.gouzhong1223.cymmtj.pojo.Cat;
+
+import java.util.List;
 
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
  * @Description :
- * @Date : create by QingSong in 2020-04-19 12:32 下午
+ * @Date : create by QingSong in 2020-04-20 6:11 下午
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
  * @PackageName : org.gouzhong1223.cymmtj.mapper
@@ -29,4 +35,14 @@ public interface CatMapper {
     int insertList(@Param("list") List<Cat> list);
 
     List<Cat> selectAllCats();
+
+    List<CatResponse> selectIdAndName();
+
+    /**
+     * 获取前四个最受欢迎的 Cat
+     *
+     * @return
+     */
+    List<PopularCat> selectIdAndNameAndCommontOrderByPraiseDesc();
+
 }

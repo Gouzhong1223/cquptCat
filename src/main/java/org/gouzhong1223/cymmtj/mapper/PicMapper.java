@@ -30,5 +30,7 @@ public interface PicMapper {
 
     int insertList(@Param("list")List<Pic> list);
 
+    String selectFirstLinkById(@Param("id")Integer id);
+
 
 }
