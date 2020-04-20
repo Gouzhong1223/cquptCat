@@ -83,4 +83,14 @@ public class RegionServiceImpl implements RegionService {
         regionMapper.insertSelective(region);
         return region;
     }
+
+    @Override
+    public List<Region> selectRegionsByCatId(Integer id) {
+        List<CatRegion> catRegions = catRegionMapper.selectAllByCatId(id);
+        ArrayList<Region> regions = new ArrayList<>();
+        catRegions.forEach(e -> {
+            regions.add(regionMapper.selectByPrimaryKey(e.getRegionId()));
+        });
+        return regions;
+    }
 }

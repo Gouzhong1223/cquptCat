@@ -22,4 +22,7 @@ public interface CatPicMapper {
 
     int insertList(@Param("list")List<CatPic> list);
 
+    List<CatPic> selectAllByCat_id(@Param("cat_id")Integer cat_id);
+
+
 }

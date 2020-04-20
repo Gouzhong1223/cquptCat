@@ -123,4 +123,14 @@ public class PicServiceImpl implements PicService {
         String picLink = picMapper.selectFirstLinkById(id);
         return picLink;
     }
+
+    @Override
+    public List<Pic> selectPicsByCatId(Integer id) {
+        List<CatPic> catPics = catPicMapper.selectAllByCat_id(id);
+        ArrayList<Pic> pics = new ArrayList<>();
+        catPics.forEach(e -> {
+            pics.add(picMapper.selectByPrimaryKey(e.getPic_id()));
+        });
+        return pics;
+    }
 }

@@ -16,6 +16,7 @@
 
 package org.gouzhong1223.cymmtj.service;
 
+import org.gouzhong1223.cymmtj.pojo.Cat;
 import org.gouzhong1223.cymmtj.pojo.CatPic;
 import org.gouzhong1223.cymmtj.pojo.Pic;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,4 +52,12 @@ public interface PicService {
      * @return
      */
     String selectFirstPic(Integer id);
+
+    /**
+     * 根据 CatId 查询所有的图片
+     *
+     * @param id {@link Cat#getId()}
+     * @return {@link List<Pic>} 该 ID 相关联的所有图片
+     */
+    List<Pic> selectPicsByCatId(Integer id);
 }

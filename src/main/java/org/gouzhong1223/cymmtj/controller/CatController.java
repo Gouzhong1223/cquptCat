@@ -24,13 +24,14 @@ import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.PopularCat;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.pojo.Cat;
+import org.gouzhong1223.cymmtj.pojo.Pic;
+import org.gouzhong1223.cymmtj.pojo.Region;
 import org.gouzhong1223.cymmtj.service.CatService;
 import org.gouzhong1223.cymmtj.service.PicService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.gouzhong1223.cymmtj.service.RegionService;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -51,10 +52,12 @@ public class CatController {
 
     private CatService catService;
     private PicService picService;
+    private RegionService regionService;
 
-    public CatController(CatService catService, PicService picService) {
+    public CatController(CatService catService, PicService picService, RegionService regionService) {
         this.catService = catService;
         this.picService = picService;
+        this.regionService = regionService;
     }
 
     @GetMapping("pagingListCat")
@@ -76,6 +79,21 @@ public class CatController {
             e.setPicLink(picService.selectFirstPic(e.getId()));
         });
         return new ResponseDto<>(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), popularCats);
+    }
+
+    @GetMapping("catDetail/{id}")
+    public ResponseDto getCatDetail(@PathVariable("id") Integer id) {
+        Cat cat = catService.selectCatByid(id);
+        if (cat != null) {
+            List<Pic> pics = picService.selectPicsByCatId(id);
+            List<Region> regions = regionService.selectRegionsByCatId(id);
+            HashMap hashMap = new HashMap();
+            hashMap.put("cat", cat);
+            hashMap.put("pics", pics);
+            hashMap.put("regions", regions);
+            return new ResponseDto<>(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), hashMap);
+        }
+        return new ResponseDto<>(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage());
     }
 
     public static void main(String[] args) {

@@ -63,4 +63,12 @@ public interface CatService {
      * @return
      */
     List<PopularCat> selectPopularCats();
+
+    /**
+     * 根据 id 查询 Cat 详情
+     *
+     * @param id {@link Cat#getId()} id
+     * @return {@link Cat} 根据 id 查询到的 Cat
+     */
+    Cat selectCatByid(Integer id);
 }

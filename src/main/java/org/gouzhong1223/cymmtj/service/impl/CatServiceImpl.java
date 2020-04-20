@@ -73,5 +73,10 @@ public class CatServiceImpl implements CatService {
         return popularCats;
     }
 
+    @Override
+    public Cat selectCatByid(Integer id) {
+        return catMapper.selectByPrimaryKey(id);
+    }
+
 
 }
