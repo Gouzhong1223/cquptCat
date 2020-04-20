@@ -25,7 +25,6 @@ import org.gouzhong1223.cymmtj.pojo.Region;
 import org.gouzhong1223.cymmtj.service.RegionService;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +63,15 @@ public class RegionController {
             return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), regions);
         }
         return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage(), regions);
+    }
+
+    @PostMapping("addRegion")
+    public ResponseDto addRegion(@RequestBody Region region) {
+        if (region != null) {
+            Region result = regionService.addRegion(region);
+            return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), result);
+        }
+        return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage());
     }
 
 

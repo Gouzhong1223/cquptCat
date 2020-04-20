@@ -24,6 +24,7 @@ import org.gouzhong1223.cymmtj.mapper.RegionMapper;
 import org.gouzhong1223.cymmtj.pojo.CatRegion;
 import org.gouzhong1223.cymmtj.pojo.Region;
 import org.gouzhong1223.cymmtj.service.RegionService;
+import org.gouzhong1223.cymmtj.util.RandomNumber;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,5 +75,12 @@ public class RegionServiceImpl implements RegionService {
     public List<Region> selectAllRegions() {
         List<Region> regions = regionMapper.selectAll();
         return regions;
+    }
+
+    @Override
+    public Region addRegion(Region region) {
+        region.setId(RandomNumber.createNumber());
+        regionMapper.insertSelective(region);
+        return region;
     }
 }

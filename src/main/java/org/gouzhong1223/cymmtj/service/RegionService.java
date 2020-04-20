@@ -49,4 +49,11 @@ public interface RegionService {
      * @return
      */
     List<Region> selectAllRegions();
+
+    /**
+     * 新增区域
+     *
+     * @param region {@link Region}
+     */
+    Region addRegion(Region region);
 }
