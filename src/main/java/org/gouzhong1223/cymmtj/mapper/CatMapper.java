@@ -45,4 +45,6 @@ public interface CatMapper {
      */
     List<PopularCat> selectIdAndNameAndCommontOrderByPraiseDesc();
 
+
+    PopularCat selectIdAndNameAndCommontByPrimaryKey(@Param("id") Integer id);
 }

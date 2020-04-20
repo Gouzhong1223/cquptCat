@@ -217,4 +217,14 @@
     from tb_cat order by praise desc
     limit 4
   </select>
+    <select id="selectIdAndNameAndCommontByPrimaryKey" resultMap="PopularCat">
+        select id, `name`, commont
+        from tb_cat
+        <where>
+            <if test="id != null">
+                and id=#{id,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
 </mapper>

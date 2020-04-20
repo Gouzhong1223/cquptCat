@@ -1,4 +1,6 @@
 package org.gouzhong1223.cymmtj.mapper;
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
 
 import org.gouzhong1223.cymmtj.pojo.CatRegion;
 
@@ -17,4 +19,7 @@ public interface CatRegionMapper {
     int insert(CatRegion record);
 
     int insertSelective(CatRegion record);
+
+    List<CatRegion> selectAllByRegionId(@Param("regionId")Integer regionId);
+
 }
