@@ -22,4 +22,8 @@ public interface CatRegionMapper {
 
     List<CatRegion> selectAllByRegionId(@Param("regionId")Integer regionId);
 
+    List<CatRegion> selectAll();
+
+
+
 }

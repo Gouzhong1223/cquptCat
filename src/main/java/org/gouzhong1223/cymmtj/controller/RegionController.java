@@ -16,16 +16,18 @@
 
 package org.gouzhong1223.cymmtj.controller;
 
-import com.sun.tools.javac.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.PopularCat;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
+import org.gouzhong1223.cymmtj.pojo.Region;
 import org.gouzhong1223.cymmtj.service.RegionService;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author : Gouzhong
@@ -53,6 +55,15 @@ public class RegionController {
     public ResponseDto selectCatsByRegionId(@PathVariable("regionId") Integer regionId) {
         ArrayList<PopularCat> CatList = regionService.selectCatsByRegionId(regionId);
         return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), CatList);
+    }
+
+    @GetMapping("/allRegion")
+    public ResponseDto listAllRegions() {
+        List<Region> regions = regionService.selectAllRegions();
+        if (CollectionUtils.isNotEmpty(regions)) {
+            return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), regions);
+        }
+        return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage(), regions);
     }
 
 

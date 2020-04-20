@@ -22,11 +22,13 @@ import org.gouzhong1223.cymmtj.mapper.CatRegionMapper;
 import org.gouzhong1223.cymmtj.mapper.PicMapper;
 import org.gouzhong1223.cymmtj.mapper.RegionMapper;
 import org.gouzhong1223.cymmtj.pojo.CatRegion;
+import org.gouzhong1223.cymmtj.pojo.Region;
 import org.gouzhong1223.cymmtj.service.RegionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author : Gouzhong
@@ -66,5 +68,11 @@ public class RegionServiceImpl implements RegionService {
             popularCats.add(popularCat);
         });
         return popularCats;
+    }
+
+    @Override
+    public List<Region> selectAllRegions() {
+        List<Region> regions = regionMapper.selectAll();
+        return regions;
     }
 }

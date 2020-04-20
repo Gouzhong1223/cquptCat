@@ -17,8 +17,10 @@
 package org.gouzhong1223.cymmtj.service;
 
 import org.gouzhong1223.cymmtj.dto.rep.PopularCat;
+import org.gouzhong1223.cymmtj.pojo.Region;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author : Gouzhong
@@ -40,4 +42,11 @@ public interface RegionService {
      * @return
      */
     ArrayList<PopularCat> selectCatsByRegionId(Integer regionId);
+
+    /**
+     * 查询所有区域
+     *
+     * @return
+     */
+    List<Region> selectAllRegions();
 }

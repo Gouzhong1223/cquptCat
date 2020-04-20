@@ -217,7 +217,7 @@
     from tb_cat order by praise desc
     limit 4
   </select>
-    <select id="selectIdAndNameAndCommontByPrimaryKey" resultMap="PopularCat">
+    <select id="selectIdAndNameAndCommontByPrimaryKey" parameterType="java.lang.Integer" resultMap="PopularCat">
         select id, `name`, commont
         from tb_cat
         <where>

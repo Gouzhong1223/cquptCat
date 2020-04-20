@@ -1,4 +1,6 @@
 package org.gouzhong1223.cymmtj.mapper;
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
 
 import org.gouzhong1223.cymmtj.pojo.Region;
 
@@ -25,5 +27,7 @@ public interface RegionMapper {
     int updateByPrimaryKeySelective(Region record);
 
     int updateByPrimaryKey(Region record);
+
+    List<Region> selectAll();
 
 }
