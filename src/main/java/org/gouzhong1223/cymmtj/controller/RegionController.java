@@ -65,14 +65,4 @@ public class RegionController {
         return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage(), regions);
     }
 
-    @PostMapping("addRegion")
-    public ResponseDto addRegion(@RequestBody Region region) {
-        if (region != null) {
-            Region result = regionService.addRegion(region);
-            return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), result);
-        }
-        return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage());
-    }
-
-
 }
