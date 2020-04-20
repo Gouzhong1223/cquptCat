@@ -17,6 +17,10 @@
 package org.gouzhong1223.cymmtj.dto.req;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.gouzhong1223.cymmtj.pojo.Cat;
 import org.gouzhong1223.cymmtj.pojo.Region;
 
@@ -34,35 +38,51 @@ import java.util.List;
  * @ProjectName : cymmtj
  * @Version : 1.0.0
  */
-public class CatRequest extends Cat {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class CatRequest {
 
     /**
-     * 猫咪楼栋
+     * 猫咪名字
      */
-    @ApiModelProperty(value = "猫咪楼栋")
-    private List<Region> regions;
+    @ApiModelProperty(value = "猫咪名字")
+    private String name;
 
-    public CatRequest(List<Region> regions) {
-        this.regions = regions;
-    }
+    /**
+     * 猫咪毛色
+     */
+    @ApiModelProperty(value = "猫咪毛色")
+    private String color;
 
-    public CatRequest(Integer id, String name, String color, String sex, String foreignTrade, String character, LocalDateTime updateTime, String type, Integer praise, String commont, List<Region> regions) {
-        super(id, name, color, sex, foreignTrade, character, updateTime, type, praise, commont);
-        this.regions = regions;
-    }
+    /**
+     * 猫咪性别
+     */
+    @ApiModelProperty(value = "猫咪性别")
+    private String sex;
 
-    @Override
-    public String toString() {
-        return "CatRequest{" +
-                "regions=" + regions +
-                '}';
-    }
+    /**
+     * 猫咪外貌
+     */
+    @ApiModelProperty(value = "猫咪外貌")
+    private String foreignTrade;
 
-    public List<Region> getRegions() {
-        return regions;
-    }
+    /**
+     * 猫咪性格
+     */
+    @ApiModelProperty(value = "猫咪性格")
+    private String character;
 
-    public void setRegions(List<Region> regions) {
-        this.regions = regions;
-    }
+    /**
+     * 猫咪所属分类
+     */
+    @ApiModelProperty(value = "猫咪所属分类")
+    private String type;
+
+    /**
+     * 简介
+     */
+    @ApiModelProperty(value = "简介")
+    private String commont;
 }
