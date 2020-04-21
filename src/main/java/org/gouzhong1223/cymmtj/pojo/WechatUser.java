@@ -2,10 +2,8 @@ package org.gouzhong1223.cymmtj.pojo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,8 +12,8 @@ import lombok.NoArgsConstructor;
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description :
- * @Date : create by QingSong in 2020-04-21 11:24 上午
+ * @Description : 
+ * @Date : create by QingSong in 2020-04-21 12:11 下午
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
  * @PackageName : org.gouzhong1223.cymmtj.pojo
@@ -36,7 +34,7 @@ public class WechatUser implements Serializable {
      * open_id
      */
     @ApiModelProperty(value = "open_id")
-    private String open_id;
+    private String openId;
 
     /**
      * skey
@@ -48,19 +46,19 @@ public class WechatUser implements Serializable {
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
-    private LocalDateTime create_time;
+    private LocalDateTime createTime;
 
     /**
      * 最后登录时间
      */
     @ApiModelProperty(value = "最后登录时间")
-    private LocalDateTime last_visit_time;
+    private LocalDateTime lastVisitTime;
 
     /**
      * session_key
      */
     @ApiModelProperty(value = "session_key")
-    private String session_key;
+    private String sessionKey;
 
     /**
      * 市
@@ -84,7 +82,7 @@ public class WechatUser implements Serializable {
      * 头像
      */
     @ApiModelProperty(value = "头像")
-    private String avatar_url;
+    private String avatarUrl;
 
     /**
      * 性别
@@ -96,7 +94,7 @@ public class WechatUser implements Serializable {
      * 网名
      */
     @ApiModelProperty(value = "网名")
-    private String nick_name;
+    private String nickName;
 
     private static final long serialVersionUID = 1L;
 

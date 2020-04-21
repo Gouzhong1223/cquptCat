@@ -14,18 +14,21 @@
  *    limitations under the License.
  */
 
-package org.gouzhong1223.cymmtj.controller.admin;
+package org.gouzhong1223.cymmtj.service;
+
+import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
  * @Description :
- * @Date : create by QingSong in 2020-04-21 11:18 上午
+ * @Date : create by QingSong in 2020-04-21 12:07 下午
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
- * @PackageName : org.gouzhong1223.cymmtj.controller.admin
+ * @PackageName : org.gouzhong1223.cymmtj.service
  * @ProjectName : cymmtj
  * @Version : 1.0.0
  */
-public class WeChatController {
+public interface WeChatService {
+    ResponseDto login(String code, String rawData, String signature, String encrypteData, String iv);
 }
