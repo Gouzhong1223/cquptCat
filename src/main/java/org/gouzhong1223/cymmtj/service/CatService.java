@@ -80,4 +80,12 @@ public interface CatService {
      * @param wechatUser 点赞的用户
      */
     void thumbUp(Integer id, WechatUser wechatUser);
+
+    /**
+     * 取消点赞
+     *
+     * @param id         被取消点赞的 Cat
+     * @param wechatUser 取消点赞的用户
+     */
+    void cancelPraise(Integer id, WechatUser wechatUser);
 }

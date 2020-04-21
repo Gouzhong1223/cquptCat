@@ -83,4 +83,10 @@ public interface CatMapper {
      */
     int thumbUp();
 
+    /**
+     * 给点赞数量减少 1
+     *
+     * @return
+     */
+    int cancelPraise();
 }

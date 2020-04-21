@@ -108,8 +108,16 @@ public class CatController {
     @PostMapping("/thumbUp")
     public ResponseDto thumbUp(@RequestParam("id") Integer id, @RequestParam("skey") String skey) {
         WechatUser wechatUser = weChatService.selectUserBySkey(skey);
-        catService.thumbUp(id,wechatUser);
+        catService.thumbUp(id, wechatUser);
+        return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage());
+    }
+
+    @PostMapping("/cancelPraise")
+    public ResponseDto cancelPraise(@RequestParam("id") Integer id, @RequestParam("skey") String skey) {
+        WechatUser wechatUser = weChatService.selectUserBySkey(skey);
+        catService.cancelPraise(id, wechatUser);
         return null;
     }
+
 
 }

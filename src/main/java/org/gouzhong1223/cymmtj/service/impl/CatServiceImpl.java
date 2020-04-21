@@ -95,4 +95,10 @@ public class CatServiceImpl implements CatService {
         praiseWechatUserMapper.insertSelective(praiseWechatUser);
     }
 
+    @Override
+    public void cancelPraise(Integer id, WechatUser wechatUser) {
+        catMapper.cancelPraise();
+        int i = praiseWechatUserMapper.deleteByCatIdAndOpenId(id, wechatUser.getOpenid());
+    }
+
 }

@@ -1,4 +1,5 @@
 package org.gouzhong1223.cymmtj.mapper;
+import org.apache.ibatis.annotations.Param;
 
 import org.gouzhong1223.cymmtj.pojo.PraiseWechatUser;
 
@@ -17,4 +18,7 @@ public interface PraiseWechatUserMapper {
     int insert(PraiseWechatUser record);
 
     int insertSelective(PraiseWechatUser record);
+
+    int deleteByCatIdAndOpenId(@Param("catId")Integer catId,@Param("openId")String openId);
+
 }
