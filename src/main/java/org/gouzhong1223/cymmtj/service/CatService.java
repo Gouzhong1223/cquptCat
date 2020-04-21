@@ -20,6 +20,7 @@ import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.pojo.Cat;
+import org.gouzhong1223.cymmtj.pojo.WechatUser;
 
 import java.util.List;
 
@@ -51,8 +52,8 @@ public interface CatService {
     PageResult<ResultCat> pagingListCat(Integer pageNum, Integer pageSize);
 
     /**
-     * @param pageNum
-     * @param pageSize
+     * @param pageNum  当前页码
+     * @param pageSize 每一页最大数量
      * @return
      */
     PageResult<CatResponse> selectCatIdAndName(Integer pageNum, Integer pageSize);
@@ -71,4 +72,12 @@ public interface CatService {
      * @return {@link Cat} 根据 id 查询到的 Cat
      */
     Cat selectCatByid(Integer id);
+
+    /**
+     * 点赞
+     *
+     * @param id         被点赞的 Cat
+     * @param wechatUser 点赞的用户
+     */
+    void thumbUp(Integer id, WechatUser wechatUser);
 }

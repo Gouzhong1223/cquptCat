@@ -1,4 +1,6 @@
 package org.gouzhong1223.cymmtj.mapper;
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
 
 import org.gouzhong1223.cymmtj.pojo.WechatUser;
 
@@ -25,4 +27,7 @@ public interface WechatUserMapper {
     int updateByPrimaryKeySelective(WechatUser record);
 
     int updateByPrimaryKey(WechatUser record);
+
+    WechatUser selectBySkey(@Param("skey")String skey);
+
 }

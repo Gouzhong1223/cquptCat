@@ -22,10 +22,13 @@ import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.mapper.CatMapper;
+import org.gouzhong1223.cymmtj.mapper.PraiseWechatUserMapper;
 import org.gouzhong1223.cymmtj.pojo.Cat;
+import org.gouzhong1223.cymmtj.pojo.PraiseWechatUser;
+import org.gouzhong1223.cymmtj.pojo.WechatUser;
 import org.gouzhong1223.cymmtj.service.CatService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -42,11 +45,17 @@ import java.util.List;
  * @Version : 1.0.0
  */
 @Service
+@Transactional
 public class CatServiceImpl implements CatService {
 
 
-    @Autowired
     private CatMapper catMapper;
+    private PraiseWechatUserMapper praiseWechatUserMapper;
+
+    public CatServiceImpl(CatMapper catMapper, PraiseWechatUserMapper praiseWechatUserMapper) {
+        this.catMapper = catMapper;
+        this.praiseWechatUserMapper = praiseWechatUserMapper;
+    }
 
     @Override
     public void insertOrUpdateCat(Cat cat) {
@@ -59,7 +68,8 @@ public class CatServiceImpl implements CatService {
         PageHelper.startPage(pageNum, pageSize);
         List<ResultCat> resultCats = catMapper.selectIdAndNameAndCommont();
         PageInfo<ResultCat> resultCatPageInfo = new PageInfo<>(resultCats);
-        return new PageResult<>(resultCatPageInfo.getPageNum(), resultCatPageInfo.getPageSize(), resultCatPageInfo.getTotal(), resultCatPageInfo.getPages(), resultCatPageInfo.getList());
+        return new PageResult<>(resultCatPageInfo.getPageNum(), resultCatPageInfo.getPageSize(),
+                resultCatPageInfo.getTotal(), resultCatPageInfo.getPages(), resultCatPageInfo.getList());
     }
 
     @Override
@@ -78,5 +88,11 @@ public class CatServiceImpl implements CatService {
         return catMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public void thumbUp(Integer id, WechatUser wechatUser) {
+        catMapper.thumbUp();
+        PraiseWechatUser praiseWechatUser = new PraiseWechatUser(wechatUser.getOpenid(), id);
+        praiseWechatUserMapper.insertSelective(praiseWechatUser);
+    }
 
 }

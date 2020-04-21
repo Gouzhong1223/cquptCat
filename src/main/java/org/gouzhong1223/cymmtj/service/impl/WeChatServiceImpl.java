@@ -109,4 +109,10 @@ public class WeChatServiceImpl implements WeChatService {
         return result;
     }
 
+    @Override
+    public WechatUser selectUserBySkey(String skey) {
+        WechatUser wechatUser = wechatUserMapper.selectBySkey(skey);
+        return wechatUser;
+    }
+
 }

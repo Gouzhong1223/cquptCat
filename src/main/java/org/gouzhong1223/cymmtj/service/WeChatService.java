@@ -17,6 +17,7 @@
 package org.gouzhong1223.cymmtj.service;
 
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
+import org.gouzhong1223.cymmtj.pojo.WechatUser;
 
 /**
  * @Author : Gouzhong
@@ -42,4 +43,11 @@ public interface WeChatService {
      * @return
      */
     ResponseDto login(String code, String rawData, String signature, String encrypteData, String iv);
+
+    /**
+     * 根据 skey 查询 User
+     * @param skey
+     * @return
+     */
+    WechatUser selectUserBySkey(String skey);
 }

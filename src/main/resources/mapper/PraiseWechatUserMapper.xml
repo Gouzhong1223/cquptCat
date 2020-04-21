@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gouzhong1223.cymmtj.mapper.PraiseWechatUserMapper">
+  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.PraiseWechatUser">
+    <!--@mbg.generated-->
+    <!--@Table tb_praise_wechatUser-->
+    <result column="openId" jdbcType="VARCHAR" property="openId" />
+    <result column="catId" jdbcType="INTEGER" property="catId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    openId, catId
+  </sql>
+  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.PraiseWechatUser">
+    <!--@mbg.generated-->
+    insert into tb_praise_wechatUser (openId, catId)
+    values (#{openId,jdbcType=VARCHAR}, #{catId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.PraiseWechatUser">
+    <!--@mbg.generated-->
+    insert into tb_praise_wechatUser
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="openId != null and openId != ''">
+        openId,
+      </if>
+      <if test="catId != null">
+        catId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="openId != null and openId != ''">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="catId != null">
+        #{catId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

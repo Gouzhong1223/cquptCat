@@ -25,9 +25,11 @@ import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.pojo.Cat;
 import org.gouzhong1223.cymmtj.pojo.Pic;
 import org.gouzhong1223.cymmtj.pojo.Region;
+import org.gouzhong1223.cymmtj.pojo.WechatUser;
 import org.gouzhong1223.cymmtj.service.CatService;
 import org.gouzhong1223.cymmtj.service.PicService;
 import org.gouzhong1223.cymmtj.service.RegionService;
+import org.gouzhong1223.cymmtj.service.WeChatService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,14 +55,16 @@ public class CatController {
     private CatService catService;
     private PicService picService;
     private RegionService regionService;
+    private WeChatService weChatService;
 
-    public CatController(CatService catService, PicService picService, RegionService regionService) {
+    public CatController(CatService catService, PicService picService, RegionService regionService, WeChatService weChatService) {
         this.catService = catService;
         this.picService = picService;
         this.regionService = regionService;
+        this.weChatService = weChatService;
     }
 
-    @GetMapping("pagingListCat")
+    @GetMapping("/pagingListCat")
     public ResponseDto pagingListCatInfo(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                          @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
@@ -86,8 +90,8 @@ public class CatController {
         return new ResponseDto<>(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), resultCats);
     }
 
-    @GetMapping("catDetail/{id}")
-    public ResponseDto getCatDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
+    @PostMapping("/catDetail")
+    public ResponseDto getCatDetail(@RequestParam("id") Integer id, @RequestParam("skey") String skey) {
         Cat cat = catService.selectCatByid(id);
         if (cat != null) {
             List<Pic> pics = picService.selectPicsByCatId(id);
@@ -99,6 +103,13 @@ public class CatController {
             return new ResponseDto<>(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), hashMap);
         }
         return new ResponseDto<>(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage());
+    }
+
+    @PostMapping("/thumbUp")
+    public ResponseDto thumbUp(@RequestParam("id") Integer id, @RequestParam("skey") String skey) {
+        WechatUser wechatUser = weChatService.selectUserBySkey(skey);
+        catService.thumbUp(id,wechatUser);
+        return null;
     }
 
 }

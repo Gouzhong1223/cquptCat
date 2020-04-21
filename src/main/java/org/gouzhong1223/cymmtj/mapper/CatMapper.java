@@ -75,4 +75,12 @@ public interface CatMapper {
      * @return
      */
     List<ResultCat> selectIdAndNameAndCommont();
+
+    /**
+     * 给点赞数量增加 1
+     *
+     * @return
+     */
+    int thumbUp();
+
 }
