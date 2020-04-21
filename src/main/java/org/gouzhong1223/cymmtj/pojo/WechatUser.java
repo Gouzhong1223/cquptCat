@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
  * @Description : 
- * @Date : create by QingSong in 2020-04-21 12:11 下午
+ * @Date : create by QingSong in 2020-04-21 3:56 下午
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
  * @PackageName : org.gouzhong1223.cymmtj.pojo
@@ -34,7 +34,7 @@ public class WechatUser implements Serializable {
      * open_id
      */
     @ApiModelProperty(value = "open_id")
-    private String openId;
+    private String openid;
 
     /**
      * skey
@@ -46,19 +46,19 @@ public class WechatUser implements Serializable {
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
+    private LocalDateTime createtime;
 
     /**
      * 最后登录时间
      */
     @ApiModelProperty(value = "最后登录时间")
-    private LocalDateTime lastVisitTime;
+    private LocalDateTime lastvisittime;
 
     /**
      * session_key
      */
     @ApiModelProperty(value = "session_key")
-    private String sessionKey;
+    private String sessionkey;
 
     /**
      * 市
@@ -82,7 +82,7 @@ public class WechatUser implements Serializable {
      * 头像
      */
     @ApiModelProperty(value = "头像")
-    private String avatarUrl;
+    private String avatarurl;
 
     /**
      * 性别
@@ -94,7 +94,7 @@ public class WechatUser implements Serializable {
      * 网名
      */
     @ApiModelProperty(value = "网名")
-    private String nickName;
+    private String nickname;
 
     private static final long serialVersionUID = 1L;
 

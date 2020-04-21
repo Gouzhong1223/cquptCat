@@ -53,4 +53,7 @@ aliyun:
     accessKeySecret: test # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
     bucketName: xtslife-oss # oss的存储空间
     filehost: cquptcat
+wechat:
+  appid: wx3ff04c53a9aabefd
+  secret: 30403a1a0d1e07e91a95c2c3451931f5
 

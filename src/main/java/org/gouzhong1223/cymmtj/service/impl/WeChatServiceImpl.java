@@ -82,22 +82,22 @@ public class WeChatServiceImpl implements WeChatService {
             String province = rawDataJson.getString("province");
 
             user = new WechatUser();
-            user.setOpenId(openid);
+            user.setOpenid(openid);
             user.setSkey(skey);
-            user.setCreateTime(LocalDateTime.now());
-            user.setLastVisitTime(LocalDateTime.now());
-            user.setSessionKey(sessionKey);
+            user.setCreatetime(LocalDateTime.now());
+            user.setLastvisittime(LocalDateTime.now());
+            user.setSessionkey(sessionKey);
             user.setCity(city);
             user.setProvince(province);
             user.setCountry(country);
-            user.setAvatarUrl(avatarUrl);
+            user.setAvatarurl(avatarUrl);
             user.setGender(Integer.parseInt(gender));
-            user.setNickName(nickName);
+            user.setNickname(nickName);
 
             this.wechatUserMapper.insertSelective(user);
         } else {
             // 已存在，更新用户登录时间
-            user.setLastVisitTime(LocalDateTime.now());
+            user.setLastvisittime(LocalDateTime.now());
             // 重新设置会话skey
             user.setSkey(skey);
             this.wechatUserMapper.updateByPrimaryKeySelective(user);

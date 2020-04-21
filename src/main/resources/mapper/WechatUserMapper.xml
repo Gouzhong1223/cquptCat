@@ -4,64 +4,64 @@
   <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.WechatUser">
     <!--@mbg.generated-->
     <!--@Table tb_wechatUser-->
-    <id column="open_id" jdbcType="VARCHAR" property="openId" />
+    <id column="openid" jdbcType="VARCHAR" property="openid" />
     <result column="skey" jdbcType="VARCHAR" property="skey" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="last_visit_time" jdbcType="TIMESTAMP" property="lastVisitTime" />
-    <result column="session_key" jdbcType="VARCHAR" property="sessionKey" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="lastvisittime" jdbcType="TIMESTAMP" property="lastvisittime" />
+    <result column="sessionkey" jdbcType="VARCHAR" property="sessionkey" />
     <result column="city" jdbcType="VARCHAR" property="city" />
     <result column="province" jdbcType="VARCHAR" property="province" />
     <result column="country" jdbcType="VARCHAR" property="country" />
-    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="avatarurl" jdbcType="VARCHAR" property="avatarurl" />
     <result column="gender" jdbcType="TINYINT" property="gender" />
-    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    open_id, skey, create_time, last_visit_time, session_key, city, province, country, 
-    avatar_url, gender, nick_name
+    openid, skey, createtime, lastvisittime, sessionkey, city, province, country, avatarurl, 
+    gender, nickname
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
     from tb_wechatUser
-    where open_id = #{openId,jdbcType=VARCHAR}
+    where openid = #{openid,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from tb_wechatUser
-    where open_id = #{openId,jdbcType=VARCHAR}
+    where openid = #{openid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.WechatUser">
     <!--@mbg.generated-->
-    insert into tb_wechatUser (open_id, skey, create_time, 
-      last_visit_time, session_key, city, 
-      province, country, avatar_url, 
-      gender, nick_name)
-    values (#{openId,jdbcType=VARCHAR}, #{skey,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{lastVisitTime,jdbcType=TIMESTAMP}, #{sessionKey,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
-      #{province,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=TINYINT}, #{nickName,jdbcType=VARCHAR})
+    insert into tb_wechatUser (openid, skey, createtime, 
+      lastvisittime, sessionkey, city, 
+      province, country, avatarurl, 
+      gender, nickname)
+    values (#{openid,jdbcType=VARCHAR}, #{skey,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{lastvisittime,jdbcType=TIMESTAMP}, #{sessionkey,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{avatarurl,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=TINYINT}, #{nickname,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.WechatUser">
     <!--@mbg.generated-->
     insert into tb_wechatUser
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="openId != null and openId != ''">
-        open_id,
+      <if test="openid != null and openid != ''">
+        openid,
       </if>
       <if test="skey != null and skey != ''">
         skey,
       </if>
-      <if test="createTime != null">
-        create_time,
+      <if test="createtime != null">
+        createtime,
       </if>
-      <if test="lastVisitTime != null">
-        last_visit_time,
+      <if test="lastvisittime != null">
+        lastvisittime,
       </if>
-      <if test="sessionKey != null and sessionKey != ''">
-        session_key,
+      <if test="sessionkey != null and sessionkey != ''">
+        sessionkey,
       </if>
       <if test="city != null and city != ''">
         city,
@@ -72,31 +72,31 @@
       <if test="country != null and country != ''">
         country,
       </if>
-      <if test="avatarUrl != null and avatarUrl != ''">
-        avatar_url,
+      <if test="avatarurl != null and avatarurl != ''">
+        avatarurl,
       </if>
       <if test="gender != null">
         gender,
       </if>
-      <if test="nickName != null and nickName != ''">
-        nick_name,
+      <if test="nickname != null and nickname != ''">
+        nickname,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="openId != null and openId != ''">
-        #{openId,jdbcType=VARCHAR},
+      <if test="openid != null and openid != ''">
+        #{openid,jdbcType=VARCHAR},
       </if>
       <if test="skey != null and skey != ''">
         #{skey,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="lastVisitTime != null">
-        #{lastVisitTime,jdbcType=TIMESTAMP},
+      <if test="lastvisittime != null">
+        #{lastvisittime,jdbcType=TIMESTAMP},
       </if>
-      <if test="sessionKey != null and sessionKey != ''">
-        #{sessionKey,jdbcType=VARCHAR},
+      <if test="sessionkey != null and sessionkey != ''">
+        #{sessionkey,jdbcType=VARCHAR},
       </if>
       <if test="city != null and city != ''">
         #{city,jdbcType=VARCHAR},
@@ -107,14 +107,14 @@
       <if test="country != null and country != ''">
         #{country,jdbcType=VARCHAR},
       </if>
-      <if test="avatarUrl != null and avatarUrl != ''">
-        #{avatarUrl,jdbcType=VARCHAR},
+      <if test="avatarurl != null and avatarurl != ''">
+        #{avatarurl,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
         #{gender,jdbcType=TINYINT},
       </if>
-      <if test="nickName != null and nickName != ''">
-        #{nickName,jdbcType=VARCHAR},
+      <if test="nickname != null and nickname != ''">
+        #{nickname,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -125,14 +125,14 @@
       <if test="skey != null and skey != ''">
         skey = #{skey,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="lastVisitTime != null">
-        last_visit_time = #{lastVisitTime,jdbcType=TIMESTAMP},
+      <if test="lastvisittime != null">
+        lastvisittime = #{lastvisittime,jdbcType=TIMESTAMP},
       </if>
-      <if test="sessionKey != null and sessionKey != ''">
-        session_key = #{sessionKey,jdbcType=VARCHAR},
+      <if test="sessionkey != null and sessionkey != ''">
+        sessionkey = #{sessionkey,jdbcType=VARCHAR},
       </if>
       <if test="city != null and city != ''">
         city = #{city,jdbcType=VARCHAR},
@@ -143,31 +143,31 @@
       <if test="country != null and country != ''">
         country = #{country,jdbcType=VARCHAR},
       </if>
-      <if test="avatarUrl != null and avatarUrl != ''">
-        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      <if test="avatarurl != null and avatarurl != ''">
+        avatarurl = #{avatarurl,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
         gender = #{gender,jdbcType=TINYINT},
       </if>
-      <if test="nickName != null and nickName != ''">
-        nick_name = #{nickName,jdbcType=VARCHAR},
+      <if test="nickname != null and nickname != ''">
+        nickname = #{nickname,jdbcType=VARCHAR},
       </if>
     </set>
-    where open_id = #{openId,jdbcType=VARCHAR}
+    where openid = #{openid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.pojo.WechatUser">
     <!--@mbg.generated-->
     update tb_wechatUser
     set skey = #{skey,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      last_visit_time = #{lastVisitTime,jdbcType=TIMESTAMP},
-      session_key = #{sessionKey,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      lastvisittime = #{lastvisittime,jdbcType=TIMESTAMP},
+      sessionkey = #{sessionkey,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
       province = #{province,jdbcType=VARCHAR},
       country = #{country,jdbcType=VARCHAR},
-      avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      avatarurl = #{avatarurl,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=TINYINT},
-      nick_name = #{nickName,jdbcType=VARCHAR}
-    where open_id = #{openId,jdbcType=VARCHAR}
+      nickname = #{nickname,jdbcType=VARCHAR}
+    where openid = #{openid,jdbcType=VARCHAR}
   </update>
 </mapper>

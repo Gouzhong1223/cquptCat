@@ -14,16 +14,30 @@
  *    limitations under the License.
  */
 
-package org.gouzhong1223.cymmtj;
+package org.gouzhong1223.cymmtj.config;
 
-import org.junit.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 
-@SpringBootTest
-class CymmtjApplicationTests {
+/**
+ * @Author : Gouzhong
+ * @Blog : www.gouzhong1223.com
+ * @Description :
+ * @Date : create by QingSong in 2020-04-21 3:32 下午
+ * @Email : gouzhong1223@gmail.com
+ * @Since : JDK 1.8
+ * @PackageName : org.gouzhong1223.cymmtj.config
+ * @ProjectName : cymmtj
+ * @Version : 1.0.0
+ */
+@Configuration
+@Getter
+public class WeChatConfig {
 
-    @Test
-    void contextLoads() {
-    }
+    @Value("${wechat.appid}")
+    private String appid;
+    @Value("${wechat.secret}")
+    private String secret;
 
 }

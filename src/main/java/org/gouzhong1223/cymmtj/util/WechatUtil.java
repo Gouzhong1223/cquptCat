@@ -42,6 +42,7 @@ import java.util.Map;
  * @Version : 1.0.0
  */
 public class WechatUtil {
+
     public static JSONObject getSessionKeyOrOpenId(String code) {
         String requestUrl = "https://api.weixin.qq.com/sns/jscode2session";
         Map<String, String> requestUrlParam = new HashMap<>();
