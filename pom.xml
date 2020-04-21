@@ -34,6 +34,13 @@
         <java.version>1.8</java.version>
         <mybatis.version>2.1.2</mybatis.version>
         <pagehelper.version>1.2.10</pagehelper.version>
+        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+        <springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
+        <swagger-bootstrap-ui.version>1.9.3</swagger-bootstrap-ui.version>
+        <aliyun-sdk-oss.version>2.5.0</aliyun-sdk-oss.version>
+        <fastjson.version>1.2.62</fastjson.version>
+        <shiro-core.version>1.4.2</shiro-core.version>
+        <commonmark.version>0.10.0</commonmark.version>
     </properties>
 
     <dependencies>
@@ -77,25 +84,25 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
+            <version>${springfox-swagger2.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
+            <version>${springfox-swagger-ui.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/swagger-bootstrap-ui -->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
-            <version>1.9.3</version>
+            <version>${swagger-bootstrap-ui.version}</version>
         </dependency>
         <!--    阿里 oss    -->
         <dependency>
             <groupId>com.aliyun.oss</groupId>
             <artifactId>aliyun-sdk-oss</artifactId>
-            <version>2.5.0</version>
+            <version>${aliyun-sdk-oss.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
         <dependency>
@@ -135,19 +142,19 @@
         <dependency>
             <groupId>com.atlassian.commonmark</groupId>
             <artifactId>commonmark-ext-heading-anchor</artifactId>
-            <version>0.10.0</version>
+            <version>${commonmark.version}</version>
         </dependency>
         <dependency>
             <groupId>com.atlassian.commonmark</groupId>
             <artifactId>commonmark-ext-gfm-tables</artifactId>
-            <version>0.10.0</version>
+            <version>${commonmark.version}</version>
         </dependency>
         <!--base64加密解密-->
         <!--shiro依赖和缓存-->
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-core</artifactId>
-            <version>1.4.2</version>
+            <version>${shiro-core.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>slf4j-api</artifactId>
@@ -158,7 +165,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.62</version>
+            <version>${fastjson.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

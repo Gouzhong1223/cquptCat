@@ -38,11 +38,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = request.getHeader("token");
-        String username = request.getHeader("username");
-        // TODO
-        throw new CymmtjException(ResultCode.UNLOGIN.getCode(), "未登录！");
-    }
+//    @Override
+//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//        String token = request.getHeader("token");
+//        String username = request.getHeader("username");
+//        // TODO
+//        throw new CymmtjException(ResultCode.UNLOGIN.getCode(), "未登录！");
+//    }
 }

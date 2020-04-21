@@ -47,9 +47,9 @@ public class WechatUtil {
         Map<String, String> requestUrlParam = new HashMap<>();
         // https://mp.weixin.qq.com/wxopen/devprofile?action=get_profile&token=164113089&lang=zh_CN
         //小程序appId
-        requestUrlParam.put("appid", "小程序appId");
+        requestUrlParam.put("appid", "wx3ff04c53a9aabefd");
         //小程序secret
-        requestUrlParam.put("secret", "小程序secret");
+        requestUrlParam.put("secret", "30403a1a0d1e07e91a95c2c3451931f5");
         //小程序端返回的code
         requestUrlParam.put("js_code", code);
         //默认参数
