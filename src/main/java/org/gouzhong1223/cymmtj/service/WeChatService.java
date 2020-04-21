@@ -30,5 +30,16 @@ import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
  * @Version : 1.0.0
  */
 public interface WeChatService {
+
+    /**
+     * 微信登录
+     *
+     * @param code
+     * @param rawData
+     * @param signature
+     * @param encrypteData
+     * @param iv
+     * @return
+     */
     ResponseDto login(String code, String rawData, String signature, String encrypteData, String iv);
 }

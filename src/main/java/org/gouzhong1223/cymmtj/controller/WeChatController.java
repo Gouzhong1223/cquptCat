@@ -16,20 +16,15 @@
 
 package org.gouzhong1223.cymmtj.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.codec.digest.DigestUtils;
+
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
-import org.gouzhong1223.cymmtj.pojo.WechatUser;
 import org.gouzhong1223.cymmtj.service.WeChatService;
-import org.gouzhong1223.cymmtj.util.WechatUtil;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * @Author : Gouzhong
@@ -58,7 +53,6 @@ public class WeChatController {
                                    @RequestParam(value = "signature", required = false) String signature,
                                    @RequestParam(value = "encrypteData", required = false) String encrypteData,
                                    @RequestParam(value = "iv", required = false) String iv) {
-
         ResponseDto responseDto = weChatService.login(code, rawData, signature, encrypteData, iv);
         return responseDto;
     }
