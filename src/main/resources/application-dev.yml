@@ -21,6 +21,9 @@ spring:
       pool-prepared-statements: true
       max-open-prepared-statements: 50
       max-pool-prepared-statement-per-connection-size: 20
+  redis:
+    host: 127.0.0.1 #Redis 地址
+    port: 6379 #Redis 端口
 
 logging:
   level:

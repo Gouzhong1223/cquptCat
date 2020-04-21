@@ -30,6 +30,7 @@ import org.gouzhong1223.cymmtj.service.PicService;
 import org.gouzhong1223.cymmtj.service.RegionService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
@@ -86,7 +87,7 @@ public class CatController {
     }
 
     @GetMapping("catDetail/{id}")
-    public ResponseDto getCatDetail(@PathVariable("id") Integer id) {
+    public ResponseDto getCatDetail(@PathVariable("id") Integer id, HttpServletRequest request) {
         Cat cat = catService.selectCatByid(id);
         if (cat != null) {
             List<Pic> pics = picService.selectPicsByCatId(id);
