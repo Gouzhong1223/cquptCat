@@ -56,4 +56,5 @@ public class Pic implements Serializable {
     private String link;
 
     private static final long serialVersionUID = 1L;
+    
 }

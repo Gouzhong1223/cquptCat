@@ -42,14 +42,37 @@ public interface CatMapper {
 
     int insertSelective(Cat record);
 
+    /**
+     * 根据主键查询 Cat
+     *
+     * @param id
+     * @return
+     */
     Cat selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Cat record);
 
+    /**
+     * 根据主键更新 Cat
+     *
+     * @param record
+     * @return
+     */
     int updateByPrimaryKey(Cat record);
 
+    /**
+     * 批量插入 Cat
+     *
+     * @param list Cat 集合
+     * @return
+     */
     int insertList(@Param("list") List<Cat> list);
 
+    /**
+     * 查询所有 Cat
+     *
+     * @return
+     */
     List<Cat> selectAllCats();
 
     List<CatResponse> selectIdAndName();
