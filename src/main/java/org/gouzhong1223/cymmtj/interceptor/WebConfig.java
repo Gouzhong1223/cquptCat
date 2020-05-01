@@ -32,4 +32,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @SpringBootConfiguration
 public class WebConfig implements WebMvcConfigurer {
+
+    private final WeChatLoginInterceptor weChatLoginInterceptor;
+
+    public WebConfig(WeChatLoginInterceptor weChatLoginInterceptor) {
+        this.weChatLoginInterceptor = weChatLoginInterceptor;
+    }
+
+
 }

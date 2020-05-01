@@ -91,14 +91,14 @@ public class CatServiceImpl implements CatService {
     @Override
     public void thumbUp(Integer id, WechatUser wechatUser) {
         catMapper.thumbUp();
-        PraiseWechatUser praiseWechatUser = new PraiseWechatUser(wechatUser.getOpenid(), id);
+        PraiseWechatUser praiseWechatUser = new PraiseWechatUser(wechatUser.getOpenId(), id);
         praiseWechatUserMapper.insertSelective(praiseWechatUser);
     }
 
     @Override
     public void cancelPraise(Integer id, WechatUser wechatUser) {
         catMapper.cancelPraise();
-        int i = praiseWechatUserMapper.deleteByCatIdAndOpenId(id, wechatUser.getOpenid());
+        int i = praiseWechatUserMapper.deleteByCatIdAndOpenId(id, wechatUser.getOpenId());
     }
 
 }

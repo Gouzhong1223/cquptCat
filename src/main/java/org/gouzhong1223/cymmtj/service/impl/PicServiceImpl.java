@@ -25,19 +25,19 @@ import org.gouzhong1223.cymmtj.util.OssUtil;
 import org.gouzhong1223.cymmtj.util.RandomNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.*;
 
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description :
+ * @Description : {@link PicService} 实现类
  * @Date : create by QingSong in 2020-04-18 10:58 下午
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
@@ -56,7 +56,6 @@ public class PicServiceImpl implements PicService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PicServiceImpl.class);
 
 
-    @Autowired
     public PicServiceImpl(OssUtil ossUtil, PicMapper picMapper, CatPicMapper catPicMapper) {
         this.ossUtil = ossUtil;
         this.picMapper = picMapper;
@@ -74,15 +73,15 @@ public class PicServiceImpl implements PicService {
             // 执行上传图片的任务并得到返回结果
             Future<String> submit = executorService.submit(() -> {
                 LOGGER.info("开始上传图片");
-                String uploadUrl = null;
+                HashMap<String, String> resultMap = null;
                 try {
-                    uploadUrl = ossUtil.upload(file);
+                    resultMap = ossUtil.upload(file);
                 } catch (Exception e) {
                     LOGGER.error("{}线程上传图片名为{}的图片失败", Thread.currentThread().getId(), file.getName());
                     e.printStackTrace();
                     return null;
                 }
-                return uploadUrl;
+                return resultMap.get("link");
             });
             futures.add(submit);
         });

@@ -48,11 +48,11 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 aliyun:
   oss:
-    endpoint: xtslife-oss.oss-cn-chengdu.aliyuncs.com # oss对外服务的访问域名
-    accessKeyId: test # 访问身份验证中用到用户标识
-    accessKeySecret: test # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
-    bucketName: xtslife-oss # oss的存储空间
-    filehost: cquptcat
+    endpoint: oss-cn-chengdu.aliyuncs.com # oss对外服务的访问域名
+    accessKeyId: LTAI4FxgRitGuwjGkk9kjEtk # 访问身份验证中用到用户标识
+    accessKeySecret: rDiw0ja0Xf6nFfodeyNNOKLmMmb9PV # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
+    bucketName: gouzhong-file # oss的存储空间
+    filehost: file-share
 wechat:
   appid: wx3ff04c53a9aabefd
   secret: 30403a1a0d1e07e91a95c2c3451931f5
