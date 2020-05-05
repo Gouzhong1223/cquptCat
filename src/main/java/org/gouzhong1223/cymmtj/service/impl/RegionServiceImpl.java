@@ -114,7 +114,7 @@ public class RegionServiceImpl implements RegionService {
         if (result == null) {
             return new ResponseDto(ResultCode.FAIL.getCode(), "不存在该区域，修改失败！");
         }
-        result.setName(region.getName());
+        result.setRegionName(region.getRegionName());
         try {
             regionMapper.updateByPrimaryKey(result);
         } catch (Exception e) {

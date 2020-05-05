@@ -3,7 +3,7 @@
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.PraiseWechatUserMapper">
   <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.PraiseWechatUser">
     <!--@mbg.generated-->
-    <!--@Table tb_praise_wechatUser-->
+    <!--@Table tb_praiseWechatUser-->
     <result column="openId" jdbcType="VARCHAR" property="openId" />
     <result column="catId" jdbcType="INTEGER" property="catId" />
   </resultMap>
@@ -13,12 +13,12 @@
   </sql>
   <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.PraiseWechatUser">
     <!--@mbg.generated-->
-    insert into tb_praise_wechatUser (openId, catId)
+    insert into tb_praiseWechatUser (openId, catId)
     values (#{openId,jdbcType=VARCHAR}, #{catId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.PraiseWechatUser">
     <!--@mbg.generated-->
-    insert into tb_praise_wechatUser
+    insert into tb_praiseWechatUser
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="openId != null and openId != ''">
         openId,
