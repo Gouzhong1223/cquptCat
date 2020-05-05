@@ -42,7 +42,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -122,8 +121,7 @@ public class CatServiceImpl implements CatService {
 
         // 获取上传的文件数组
         JSONArray jsonFiles = jsonObject.getJSONArray("files");
-        MultipartFile[] multipartFiles = (MultipartFile[]) jsonFiles.toArray();
-        List<MultipartFile> files = Arrays.asList(multipartFiles);
+        List<MultipartFile> files = jsonFiles.toJavaList(MultipartFile.class);
 
         // 获取猫咪名字
         String name = jsonObject.getString("name");
