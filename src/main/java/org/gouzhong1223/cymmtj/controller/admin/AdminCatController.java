@@ -36,6 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -66,7 +67,7 @@ public class AdminCatController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/insert")
+    @PostMapping(value = "/insertCat")
     public ResponseDto insertCat(@RequestBody CatRequest catRequest, @RequestParam("files") List<MultipartFile> files) {
 
         if (catRequest != null && CollectionUtils.isNotEmpty(files)) {
@@ -85,11 +86,18 @@ public class AdminCatController {
 
     @PostMapping("login")
     public ResponseDto login(@RequestBody JSONObject jsonObject,
-                             HttpServletRequest request){
+                             HttpServletRequest request) {
         String username = jsonObject.getString("username");
         String password = jsonObject.getString("password");
 
-        return userService.login(username,password,request);
+        return userService.login(username, password, request);
+    }
+
+    @GetMapping("loginOut")
+    public ResponseDto loginOut(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.removeAttribute("adminUser");
+        return ResponseDto.SUCCESS(null);
     }
 
 }
