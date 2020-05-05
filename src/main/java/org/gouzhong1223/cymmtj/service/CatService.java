@@ -17,6 +17,7 @@
 package org.gouzhong1223.cymmtj.service;
 
 import com.alibaba.fastjson.JSONObject;
+import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
@@ -98,5 +99,5 @@ public interface CatService {
      * @param openId
      * @return
      */
-    ResponseDto contributeCat(JSONObject jsonObject, String openId);
+    ResponseDto contributeCat(JSONObject jsonObject, String openId) throws CymmtjException;
 }

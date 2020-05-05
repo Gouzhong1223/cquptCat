@@ -21,21 +21,19 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections.CollectionUtils;
+import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
-import org.gouzhong1223.cymmtj.mapper.CatMapper;
-import org.gouzhong1223.cymmtj.mapper.PraiseWechatUserMapper;
-import org.gouzhong1223.cymmtj.mapper.WechatUserMapper;
-import org.gouzhong1223.cymmtj.pojo.Cat;
-import org.gouzhong1223.cymmtj.pojo.Pic;
-import org.gouzhong1223.cymmtj.pojo.PraiseWechatUser;
-import org.gouzhong1223.cymmtj.pojo.WechatUser;
+import org.gouzhong1223.cymmtj.mapper.*;
+import org.gouzhong1223.cymmtj.pojo.*;
 import org.gouzhong1223.cymmtj.service.CatService;
+import org.gouzhong1223.cymmtj.service.MailService;
 import org.gouzhong1223.cymmtj.service.PicService;
+import org.gouzhong1223.cymmtj.util.CheakEmail;
 import org.gouzhong1223.cymmtj.util.RandomNumber;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,12 +62,18 @@ public class CatServiceImpl implements CatService {
     private final PraiseWechatUserMapper praiseWechatUserMapper;
     private final PicService picService;
     private final WechatUserMapper wechatUserMapper;
+    private final MailService mailService;
+    private final CatRefrrerMapper catRefrrerMapper;
 
-    public CatServiceImpl(CatMapper catMapper, PraiseWechatUserMapper praiseWechatUserMapper, PicService picService, WechatUserMapper wechatUserMapper) {
+    public CatServiceImpl(CatMapper catMapper, PraiseWechatUserMapper praiseWechatUserMapper,
+                          PicService picService, WechatUserMapper wechatUserMapper,
+                          MailService mailService, CatRefrrerMapper catRefrrerMapper) {
         this.catMapper = catMapper;
         this.praiseWechatUserMapper = praiseWechatUserMapper;
         this.picService = picService;
         this.wechatUserMapper = wechatUserMapper;
+        this.mailService = mailService;
+        this.catRefrrerMapper = catRefrrerMapper;
     }
 
     @Override
@@ -117,11 +121,38 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public ResponseDto contributeCat(JSONObject jsonObject, String openId) {
+    public ResponseDto contributeCat(JSONObject jsonObject, String openId) throws CymmtjException {
 
         // 获取上传的文件数组
         JSONArray jsonFiles = jsonObject.getJSONArray("files");
         List<MultipartFile> files = jsonFiles.toJavaList(MultipartFile.class);
+
+        // 获取邮箱地址
+        String email = jsonObject.getString("email");
+        if (email == null || "".equals(email)) {
+            return new ResponseDto(ResultCode.FAIL.getCode(), "邮箱不能为空！");
+        }
+
+        if (!CheakEmail.isEmail(email)) {
+            return new ResponseDto(ResultCode.FAIL.getCode(), "邮箱格式不正确！");
+        }
+        // 为猫咪生成 ID
+        Integer catId = RandomNumber.createNumber();
+
+        CatRefrrer catRefrrer = new CatRefrrer(catId, email);
+
+        // 根据 openID 查询出微信用户
+        WechatUser wechatUser = wechatUserMapper.selectOneByOpenId(openId);
+
+        mailService.sendSimpleMail(email, "重游猫咪图鉴", "尊敬的" + wechatUser.getNickName() +
+                ",您的推荐申请我们已经收到，请耐心等待管理员审核，审核结果我们将会以邮件形式发送给您");
+
+        try {
+            catRefrrerMapper.insertSelective(catRefrrer);
+        } catch (Exception e) {
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "将邮箱插入数据库失败,请重试！");
+        }
+
 
         // 获取猫咪名字
         String name = jsonObject.getString("name");
@@ -136,13 +167,10 @@ public class CatServiceImpl implements CatService {
         // 获取猫咪分类
         String type = jsonObject.getString("type");
 
-        // 为猫咪生成 ID
-        Integer catId = RandomNumber.createNumber();
+
         // 开始插入图片
         List<Pic> pics = picService.insertPics(files, catId);
 
-        // 根据 openID 查询出微信用户
-        WechatUser wechatUser = wechatUserMapper.selectOneByOpenId(openId);
 
         if (CollectionUtils.isNotEmpty(pics)) {
             // 开始生成 Cat 对象
