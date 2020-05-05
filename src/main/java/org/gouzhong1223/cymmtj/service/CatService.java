@@ -16,8 +16,10 @@
 
 package org.gouzhong1223.cymmtj.service;
 
+import com.alibaba.fastjson.JSONObject;
 import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
+import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.pojo.Cat;
 import org.gouzhong1223.cymmtj.pojo.WechatUser;
@@ -88,4 +90,13 @@ public interface CatService {
      * @param wechatUser 取消点赞的用户
      */
     void cancelPraise(Integer id, WechatUser wechatUser);
+
+    /**
+     * 小程序用户推荐 Cat
+     *
+     * @param jsonObject
+     * @param openId
+     * @return
+     */
+    ResponseDto contributeCat(JSONObject jsonObject, String openId);
 }

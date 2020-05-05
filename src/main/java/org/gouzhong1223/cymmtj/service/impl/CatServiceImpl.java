@@ -16,21 +16,34 @@
 
 package org.gouzhong1223.cymmtj.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.collections.CollectionUtils;
 import org.gouzhong1223.cymmtj.common.PageResult;
+import org.gouzhong1223.cymmtj.common.ResultCode;
+import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
+import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.mapper.CatMapper;
 import org.gouzhong1223.cymmtj.mapper.PraiseWechatUserMapper;
+import org.gouzhong1223.cymmtj.mapper.WechatUserMapper;
 import org.gouzhong1223.cymmtj.pojo.Cat;
+import org.gouzhong1223.cymmtj.pojo.Pic;
 import org.gouzhong1223.cymmtj.pojo.PraiseWechatUser;
 import org.gouzhong1223.cymmtj.pojo.WechatUser;
 import org.gouzhong1223.cymmtj.service.CatService;
+import org.gouzhong1223.cymmtj.service.PicService;
+import org.gouzhong1223.cymmtj.util.RandomNumber;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -49,12 +62,16 @@ import java.util.List;
 public class CatServiceImpl implements CatService {
 
 
-    private CatMapper catMapper;
-    private PraiseWechatUserMapper praiseWechatUserMapper;
+    private final CatMapper catMapper;
+    private final PraiseWechatUserMapper praiseWechatUserMapper;
+    private final PicService picService;
+    private final WechatUserMapper wechatUserMapper;
 
-    public CatServiceImpl(CatMapper catMapper, PraiseWechatUserMapper praiseWechatUserMapper) {
+    public CatServiceImpl(CatMapper catMapper, PraiseWechatUserMapper praiseWechatUserMapper, PicService picService, WechatUserMapper wechatUserMapper) {
         this.catMapper = catMapper;
         this.praiseWechatUserMapper = praiseWechatUserMapper;
+        this.picService = picService;
+        this.wechatUserMapper = wechatUserMapper;
     }
 
     @Override
@@ -99,6 +116,32 @@ public class CatServiceImpl implements CatService {
     public void cancelPraise(Integer id, WechatUser wechatUser) {
         catMapper.cancelPraise();
         int i = praiseWechatUserMapper.deleteByCatIdAndOpenId(id, wechatUser.getOpenId());
+    }
+
+    @Override
+    public ResponseDto contributeCat(JSONObject jsonObject, String openId) {
+        JSONArray jsonFiles = jsonObject.getJSONArray("files");
+        MultipartFile[] multipartFiles = (MultipartFile[]) jsonFiles.toArray();
+        List<MultipartFile> files = Arrays.asList(multipartFiles);
+        String name = jsonObject.getString("name");
+        String color = jsonObject.getString("color");
+        String sex = jsonObject.getString("sex");
+        String foreignTrade = jsonObject.getString("foreignTrade");
+        String character = jsonObject.getString("character");
+        String type = jsonObject.getString("type");
+
+        Integer catId = RandomNumber.createNumber();
+        List<Pic> pics = picService.insertPics(files, catId);
+
+        WechatUser wechatUser = wechatUserMapper.selectOneByOpenId(openId);
+
+        if (CollectionUtils.isNotEmpty(pics)) {
+            Cat cat = new Cat(catId, name, color, sex, foreignTrade, character, LocalDateTime.now(), type, 0, wechatUser.getNickName());
+            cat.setId(catId);
+            this.insertOrUpdateCat(cat);
+            return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage());
+        }
+        return null;
     }
 
 }

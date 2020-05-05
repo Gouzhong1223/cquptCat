@@ -27,4 +27,8 @@ public interface WechatUserMapper {
     int updateByPrimaryKey(WechatUser record);
 
     WechatUser selectBySkey(@Param("skey") String skey);
+
+    WechatUser selectOneByOpenId(@Param("openId")String openId);
+
+
 }
