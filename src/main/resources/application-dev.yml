@@ -28,13 +28,13 @@ spring:
 logging:
   level:
     root: info
-    com.gouzhong1223.blog.controller: info
-    com.gouzhong1223.blog.service: info
-    com.gouzhong1223.blog.mapper: info
+    org.gouzhong1223.cymmtj.controller: info
+    org.gouzhong1223.cymmtj.service: info
+    org.gouzhong1223.cymmtj.mapper: info
     com.lucifer.springboot.cache.mapper: debug
-  path: log/blog.log
-  file:
-    max-size: 10MB
+#  path: log/blog.log
+#  file:
+#    max-size: 10MB
 pagehelper:
   helperDialect: mysql
   reasonable: true

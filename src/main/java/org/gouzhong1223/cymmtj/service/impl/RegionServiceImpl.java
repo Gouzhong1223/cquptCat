@@ -89,7 +89,7 @@ public class RegionServiceImpl implements RegionService {
         List<CatRegion> catRegions = catRegionMapper.selectAllByCatId(id);
         ArrayList<Region> regions = new ArrayList<>();
         catRegions.forEach(e -> {
-            regions.add(regionMapper.selectByPrimaryKey(e.getRegionId()));
+            regions.add(regionMapper.selectByPrimaryKey(e.getReginId()));
         });
         return regions;
     }
