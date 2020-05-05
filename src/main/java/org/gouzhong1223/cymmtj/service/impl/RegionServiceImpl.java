@@ -16,6 +16,10 @@
 
 package org.gouzhong1223.cymmtj.service.impl;
 
+import org.gouzhong1223.cymmtj.common.CymmtjException;
+import org.gouzhong1223.cymmtj.common.ResultCode;
+import org.gouzhong1223.cymmtj.common.ResultMessage;
+import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.mapper.CatMapper;
 import org.gouzhong1223.cymmtj.mapper.CatRegionMapper;
@@ -92,5 +96,30 @@ public class RegionServiceImpl implements RegionService {
             regions.add(regionMapper.selectByPrimaryKey(e.getReginId()));
         });
         return regions;
+    }
+
+    @Override
+    public ResponseDto deleteRegion(Integer id) {
+        Region region = regionMapper.selectByPrimaryKey(id);
+        if (region == null) {
+            return new ResponseDto(ResultCode.FAIL.getCode(), "不存在该区域，删除失败！");
+        }
+        regionMapper.deleteByPrimaryKey(id);
+        return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), region);
+    }
+
+    @Override
+    public ResponseDto updateRegion(Region region) throws CymmtjException {
+        Region result = regionMapper.selectByPrimaryKey(region.getId());
+        if (result == null) {
+            return new ResponseDto(ResultCode.FAIL.getCode(), "不存在该区域，修改失败！");
+        }
+        result.setName(region.getName());
+        try {
+            regionMapper.updateByPrimaryKey(result);
+        } catch (Exception e) {
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "更新失败！");
+        }
+        return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), result);
     }
 }

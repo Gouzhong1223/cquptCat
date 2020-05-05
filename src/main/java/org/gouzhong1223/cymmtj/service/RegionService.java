@@ -16,6 +16,8 @@
 
 package org.gouzhong1223.cymmtj.service;
 
+import org.gouzhong1223.cymmtj.common.CymmtjException;
+import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.pojo.Cat;
 import org.gouzhong1223.cymmtj.pojo.Region;
@@ -65,4 +67,20 @@ public interface RegionService {
      * @return {@link List<Region>} 和该 CatId 相关联的所有活动区域
      */
     List<Region> selectRegionsByCatId(Integer id);
+
+    /**
+     * 根据 id 删除区域
+     *
+     * @param id
+     * @return
+     */
+    ResponseDto deleteRegion(Integer id);
+
+    /**
+     * 更新区域信息
+     *
+     * @param region
+     * @return
+     */
+    ResponseDto updateRegion(Region region) throws CymmtjException;
 }

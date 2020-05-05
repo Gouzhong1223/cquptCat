@@ -16,15 +16,13 @@
 
 package org.gouzhong1223.cymmtj.controller.admin;
 
+import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.pojo.Region;
 import org.gouzhong1223.cymmtj.service.RegionService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author : Gouzhong
@@ -55,4 +53,19 @@ public class AdminRegionController {
         }
         return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage());
     }
+
+    @DeleteMapping("deleteRegion/{id}")
+    public ResponseDto deleteRegion(@PathVariable("id") Integer id) {
+        return regionService.deleteRegion(id);
+    }
+
+    @PutMapping("updateRegion")
+    public ResponseDto updateRegion(@RequestBody Region region) throws CymmtjException {
+        if (region.getRegionName() == null) {
+            return new ResponseDto(ResultCode.FAIL.getCode(), "参数不能为空！");
+        }
+        return regionService.updateRegion(region);
+    }
+
+
 }

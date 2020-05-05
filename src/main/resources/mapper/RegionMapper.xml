@@ -5,11 +5,11 @@
     <!--@mbg.generated-->
     <!--@Table tb_region-->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="区域名称" jdbcType="VARCHAR" property="区域名称" />
+    <result column="regionName" jdbcType="VARCHAR" property="regionName" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, 区域名称
+    id, regionName
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -25,8 +25,8 @@
   </delete>
   <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.Region">
     <!--@mbg.generated-->
-    insert into tb_region (id, 区域名称)
-    values (#{id,jdbcType=INTEGER}, #{区域名称,jdbcType=VARCHAR})
+    insert into tb_region (id, regionName)
+    values (#{id,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.Region">
     <!--@mbg.generated-->
@@ -35,16 +35,16 @@
       <if test="id != null">
         id,
       </if>
-      <if test="区域名称 != null and 区域名称 != ''">
-        区域名称,
+      <if test="regionName != null and regionName != ''">
+        regionName,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="区域名称 != null and 区域名称 != ''">
-        #{区域名称,jdbcType=VARCHAR},
+      <if test="regionName != null and regionName != ''">
+        #{regionName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -52,8 +52,8 @@
     <!--@mbg.generated-->
     update tb_region
     <set>
-      <if test="区域名称 != null and 区域名称 != ''">
-        区域名称 = #{区域名称,jdbcType=VARCHAR},
+      <if test="regionName != null and regionName != ''">
+        regionName = #{regionName,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -61,7 +61,7 @@
   <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.pojo.Region">
     <!--@mbg.generated-->
     update tb_region
-    set 区域名称 = #{区域名称,jdbcType=VARCHAR}
+    set regionName = #{regionName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
