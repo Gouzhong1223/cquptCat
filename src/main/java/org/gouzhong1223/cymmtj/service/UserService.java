@@ -16,6 +16,10 @@
 
 package org.gouzhong1223.cymmtj.service;
 
+import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
@@ -28,4 +32,13 @@ package org.gouzhong1223.cymmtj.service;
  * @Version : 1.0.0
  */
 public interface UserService {
+    /**
+     * 管理员登录
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @param request
+     * @return
+     */
+    ResponseDto login(String username, String password, HttpServletRequest request);
 }

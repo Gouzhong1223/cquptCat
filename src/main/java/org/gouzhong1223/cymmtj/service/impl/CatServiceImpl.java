@@ -37,7 +37,6 @@ import org.gouzhong1223.cymmtj.pojo.WechatUser;
 import org.gouzhong1223.cymmtj.service.CatService;
 import org.gouzhong1223.cymmtj.service.PicService;
 import org.gouzhong1223.cymmtj.util.RandomNumber;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -120,28 +119,43 @@ public class CatServiceImpl implements CatService {
 
     @Override
     public ResponseDto contributeCat(JSONObject jsonObject, String openId) {
+
+        // 获取上传的文件数组
         JSONArray jsonFiles = jsonObject.getJSONArray("files");
         MultipartFile[] multipartFiles = (MultipartFile[]) jsonFiles.toArray();
         List<MultipartFile> files = Arrays.asList(multipartFiles);
+
+        // 获取猫咪名字
         String name = jsonObject.getString("name");
+        // 获取猫咪颜色
         String color = jsonObject.getString("color");
+        // 获取猫咪性别
         String sex = jsonObject.getString("sex");
+        // 获取猫咪外貌
         String foreignTrade = jsonObject.getString("foreignTrade");
+        // 获取猫咪性格
         String character = jsonObject.getString("character");
+        // 获取猫咪分类
         String type = jsonObject.getString("type");
 
+        // 为猫咪生成 ID
         Integer catId = RandomNumber.createNumber();
+        // 开始插入图片
         List<Pic> pics = picService.insertPics(files, catId);
 
+        // 根据 openID 查询出微信用户
         WechatUser wechatUser = wechatUserMapper.selectOneByOpenId(openId);
 
         if (CollectionUtils.isNotEmpty(pics)) {
-            Cat cat = new Cat(catId, name, color, sex, foreignTrade, character, LocalDateTime.now(), type, 0, wechatUser.getNickName());
+            // 开始生成 Cat 对象
+            Cat cat = new Cat(catId, name, color, sex, foreignTrade, character, LocalDateTime.now(), type, 0, wechatUser.getNickName(), 0);
             cat.setId(catId);
+            // 插入 Cat
             this.insertOrUpdateCat(cat);
             return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage());
+        } else {
+            return new ResponseDto(ResultCode.FAIL.getCode(), "上传图片失败！");
         }
-        return null;
     }
 
 }

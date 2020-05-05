@@ -16,7 +16,6 @@
 
 package org.gouzhong1223.cymmtj.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.collections.CollectionUtils;
 import org.gouzhong1223.cymmtj.common.PageResult;
@@ -33,11 +32,9 @@ import org.gouzhong1223.cymmtj.service.PicService;
 import org.gouzhong1223.cymmtj.service.RegionService;
 import org.gouzhong1223.cymmtj.service.WeChatService;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 

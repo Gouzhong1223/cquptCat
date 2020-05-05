@@ -15,6 +15,7 @@
  */
 
 package org.gouzhong1223.cymmtj.mapper;
+import org.apache.ibatis.annotations.Param;
 
 import org.gouzhong1223.cymmtj.pojo.User;
 
@@ -41,4 +42,8 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    User selectOneByUsername(@Param("username")String username);
+
+
 }

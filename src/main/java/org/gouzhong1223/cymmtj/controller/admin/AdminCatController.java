@@ -16,6 +16,7 @@
 
 package org.gouzhong1223.cymmtj.controller.admin;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.collections.CollectionUtils;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
@@ -25,6 +26,7 @@ import org.gouzhong1223.cymmtj.pojo.Cat;
 import org.gouzhong1223.cymmtj.pojo.Pic;
 import org.gouzhong1223.cymmtj.service.CatService;
 import org.gouzhong1223.cymmtj.service.PicService;
+import org.gouzhong1223.cymmtj.service.UserService;
 import org.gouzhong1223.cymmtj.util.RandomNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -53,12 +56,14 @@ public class AdminCatController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminCatController.class);
 
-    private CatService catService;
-    private PicService picService;
+    private final CatService catService;
+    private final PicService picService;
+    private final UserService userService;
 
-    public AdminCatController(CatService catService, PicService picService) {
+    public AdminCatController(CatService catService, PicService picService, UserService userService) {
         this.catService = catService;
         this.picService = picService;
+        this.userService = userService;
     }
 
     @PostMapping(value = "/insert")
@@ -76,6 +81,15 @@ public class AdminCatController {
             }
         }
         return ResponseDto.builder().code(ResultCode.FAIL.getCode()).message(ResultMessage.FAIL.getMessaage()).build();
+    }
+
+    @PostMapping("login")
+    public ResponseDto login(@RequestBody JSONObject jsonObject,
+                             HttpServletRequest request){
+        String username = jsonObject.getString("username");
+        String password = jsonObject.getString("password");
+
+        return userService.login(username,password,request);
     }
 
 }

@@ -16,9 +16,18 @@
 
 package org.gouzhong1223.cymmtj.service.impl;
 
+import org.gouzhong1223.cymmtj.common.ResultCode;
+import org.gouzhong1223.cymmtj.common.ResultMessage;
+import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
+import org.gouzhong1223.cymmtj.mapper.UserMapper;
+import org.gouzhong1223.cymmtj.pojo.User;
 import org.gouzhong1223.cymmtj.service.UserService;
+import org.gouzhong1223.cymmtj.util.MD5Util;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @Author : Gouzhong
@@ -34,4 +43,28 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+
+
+    private final UserMapper userMapper;
+
+    public UserServiceImpl(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
+
+    @Override
+    public ResponseDto login(String username, String password, HttpServletRequest request) {
+
+        User result = userMapper.selectOneByUsername(username);
+        if (result == null) {
+            return new ResponseDto(ResultCode.FAIL.getCode(), "管理员账户不存在");
+        }
+        // 验证密码是否正确
+        if (MD5Util.code(password).equals(result.getPassword())) {
+            HttpSession session = request.getSession();
+            session.setAttribute("adminUser", request);
+            return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage());
+        }
+        // 密码验证不通过！
+        return new ResponseDto(ResultCode.FAIL.getCode(), "密码错误！");
+    }
 }

@@ -14,10 +14,12 @@
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="visible" jdbcType="INTEGER" property="visible" />
     <result column="referrer" jdbcType="VARCHAR" property="referrer" />
+    <result column="audit" jdbcType="INTEGER" property="audit" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, `name`, color, sex, foreignTrade, `character`, updateTime, `type`, visible, referrer
+    id, `name`, color, sex, foreignTrade, `character`, updateTime, `type`, visible, referrer, 
+    `audit`
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -36,11 +38,11 @@
     insert into tb_cat (id, `name`, color, 
       sex, foreignTrade, `character`, 
       updateTime, `type`, visible, 
-      referrer)
+      referrer, `audit`)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{foreignTrade,jdbcType=VARCHAR}, #{character,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}, #{visible,jdbcType=INTEGER}, 
-      #{referrer,jdbcType=VARCHAR})
+      #{referrer,jdbcType=VARCHAR}, #{audit,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.Cat">
     <!--@mbg.generated-->
@@ -76,6 +78,9 @@
       <if test="referrer != null and referrer != ''">
         referrer,
       </if>
+      <if test="audit != null">
+        `audit`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -107,6 +112,9 @@
       </if>
       <if test="referrer != null and referrer != ''">
         #{referrer,jdbcType=VARCHAR},
+      </if>
+      <if test="audit != null">
+        #{audit,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -141,6 +149,9 @@
       <if test="referrer != null and referrer != ''">
         referrer = #{referrer,jdbcType=VARCHAR},
       </if>
+      <if test="audit != null">
+        `audit` = #{audit,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -155,7 +166,8 @@
       updateTime = #{updateTime,jdbcType=TIMESTAMP},
       `type` = #{type,jdbcType=VARCHAR},
       visible = #{visible,jdbcType=INTEGER},
-      referrer = #{referrer,jdbcType=VARCHAR}
+      referrer = #{referrer,jdbcType=VARCHAR},
+      `audit` = #{audit,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
     <resultMap id="PopularCat" type="org.gouzhong1223.cymmtj.dto.rep.ResultCat">
