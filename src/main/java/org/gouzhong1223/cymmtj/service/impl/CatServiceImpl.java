@@ -29,7 +29,7 @@ import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.mapper.*;
-import org.gouzhong1223.cymmtj.pojo.*;
+import org.gouzhong1223.cymmtj.entity.*;
 import org.gouzhong1223.cymmtj.service.CatService;
 import org.gouzhong1223.cymmtj.service.MailService;
 import org.gouzhong1223.cymmtj.service.PicService;

@@ -1,6 +1,6 @@
 package org.gouzhong1223.cymmtj.mapper;
 
-import org.gouzhong1223.cymmtj.pojo.CatRefrrer;
+import org.gouzhong1223.cymmtj.entity.CatRefrrer;
 
 /**
  * @Author : Gouzhong

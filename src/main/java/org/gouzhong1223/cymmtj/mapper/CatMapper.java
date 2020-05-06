@@ -1,6 +1,6 @@
 package org.gouzhong1223.cymmtj.mapper;
 
-import org.apache.ibatis.annotations.Param;import org.gouzhong1223.cymmtj.dto.rep.CatResponse;import org.gouzhong1223.cymmtj.dto.rep.ResultCat;import org.gouzhong1223.cymmtj.pojo.Cat;import java.util.List;
+import org.apache.ibatis.annotations.Param;import org.gouzhong1223.cymmtj.dto.rep.CatResponse;import org.gouzhong1223.cymmtj.dto.rep.ResultCat;import org.gouzhong1223.cymmtj.entity.Cat;import java.util.List;
 
 /**
  * @Author : Gouzhong

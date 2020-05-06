@@ -22,8 +22,8 @@ import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
-import org.gouzhong1223.cymmtj.pojo.Cat;
-import org.gouzhong1223.cymmtj.pojo.WechatUser;
+import org.gouzhong1223.cymmtj.entity.Cat;
+import org.gouzhong1223.cymmtj.entity.WechatUser;
 
 import java.util.List;
 

@@ -16,9 +16,8 @@
 
 package org.gouzhong1223.cymmtj.service;
 
-import org.gouzhong1223.cymmtj.pojo.Cat;
-import org.gouzhong1223.cymmtj.pojo.CatPic;
-import org.gouzhong1223.cymmtj.pojo.Pic;
+import org.gouzhong1223.cymmtj.entity.Cat;
+import org.gouzhong1223.cymmtj.entity.Pic;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

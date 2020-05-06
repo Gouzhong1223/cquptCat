@@ -21,11 +21,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.gouzhong1223.cymmtj.pojo.Cat;
-import org.gouzhong1223.cymmtj.pojo.Region;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @Author : Gouzhong

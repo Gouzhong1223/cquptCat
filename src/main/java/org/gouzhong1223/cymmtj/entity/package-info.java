@@ -21,8 +21,8 @@
  * @Date : create by QingSong in 2020-04-18 5:34 下午
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
- * @PackageName : org.gouzhong1223.cymmtj.pojo
+ * @PackageName : org.gouzhong1223.cymmtj.entity
  * @ProjectName : cymmtj
  * @Version : 1.0.0
  */
-package org.gouzhong1223.cymmtj.pojo;
+package org.gouzhong1223.cymmtj.entity;

@@ -16,14 +16,13 @@
 
 package org.gouzhong1223.cymmtj.controller.admin;
 
-import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.collections.CollectionUtils;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.req.CatRequest;
-import org.gouzhong1223.cymmtj.pojo.Cat;
-import org.gouzhong1223.cymmtj.pojo.Pic;
+import org.gouzhong1223.cymmtj.entity.Cat;
+import org.gouzhong1223.cymmtj.entity.Pic;
 import org.gouzhong1223.cymmtj.service.CatService;
 import org.gouzhong1223.cymmtj.service.PicService;
 import org.gouzhong1223.cymmtj.service.UserService;
@@ -35,8 +34,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 

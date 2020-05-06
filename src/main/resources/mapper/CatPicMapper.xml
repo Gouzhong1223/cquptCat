@@ -17,7 +17,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.CatPicMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.CatPic">
+  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.CatPic">
     <!--@mbg.generated-->
     <!--@Table tb_cat_pic-->
     <result column="pic_id" jdbcType="INTEGER" property="pic_id" />
@@ -27,12 +27,12 @@
     <!--@mbg.generated-->
     pic_id, cat_id
   </sql>
-  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.CatPic">
+  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.CatPic">
     <!--@mbg.generated-->
     insert into tb_cat_pic (pic_id, cat_id)
     values (#{pic_id,jdbcType=INTEGER}, #{cat_id,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.CatPic">
+  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.CatPic">
     <!--@mbg.generated-->
     insert into tb_cat_pic
     <trim prefix="(" suffix=")" suffixOverrides=",">

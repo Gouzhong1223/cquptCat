@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.CatRegionMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.CatRegion">
+  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.CatRegion">
     <!--@mbg.generated-->
     <!--@Table tb_cat_region-->
     <result column="catId" jdbcType="INTEGER" property="catId" />
@@ -11,12 +11,12 @@
     <!--@mbg.generated-->
     catId, reginId
   </sql>
-  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.CatRegion">
+  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.CatRegion">
     <!--@mbg.generated-->
     insert into tb_cat_region (catId, reginId)
     values (#{catId,jdbcType=INTEGER}, #{reginId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.CatRegion">
+  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.CatRegion">
     <!--@mbg.generated-->
     insert into tb_cat_region
     <trim prefix="(" suffix=")" suffixOverrides=",">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.User">
+  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.User">
     <!--@mbg.generated-->
     <!--@Table tb_user-->
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -26,14 +26,14 @@
     delete from tb_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.User">
+  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.User">
     <!--@mbg.generated-->
     insert into tb_user (id, username, `password`, 
       createTime, lastLoginTime)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.User">
+  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.User">
     <!--@mbg.generated-->
     insert into tb_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -71,7 +71,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.pojo.User">
+  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.entity.User">
     <!--@mbg.generated-->
     update tb_user
     <set>
@@ -90,7 +90,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.pojo.User">
+  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.entity.User">
     <!--@mbg.generated-->
     update tb_user
     set username = #{username,jdbcType=VARCHAR},

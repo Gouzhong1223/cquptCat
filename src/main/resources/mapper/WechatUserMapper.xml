@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.WechatUserMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.WechatUser">
+  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.WechatUser">
     <!--@mbg.generated-->
     <!--@Table tb_wechatUser-->
     <id column="open_id" jdbcType="VARCHAR" property="openId" />
@@ -33,7 +33,7 @@
     delete from tb_wechatUser
     where open_id = #{openId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.WechatUser">
+  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.WechatUser">
     <!--@mbg.generated-->
     insert into tb_wechatUser (open_id, skey, create_time, 
       last_visit_time, session_key, city, 
@@ -44,7 +44,7 @@
       #{province,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, 
       #{gender,jdbcType=TINYINT}, #{nickName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.WechatUser">
+  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.WechatUser">
     <!--@mbg.generated-->
     insert into tb_wechatUser
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -118,7 +118,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.pojo.WechatUser">
+  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.entity.WechatUser">
     <!--@mbg.generated-->
     update tb_wechatUser
     <set>
@@ -155,7 +155,7 @@
     </set>
     where open_id = #{openId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.pojo.WechatUser">
+  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.entity.WechatUser">
     <!--@mbg.generated-->
     update tb_wechatUser
     set skey = #{skey,jdbcType=VARCHAR},

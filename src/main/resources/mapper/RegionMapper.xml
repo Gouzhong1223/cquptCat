@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.RegionMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.Region">
+  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.Region">
     <!--@mbg.generated-->
     <!--@Table tb_region-->
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -25,14 +25,14 @@
     delete from tb_region
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.Region">
+  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.Region">
     <!--@mbg.generated-->
     insert into tb_region (id, regionName, createTime, 
       updateTime)
     values (#{id,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.Region">
+  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.Region">
     <!--@mbg.generated-->
     insert into tb_region
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -64,7 +64,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.pojo.Region">
+  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.entity.Region">
     <!--@mbg.generated-->
     update tb_region
     <set>
@@ -80,7 +80,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.pojo.Region">
+  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.entity.Region">
     <!--@mbg.generated-->
     update tb_region
     set regionName = #{regionName,jdbcType=VARCHAR},

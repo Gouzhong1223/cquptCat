@@ -19,8 +19,8 @@ package org.gouzhong1223.cymmtj.service;
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
-import org.gouzhong1223.cymmtj.pojo.Cat;
-import org.gouzhong1223.cymmtj.pojo.Region;
+import org.gouzhong1223.cymmtj.entity.Cat;
+import org.gouzhong1223.cymmtj.entity.Region;
 
 import java.util.ArrayList;
 import java.util.List;

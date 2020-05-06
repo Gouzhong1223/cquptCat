@@ -1,6 +1,6 @@
 package org.gouzhong1223.cymmtj.mapper;
 
-import org.apache.ibatis.annotations.Param;import org.gouzhong1223.cymmtj.pojo.Pic;import java.util.List;
+import org.apache.ibatis.annotations.Param;import org.gouzhong1223.cymmtj.entity.Pic;import java.util.List;
 
 /**
  * @Author : Gouzhong

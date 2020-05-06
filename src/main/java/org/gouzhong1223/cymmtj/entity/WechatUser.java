@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package org.gouzhong1223.cymmtj.pojo;
+package org.gouzhong1223.cymmtj.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -34,7 +34,7 @@ import lombok.NoArgsConstructor;
  * @Date : create by QingSong in 2020-05-05 18:19
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
- * @PackageName : org.gouzhong1223.cymmtj.pojo
+ * @PackageName : org.gouzhong1223.cymmtj.entity
  * @ProjectName : cymmtj
  * @Version : 1.0.0
  */
@@ -42,7 +42,7 @@ import lombok.NoArgsConstructor;
 /**
  * 微信用户信息
  */
-@ApiModel(value = "org-gouzhong1223-cymmtj-pojo-WechatUser")
+@ApiModel(value = "org-gouzhong1223-cymmtj-entity-WechatUser")
 @Data
 @Builder
 @AllArgsConstructor

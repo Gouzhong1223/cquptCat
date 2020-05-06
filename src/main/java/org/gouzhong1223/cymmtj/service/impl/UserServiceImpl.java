@@ -20,7 +20,7 @@ import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.mapper.UserMapper;
-import org.gouzhong1223.cymmtj.pojo.User;
+import org.gouzhong1223.cymmtj.entity.User;
 import org.gouzhong1223.cymmtj.service.UserService;
 import org.gouzhong1223.cymmtj.util.MD5Util;
 import org.springframework.stereotype.Service;

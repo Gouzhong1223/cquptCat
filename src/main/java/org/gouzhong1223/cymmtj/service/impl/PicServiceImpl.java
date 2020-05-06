@@ -18,8 +18,8 @@ package org.gouzhong1223.cymmtj.service.impl;
 
 import org.gouzhong1223.cymmtj.mapper.CatPicMapper;
 import org.gouzhong1223.cymmtj.mapper.PicMapper;
-import org.gouzhong1223.cymmtj.pojo.CatPic;
-import org.gouzhong1223.cymmtj.pojo.Pic;
+import org.gouzhong1223.cymmtj.entity.CatPic;
+import org.gouzhong1223.cymmtj.entity.Pic;
 import org.gouzhong1223.cymmtj.service.PicService;
 import org.gouzhong1223.cymmtj.util.OssUtil;
 import org.gouzhong1223.cymmtj.util.RandomNumber;

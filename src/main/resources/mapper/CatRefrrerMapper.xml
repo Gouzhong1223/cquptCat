@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.CatRefrrerMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.CatRefrrer">
+  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.CatRefrrer">
     <!--@mbg.generated-->
     <!--@Table tb_cat_refrrer-->
     <result column="catId" jdbcType="INTEGER" property="catId" />
@@ -12,14 +12,14 @@
     <!--@mbg.generated-->
     catId, referrerEmail, openId
   </sql>
-  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.CatRefrrer">
+  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.CatRefrrer">
     <!--@mbg.generated-->
     insert into tb_cat_refrrer (catId, referrerEmail, openId
       )
     values (#{catId,jdbcType=INTEGER}, #{referrerEmail,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.CatRefrrer">
+  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.CatRefrrer">
     <!--@mbg.generated-->
     insert into tb_cat_refrrer
     <trim prefix="(" suffix=")" suffixOverrides=",">

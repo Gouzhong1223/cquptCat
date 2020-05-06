@@ -1,4 +1,4 @@
-package org.gouzhong1223.cymmtj.pojo;
+package org.gouzhong1223.cymmtj.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
  * @Date : create by QingSong in 2020-05-06 15:02
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
- * @PackageName : org.gouzhong1223.cymmtj.pojo
+ * @PackageName : org.gouzhong1223.cymmtj.entity
  * @ProjectName : cymmtj
  * @Version : 1.0.0
  */
@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 /**
  * 推荐人和推荐猫咪的中间表
  */
-@ApiModel(value = "org-gouzhong1223-cymmtj-pojo-CatRefrrer")
+@ApiModel(value = "org-gouzhong1223-cymmtj-entity-CatRefrrer")
 @Data
 @Builder
 @AllArgsConstructor

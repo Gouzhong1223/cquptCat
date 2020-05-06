@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.PicMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.Pic">
+  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.Pic">
     <!--@mbg.generated-->
     <!--@Table tb_pic-->
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -25,14 +25,14 @@
     delete from tb_pic
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.Pic">
+  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.Pic">
     <!--@mbg.generated-->
     insert into tb_pic (id, fileLink, fileUri, 
       uploadTime)
     values (#{id,jdbcType=INTEGER}, #{fileLink,jdbcType=VARCHAR}, #{fileUri,jdbcType=VARCHAR}, 
       #{uploadTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.Pic">
+  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.Pic">
     <!--@mbg.generated-->
     insert into tb_pic
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -64,7 +64,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.pojo.Pic">
+  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.entity.Pic">
     <!--@mbg.generated-->
     update tb_pic
     <set>
@@ -80,7 +80,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.pojo.Pic">
+  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.entity.Pic">
     <!--@mbg.generated-->
     update tb_pic
     set fileLink = #{fileLink,jdbcType=VARCHAR},

@@ -1,7 +1,7 @@
 package org.gouzhong1223.cymmtj.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.gouzhong1223.cymmtj.pojo.User;
+import org.gouzhong1223.cymmtj.entity.User;
 
 /**
  * @Author : Gouzhong

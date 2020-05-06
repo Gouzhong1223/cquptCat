@@ -21,7 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.gouzhong1223.cymmtj.pojo.Pic;
+import org.gouzhong1223.cymmtj.entity.Pic;
 
 import java.util.List;
 

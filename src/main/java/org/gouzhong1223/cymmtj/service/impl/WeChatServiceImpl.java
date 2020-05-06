@@ -21,7 +21,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.mapper.WechatUserMapper;
-import org.gouzhong1223.cymmtj.pojo.WechatUser;
+import org.gouzhong1223.cymmtj.entity.WechatUser;
 import org.gouzhong1223.cymmtj.service.WeChatService;
 import org.gouzhong1223.cymmtj.util.WechatUtil;
 import org.springframework.stereotype.Service;

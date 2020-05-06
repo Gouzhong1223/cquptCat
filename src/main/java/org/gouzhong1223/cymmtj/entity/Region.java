@@ -1,4 +1,4 @@
-package org.gouzhong1223.cymmtj.pojo;
+package org.gouzhong1223.cymmtj.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,47 +16,47 @@ import lombok.NoArgsConstructor;
  * @Date : create by QingSong in 2020-05-06 15:02
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
- * @PackageName : org.gouzhong1223.cymmtj.pojo
+ * @PackageName : org.gouzhong1223.cymmtj.entity
  * @ProjectName : cymmtj
  * @Version : 1.0.0
  */
 
 /**
- * 图片信息
+ * 区域信息表
  */
-@ApiModel(value = "org-gouzhong1223-cymmtj-pojo-Pic")
+@ApiModel(value = "org-gouzhong1223-cymmtj-entity-Region")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pic implements Serializable {
+public class Region implements Serializable {
     /**
-     * 图片主键
+     * 区域 ID
      */
-    @ApiModelProperty(value = "图片主键")
+    @ApiModelProperty(value = "区域 ID")
     private Integer id;
 
     /**
-     * 图片链接
+     * 区域名称
      */
-    @ApiModelProperty(value = "图片链接")
-    private String fileLink;
+    @ApiModelProperty(value = "区域名称")
+    private String regionName;
 
     /**
-     * 图片 URI
+     * 区域创建时间
      */
-    @ApiModelProperty(value = "图片 URI")
-    private String fileUri;
+    @ApiModelProperty(value = "区域创建时间")
+    private LocalDateTime createTime;
 
     /**
-     * 图片上传时间
+     * 区域更新时间
      */
-    @ApiModelProperty(value = "图片上传时间")
-    private LocalDateTime uploadTime;
+    @ApiModelProperty(value = "区域更新时间")
+    private LocalDateTime updateTime;
 
     private static final long serialVersionUID = 1L;
 
-    public static PicBuilder builder() {
-        return new PicBuilder();
+    public static RegionBuilder builder() {
+        return new RegionBuilder();
     }
 }

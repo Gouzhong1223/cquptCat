@@ -17,7 +17,7 @@
 package org.gouzhong1223.cymmtj.service;
 
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
-import org.gouzhong1223.cymmtj.pojo.WechatUser;
+import org.gouzhong1223.cymmtj.entity.WechatUser;
 
 /**
  * @Author : Gouzhong

@@ -21,7 +21,7 @@ import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
-import org.gouzhong1223.cymmtj.pojo.Region;
+import org.gouzhong1223.cymmtj.entity.Region;
 import org.gouzhong1223.cymmtj.service.RegionService;
 import org.springframework.web.bind.annotation.*;
 

@@ -16,6 +16,7 @@
 
 package org.gouzhong1223.cymmtj.util;
 
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -63,4 +64,5 @@ public class MD5Util {
             return null;
         }
     }
+
 }

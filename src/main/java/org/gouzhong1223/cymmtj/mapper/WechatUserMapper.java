@@ -1,6 +1,6 @@
 package org.gouzhong1223.cymmtj.mapper;
 
-import org.apache.ibatis.annotations.Param;import org.gouzhong1223.cymmtj.pojo.WechatUser;
+import org.apache.ibatis.annotations.Param;import org.gouzhong1223.cymmtj.entity.WechatUser;
 
 /**
  * @Author : Gouzhong

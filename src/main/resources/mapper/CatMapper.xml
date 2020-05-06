@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.CatMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.Cat">
+  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.Cat">
     <!--@mbg.generated-->
     <!--@Table tb_cat-->
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -34,7 +34,7 @@
     delete from tb_cat
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.Cat">
+  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.Cat">
     <!--@mbg.generated-->
     insert into tb_cat (id, `name`, color, 
       sex, foreignTrade, `character`, 
@@ -47,7 +47,7 @@
       #{referrer,jdbcType=VARCHAR}, #{audit,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.Cat">
+  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.Cat">
     <!--@mbg.generated-->
     insert into tb_cat
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -127,7 +127,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.pojo.Cat">
+  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.entity.Cat">
     <!--@mbg.generated-->
     update tb_cat
     <set>
@@ -167,7 +167,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.pojo.Cat">
+  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.entity.Cat">
     <!--@mbg.generated-->
     update tb_cat
     set `name` = #{name,jdbcType=VARCHAR},
