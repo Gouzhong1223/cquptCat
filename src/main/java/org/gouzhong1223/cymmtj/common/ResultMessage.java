@@ -38,7 +38,10 @@ public enum ResultMessage {
     ISEXIST("存在同名标签或者分类"),
     LOGINFAIL("登录失败"),
     UNLOGIN("未登录"),
-    SERVER("服务器打瞌睡啦！")
+    SERVER("服务器打瞌睡啦！"),
+    EMAILCANNOTBEEMPTY("邮箱不能为空"),
+    EMAILFORMATISINCORRECT("邮箱格式不正确"),
+    UPLOADIMAGEFAILED("上传图片失败！")
     ;
 
     private String messaage;

@@ -1,4 +1,5 @@
 package org.gouzhong1223.cymmtj.mapper;
+import org.apache.ibatis.annotations.Param;
 
 import org.gouzhong1223.cymmtj.entity.CatRefrrer;
 
@@ -17,4 +18,7 @@ public interface CatRefrrerMapper {
     int insert(CatRefrrer record);
 
     int insertSelective(CatRefrrer record);
+
+    CatRefrrer selectOneByCatId(@Param("catId")Integer catId);
+
 }

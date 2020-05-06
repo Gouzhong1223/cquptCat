@@ -35,6 +35,7 @@ import org.gouzhong1223.cymmtj.service.MailService;
 import org.gouzhong1223.cymmtj.service.PicService;
 import org.gouzhong1223.cymmtj.util.CheakEmail;
 import org.gouzhong1223.cymmtj.util.RandomNumber;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -64,16 +65,27 @@ public class CatServiceImpl implements CatService {
     private final WechatUserMapper wechatUserMapper;
     private final MailService mailService;
     private final CatRefrrerMapper catRefrrerMapper;
+    private final MailLogMapper mailLogMapper;
+
+    @Value("${spring.mail.from}")
+    private String from;
+
+    private static Integer DEFAULTVIEWED = 0;
+    private static Integer DEFAULTAUDITED = 0;
+
+    private static final String MAILSUBJECT = "重游猫咪图鉴";
 
     public CatServiceImpl(CatMapper catMapper, PraiseWechatUserMapper praiseWechatUserMapper,
                           PicService picService, WechatUserMapper wechatUserMapper,
-                          MailService mailService, CatRefrrerMapper catRefrrerMapper) {
+                          MailService mailService, CatRefrrerMapper catRefrrerMapper,
+                          MailLogMapper mailLogMapper) {
         this.catMapper = catMapper;
         this.praiseWechatUserMapper = praiseWechatUserMapper;
         this.picService = picService;
         this.wechatUserMapper = wechatUserMapper;
         this.mailService = mailService;
         this.catRefrrerMapper = catRefrrerMapper;
+        this.mailLogMapper = mailLogMapper;
     }
 
     @Override
@@ -130,11 +142,11 @@ public class CatServiceImpl implements CatService {
         // 获取邮箱地址
         String email = jsonObject.getString("email");
         if (email == null || "".equals(email)) {
-            return new ResponseDto(ResultCode.FAIL.getCode(), "邮箱不能为空！");
+            return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.EMAILCANNOTBEEMPTY.getMessaage());
         }
 
         if (!CheakEmail.isEmail(email)) {
-            return new ResponseDto(ResultCode.FAIL.getCode(), "邮箱格式不正确！");
+            return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.EMAILFORMATISINCORRECT.getMessaage());
         }
         // 为猫咪生成 ID
         Integer catId = RandomNumber.createNumber();
@@ -142,8 +154,14 @@ public class CatServiceImpl implements CatService {
         // 根据 openID 查询出微信用户
         WechatUser wechatUser = wechatUserMapper.selectOneByOpenId(openId);
 
-        mailService.sendSimpleMail(email, "重游猫咪图鉴", "尊敬的" + wechatUser.getNickName() +
-                ",您的推荐申请我们已经收到，请耐心等待管理员审核，审核结果我们将会以邮件形式发送给您");
+        String mailContent = "尊敬的" + wechatUser.getNickName() +
+                ":\n您的推荐申请我们已经收到，请耐心等待管理员审核，审核结果我们将会以邮件形式发送给您";
+
+        mailService.sendSimpleMail(email, MAILSUBJECT, mailContent);
+
+        // 将邮件内容插入数据库
+        MailLog mailLog = new MailLog(null, from, email, LocalDateTime.now(), MAILSUBJECT, mailContent);
+        mailLogMapper.insertSelective(mailLog);
 
         CatRefrrer catRefrrer = new CatRefrrer(catId, email, openId);
         try {
@@ -173,19 +191,52 @@ public class CatServiceImpl implements CatService {
 
         if (CollectionUtils.isNotEmpty(pics)) {
             // 开始生成 Cat 对象
-            Cat cat = new Cat(catId, name, color, sex, foreignTrade, character, LocalDateTime.now(), type, 0, wechatUser.getNickName(), 0, LocalDateTime.now());
+            Cat cat = new Cat(catId, name, color, sex, foreignTrade, character,
+                    LocalDateTime.now(), type, DEFAULTVIEWED,
+                    wechatUser.getNickName(), DEFAULTAUDITED, LocalDateTime.now());
             cat.setId(catId);
             // 插入 Cat
             this.insertOrUpdateCat(cat);
             return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage());
         } else {
-            return new ResponseDto(ResultCode.FAIL.getCode(), "上传图片失败！");
+            return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.UPLOADIMAGEFAILED.getMessaage());
         }
     }
 
     @Override
-    public ResponseDto auditCat(Integer id, Integer auditStatus) {
-        return null;
+    public ResponseDto auditCat(Integer id, Integer auditStatus, String reasonForFailure) throws CymmtjException {
+
+        Integer audited = 1;
+        Integer visible;
+        String mailContent = "";
+
+        CatRefrrer catRefrrer = catRefrrerMapper.selectOneByCatId(id);
+        Cat cat = catMapper.selectByPrimaryKey(id);
+
+        // 先判断是否通过审核
+        if (auditStatus == 1) {
+            // 通过审核
+            visible = 1;
+            mailContent = "尊敬的" + cat.getReferrer() + ":\n您于" + cat.getCreateTime() +
+                    "向我们推荐的猫咪已经通过管理员审核了，感谢您对社区做出的贡献！";
+        } else {
+            // 未通过审核
+            visible = 0;
+            mailContent = "尊敬的" + cat.getReferrer() + ":\n您于" + cat.getCreateTime() +
+                    "向我们推荐的猫咪未通过管理员审核，未通过原因是：" + reasonForFailure + ",感谢您对社区做出的贡献！";
+
+        }
+        try {
+            catMapper.updateVisibleById(visible, id);
+            catMapper.updateAuditById(audited, id);
+
+            mailService.sendSimpleMail(catRefrrer.getReferrerEmail(), MAILSUBJECT, mailContent);
+            MailLog mailLog = new MailLog(null, from, catRefrrer.getReferrerEmail(), LocalDateTime.now(), MAILSUBJECT, mailContent);
+            mailLogMapper.insertSelective(mailLog);
+        } catch (Exception e) {
+            throw new CymmtjException(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage());
+        }
+        return ResponseDto.SUCCESS(null);
     }
 
 }

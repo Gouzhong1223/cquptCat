@@ -108,5 +108,5 @@ public interface CatService {
      * @param auditStatus 前端发过来的审核状态 1->通过 0->不通过
      * @return
      */
-    ResponseDto auditCat(Integer id, Integer auditStatus);
+    ResponseDto auditCat(Integer id, Integer auditStatus, String reasonForFailure) throws CymmtjException;
 }

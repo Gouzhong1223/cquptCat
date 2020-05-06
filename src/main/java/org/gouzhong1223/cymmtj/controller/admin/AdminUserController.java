@@ -17,6 +17,7 @@
 package org.gouzhong1223.cymmtj.controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
+import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.service.CatService;
 import org.gouzhong1223.cymmtj.service.UserService;
@@ -66,11 +67,11 @@ public class AdminUserController {
     }
 
     @PostMapping("auditCat")
-    public ResponseDto additCat(@RequestBody JSONObject jsonObject) {
-
+    public ResponseDto additCat(@RequestBody JSONObject jsonObject) throws CymmtjException {
         Integer id = jsonObject.getInteger("id");
         Integer auditStatus = jsonObject.getInteger("auditStatus");
-        return catService.auditCat(id, auditStatus);
-
+        // 未通过原因，所以这个参数可能为空也可能不为空
+        String reasonForFailure = jsonObject.getString("reasonForFailure");
+        return catService.auditCat(id, auditStatus, reasonForFailure);
     }
 }

@@ -47,7 +47,6 @@ public class LogAspect {
     public void log() {
     }
 
-    // 30403a1a0d1e07e91a95c2c3451931f5
     @Before("log()")
     public void doBefore(JoinPoint joinPoint) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
