@@ -18,6 +18,7 @@ package org.gouzhong1223.cymmtj.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.collections.CollectionUtils;
+import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
@@ -123,7 +124,7 @@ public class CatController {
 
     @PostMapping("contribute")
     public ResponseDto contribute(@RequestBody JSONObject jsonObject,
-                                  HttpServletRequest request) {
+                                  HttpServletRequest request) throws CymmtjException {
         HttpSession session = request.getSession();
         String openId = (String) session.getAttribute("openId");
 

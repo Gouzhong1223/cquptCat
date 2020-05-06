@@ -16,8 +16,13 @@
 
 package org.gouzhong1223.cymmtj.controller.admin;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.alibaba.fastjson.JSONObject;
+import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
+import org.gouzhong1223.cymmtj.service.UserService;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @Author : Gouzhong
@@ -33,5 +38,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/admin/user")
 public class AdminUserController {
+
+    private final UserService userService;
+
+    public AdminUserController(UserService userService) {
+        this.userService = userService;
+    }
+
+
+    @PostMapping("login")
+    public ResponseDto login(@RequestBody JSONObject jsonObject,
+                             HttpServletRequest request) {
+        String username = jsonObject.getString("username");
+        String password = jsonObject.getString("password");
+
+        return userService.login(username, password, request);
+    }
+
+    @GetMapping("loginOut")
+    public ResponseDto loginOut(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.removeAttribute("adminUser");
+        return ResponseDto.SUCCESS(null);
+    }
 
 }

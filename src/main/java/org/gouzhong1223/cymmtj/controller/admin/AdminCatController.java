@@ -83,22 +83,5 @@ public class AdminCatController {
         }
         return ResponseDto.builder().code(ResultCode.FAIL.getCode()).message(ResultMessage.FAIL.getMessaage()).build();
     }
-
-    @PostMapping("login")
-    public ResponseDto login(@RequestBody JSONObject jsonObject,
-                             HttpServletRequest request) {
-        String username = jsonObject.getString("username");
-        String password = jsonObject.getString("password");
-
-        return userService.login(username, password, request);
-    }
-
-    @GetMapping("loginOut")
-    public ResponseDto loginOut(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.removeAttribute("adminUser");
-        return ResponseDto.SUCCESS(null);
-    }
-
 }
 

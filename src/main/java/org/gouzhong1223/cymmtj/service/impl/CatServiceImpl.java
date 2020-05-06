@@ -139,14 +139,13 @@ public class CatServiceImpl implements CatService {
         // 为猫咪生成 ID
         Integer catId = RandomNumber.createNumber();
 
-        CatRefrrer catRefrrer = new CatRefrrer(catId, email);
-
         // 根据 openID 查询出微信用户
         WechatUser wechatUser = wechatUserMapper.selectOneByOpenId(openId);
 
         mailService.sendSimpleMail(email, "重游猫咪图鉴", "尊敬的" + wechatUser.getNickName() +
                 ",您的推荐申请我们已经收到，请耐心等待管理员审核，审核结果我们将会以邮件形式发送给您");
 
+        CatRefrrer catRefrrer = new CatRefrrer(catId, email);
         try {
             catRefrrerMapper.insertSelective(catRefrrer);
         } catch (Exception e) {
