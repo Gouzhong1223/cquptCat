@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;import org.gouzhong1223.cymmtj.dto.re
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
  * @Description :
- * @Date : create by QingSong in 2020-05-05 19:56
+ * @Date : create by QingSong in 2020-05-06 15:01
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
  * @PackageName : org.gouzhong1223.cymmtj.mapper
@@ -78,4 +78,22 @@ public interface CatMapper {
      * @return
      */
     int cancelPraise();
+
+    /**
+     * 根据猫咪主键更新审核状态
+     *
+     * @param updatedAudit 审核状态 1-已审核 0-未审核
+     * @param id           猫咪 ID
+     * @return
+     */
+    int updateAuditById(@Param("updatedAudit") Integer updatedAudit, @Param("id") Integer id);
+
+    /**
+     * 根据猫咪主键更新是否可见
+     *
+     * @param updatedVisible 可见状态 1-可见 0-不可见
+     * @param id             猫咪主键
+     * @return
+     */
+    int updateVisibleById(@Param("updatedVisible") Integer updatedVisible, @Param("id") Integer id);
 }

@@ -1,31 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~              Copyright 2020 By Gouzhong1223
-  ~
-  ~    Licensed under the Apache License, Version 2.0 (the "License");
-  ~    you may not use this file except in compliance with the License.
-  ~    You may obtain a copy of the License at
-  ~
-  ~        http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~    Unless required by applicable law or agreed to in writing, software
-  ~    distributed under the License is distributed on an "AS IS" BASIS,
-  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~    See the License for the specific language governing permissions and
-  ~    limitations under the License.
-  -->
-
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.PicMapper">
   <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.pojo.Pic">
     <!--@mbg.generated-->
     <!--@Table tb_pic-->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="link" jdbcType="VARCHAR" property="link" />
+    <result column="fileLink" jdbcType="VARCHAR" property="fileLink" />
+    <result column="fileUri" jdbcType="VARCHAR" property="fileUri" />
+    <result column="uploadTime" jdbcType="TIMESTAMP" property="uploadTime" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, link
+    id, fileLink, fileUri, uploadTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -41,8 +27,10 @@
   </delete>
   <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.Pic">
     <!--@mbg.generated-->
-    insert into tb_pic (id, link)
-    values (#{id,jdbcType=INTEGER}, #{link,jdbcType=VARCHAR})
+    insert into tb_pic (id, fileLink, fileUri, 
+      uploadTime)
+    values (#{id,jdbcType=INTEGER}, #{fileLink,jdbcType=VARCHAR}, #{fileUri,jdbcType=VARCHAR}, 
+      #{uploadTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.Pic">
     <!--@mbg.generated-->
@@ -51,16 +39,28 @@
       <if test="id != null">
         id,
       </if>
-      <if test="link != null and link != ''">
-        link,
+      <if test="fileLink != null and fileLink != ''">
+        fileLink,
+      </if>
+      <if test="fileUri != null and fileUri != ''">
+        fileUri,
+      </if>
+      <if test="uploadTime != null">
+        uploadTime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="link != null and link != ''">
-        #{link,jdbcType=VARCHAR},
+      <if test="fileLink != null and fileLink != ''">
+        #{fileLink,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUri != null and fileUri != ''">
+        #{fileUri,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null">
+        #{uploadTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -68,8 +68,14 @@
     <!--@mbg.generated-->
     update tb_pic
     <set>
-      <if test="link != null and link != ''">
-        link = #{link,jdbcType=VARCHAR},
+      <if test="fileLink != null and fileLink != ''">
+        fileLink = #{fileLink,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUri != null and fileUri != ''">
+        fileUri = #{fileUri,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null">
+        uploadTime = #{uploadTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -77,7 +83,9 @@
   <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.pojo.Pic">
     <!--@mbg.generated-->
     update tb_pic
-    set link = #{link,jdbcType=VARCHAR}
+    set fileLink = #{fileLink,jdbcType=VARCHAR},
+      fileUri = #{fileUri,jdbcType=VARCHAR},
+      uploadTime = #{uploadTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -87,7 +95,7 @@
         id,
         link
         )VALUES
-        <foreach collection="list" item="element" index="index" separator=",">
+        <foreach collection="list" index="index" item="element" separator=",">
             (
             #{element.id,jdbcType=INTEGER},
             #{element.link,jdbcType=VARCHAR}

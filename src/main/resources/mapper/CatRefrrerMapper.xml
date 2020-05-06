@@ -6,15 +6,18 @@
     <!--@Table tb_cat_refrrer-->
     <result column="catId" jdbcType="INTEGER" property="catId" />
     <result column="referrerEmail" jdbcType="VARCHAR" property="referrerEmail" />
+    <result column="openId" jdbcType="VARCHAR" property="openId" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    catId, referrerEmail
+    catId, referrerEmail, openId
   </sql>
   <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.CatRefrrer">
     <!--@mbg.generated-->
-    insert into tb_cat_refrrer (catId, referrerEmail)
-    values (#{catId,jdbcType=INTEGER}, #{referrerEmail,jdbcType=VARCHAR})
+    insert into tb_cat_refrrer (catId, referrerEmail, openId
+      )
+    values (#{catId,jdbcType=INTEGER}, #{referrerEmail,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.CatRefrrer">
     <!--@mbg.generated-->
@@ -26,6 +29,9 @@
       <if test="referrerEmail != null and referrerEmail != ''">
         referrerEmail,
       </if>
+      <if test="openId != null and openId != ''">
+        openId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="catId != null">
@@ -33,6 +39,9 @@
       </if>
       <if test="referrerEmail != null and referrerEmail != ''">
         #{referrerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null and openId != ''">
+        #{openId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>

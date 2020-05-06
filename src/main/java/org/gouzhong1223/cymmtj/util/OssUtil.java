@@ -78,8 +78,6 @@ public class OssUtil {
                 createBucketRequest.setCannedACL(CannedAccessControlList.PublicRead);
                 ossClient.createBucket(createBucketRequest);
             }
-            //创建文件路径
-//            String fileUrl = fileHost + "/" + (dateStr + "/" + UUID.randomUUID().toString().replace("-", "") + "-" + file.getOriginalFilename() + "." + file.getContentType());
             String filename = file.getOriginalFilename();
             String filePath = getFilePath(filename);
             //上传文件
@@ -106,6 +104,11 @@ public class OssUtil {
         return null;
     }
 
+    /**
+     * 根据 URI 删除文件
+     *
+     * @param key  URI
+     */
     public void deleteFile(String key) {
         logger.info("=========>OSS文件删除开始：" + key);
         String endpoint = ossConfig.getALIYUN_OSS_ENDPOINT();
@@ -117,9 +120,10 @@ public class OssUtil {
     }
 
     /**
-     * @author lastwhisper
-     * @desc 生成路径以及文件名 例如：//images/2019/04/28/15564277465972939.jpg
-     * @email gaojun56@163.com
+     * 根据文件名生成文件 URI
+     *
+     * @param sourceFileName
+     * @return
      */
     private String getFilePath(String sourceFileName) {
         DateTime dateTime = new DateTime();
@@ -131,10 +135,11 @@ public class OssUtil {
     }
 
     /**
-     * @author lastwhisper
-     * @desc 下载文件
-     * 文档链接 https://help.aliyun.com/document_detail/84823.html?spm=a2c4g.11186623.2.7.37836e84ZIuZaC#concept-84823-zh
-     * @email gaojun56@163.com
+     * 下载文件
+     *
+     * @param os
+     * @param objectName
+     * @throws IOException
      */
     public void exportOssFile(OutputStream os, String objectName) throws IOException {
         String endpoint = ossConfig.getALIYUN_OSS_ENDPOINT();

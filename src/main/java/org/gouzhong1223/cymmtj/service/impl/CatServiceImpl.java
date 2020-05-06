@@ -110,7 +110,7 @@ public class CatServiceImpl implements CatService {
     @Override
     public void thumbUp(Integer id, WechatUser wechatUser) {
         catMapper.thumbUp();
-        PraiseWechatUser praiseWechatUser = new PraiseWechatUser(wechatUser.getOpenId(), id);
+        PraiseWechatUser praiseWechatUser = new PraiseWechatUser(wechatUser.getOpenId(), id, LocalDateTime.now());
         praiseWechatUserMapper.insertSelective(praiseWechatUser);
     }
 
@@ -145,7 +145,7 @@ public class CatServiceImpl implements CatService {
         mailService.sendSimpleMail(email, "重游猫咪图鉴", "尊敬的" + wechatUser.getNickName() +
                 ",您的推荐申请我们已经收到，请耐心等待管理员审核，审核结果我们将会以邮件形式发送给您");
 
-        CatRefrrer catRefrrer = new CatRefrrer(catId, email);
+        CatRefrrer catRefrrer = new CatRefrrer(catId, email, openId);
         try {
             catRefrrerMapper.insertSelective(catRefrrer);
         } catch (Exception e) {
@@ -173,7 +173,7 @@ public class CatServiceImpl implements CatService {
 
         if (CollectionUtils.isNotEmpty(pics)) {
             // 开始生成 Cat 对象
-            Cat cat = new Cat(catId, name, color, sex, foreignTrade, character, LocalDateTime.now(), type, 0, wechatUser.getNickName(), 0);
+            Cat cat = new Cat(catId, name, color, sex, foreignTrade, character, LocalDateTime.now(), type, 0, wechatUser.getNickName(), 0, LocalDateTime.now());
             cat.setId(catId);
             // 插入 Cat
             this.insertOrUpdateCat(cat);
@@ -181,6 +181,11 @@ public class CatServiceImpl implements CatService {
         } else {
             return new ResponseDto(ResultCode.FAIL.getCode(), "上传图片失败！");
         }
+    }
+
+    @Override
+    public ResponseDto auditCat(Integer id, Integer auditStatus) {
+        return null;
     }
 
 }

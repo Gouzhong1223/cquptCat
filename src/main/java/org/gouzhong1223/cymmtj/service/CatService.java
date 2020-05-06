@@ -100,4 +100,13 @@ public interface CatService {
      * @return
      */
     ResponseDto contributeCat(JSONObject jsonObject, String openId) throws CymmtjException;
+
+    /**
+     * 审核 Cat
+     *
+     * @param id          猫咪主键
+     * @param auditStatus 前端发过来的审核状态 1->通过 0->不通过
+     * @return
+     */
+    ResponseDto auditCat(Integer id, Integer auditStatus);
 }

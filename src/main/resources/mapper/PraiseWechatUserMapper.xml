@@ -6,15 +6,18 @@
     <!--@Table tb_praiseWechatUser-->
     <result column="openId" jdbcType="VARCHAR" property="openId" />
     <result column="catId" jdbcType="INTEGER" property="catId" />
+    <result column="praiseTime" jdbcType="TIMESTAMP" property="praiseTime" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    openId, catId
+    openId, catId, praiseTime
   </sql>
   <insert id="insert" parameterType="org.gouzhong1223.cymmtj.pojo.PraiseWechatUser">
     <!--@mbg.generated-->
-    insert into tb_praiseWechatUser (openId, catId)
-    values (#{openId,jdbcType=VARCHAR}, #{catId,jdbcType=INTEGER})
+    insert into tb_praiseWechatUser (openId, catId, praiseTime
+      )
+    values (#{openId,jdbcType=VARCHAR}, #{catId,jdbcType=INTEGER}, #{praiseTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.pojo.PraiseWechatUser">
     <!--@mbg.generated-->
@@ -26,6 +29,9 @@
       <if test="catId != null">
         catId,
       </if>
+      <if test="praiseTime != null">
+        praiseTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="openId != null and openId != ''">
@@ -33,6 +39,9 @@
       </if>
       <if test="catId != null">
         #{catId,jdbcType=INTEGER},
+      </if>
+      <if test="praiseTime != null">
+        #{praiseTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>

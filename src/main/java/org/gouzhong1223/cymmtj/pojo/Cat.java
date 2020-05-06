@@ -12,13 +12,17 @@ import lombok.NoArgsConstructor;
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description :
- * @Date : create by QingSong in 2020-05-05 19:56
+ * @Description : 
+ * @Date : create by QingSong in 2020-05-06 15:01
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
  * @PackageName : org.gouzhong1223.cymmtj.pojo
  * @ProjectName : cymmtj
  * @Version : 1.0.0
+ */
+
+/**
+ * 猫咪信息
  */
 @ApiModel(value = "org-gouzhong1223-cymmtj-pojo-Cat")
 @Data
@@ -91,6 +95,12 @@ public class Cat implements Serializable {
      */
     @ApiModelProperty(value = "是否已经审核 1-是 0-否")
     private Integer audit;
+
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty(value = "创建时间")
+    private LocalDateTime createTime;
 
     private static final long serialVersionUID = 1L;
 

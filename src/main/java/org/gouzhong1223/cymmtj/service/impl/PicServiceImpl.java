@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,12 +67,12 @@ public class PicServiceImpl implements PicService {
     public List<Pic> insertPics(List<MultipartFile> files, Integer catId) {
 
         // 线程池执行结果
-        ArrayList<Future<String>> futures = new ArrayList<>();
+        ArrayList<Future<HashMap<String, String>>> futures = new ArrayList<>();
 
         ExecutorService executorService = Executors.newCachedThreadPool();
         files.forEach(file -> {
             // 执行上传图片的任务并得到返回结果
-            Future<String> submit = executorService.submit(() -> {
+            Future<HashMap<String, String>> submit = executorService.submit(() -> {
                 LOGGER.info("开始上传图片");
                 HashMap<String, String> resultMap = null;
                 try {
@@ -81,7 +82,7 @@ public class PicServiceImpl implements PicService {
                     e.printStackTrace();
                     return null;
                 }
-                return resultMap.get("link");
+                return resultMap;
             });
             futures.add(submit);
         });
@@ -89,7 +90,7 @@ public class PicServiceImpl implements PicService {
         ArrayList<Pic> pics = new ArrayList<>();
         futures.forEach(e -> {
             try {
-                pics.add(new Pic(RandomNumber.createNumber(), e.get()));
+                pics.add(new Pic(RandomNumber.createNumber(), e.get().get("link"), e.get().get("url"), LocalDateTime.now()));
             } catch (InterruptedException interruptedException) {
                 interruptedException.printStackTrace();
             } catch (ExecutionException executionException) {

@@ -18,6 +18,7 @@ package org.gouzhong1223.cymmtj.controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
+import org.gouzhong1223.cymmtj.service.CatService;
 import org.gouzhong1223.cymmtj.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,9 +41,11 @@ import javax.servlet.http.HttpSession;
 public class AdminUserController {
 
     private final UserService userService;
+    private final CatService catService;
 
-    public AdminUserController(UserService userService) {
+    public AdminUserController(UserService userService, CatService catService) {
         this.userService = userService;
+        this.catService = catService;
     }
 
 
@@ -62,4 +65,12 @@ public class AdminUserController {
         return ResponseDto.SUCCESS(null);
     }
 
+    @PostMapping("auditCat")
+    public ResponseDto additCat(@RequestBody JSONObject jsonObject) {
+
+        Integer id = jsonObject.getInteger("id");
+        Integer auditStatus = jsonObject.getInteger("auditStatus");
+        return catService.auditCat(id, auditStatus);
+
+    }
 }
