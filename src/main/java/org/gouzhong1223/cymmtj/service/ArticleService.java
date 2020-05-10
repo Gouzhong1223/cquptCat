@@ -43,4 +43,13 @@ public interface ArticleService {
      * @return
      */
     ResponseDto insertArticle(List<MultipartFile> fileList, String articleContext, String token) throws CymmtjException;
+
+    /**
+     * 给帖子点赞
+     *
+     * @param token     微信用户 token
+     * @param articleId 文章 ID
+     * @return
+     */
+    ResponseDto awesomeArticle(String token, Integer articleId) throws CymmtjException;
 }

@@ -65,7 +65,7 @@ public class RegionController {
         if (CollectionUtils.isNotEmpty(regions)) {
             return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), regions);
         }
-        return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage(), regions);
+        return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage());
     }
 
 }

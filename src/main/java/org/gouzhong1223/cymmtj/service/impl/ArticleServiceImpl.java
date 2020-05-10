@@ -20,10 +20,8 @@ import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
-import org.gouzhong1223.cymmtj.entity.Article;
-import org.gouzhong1223.cymmtj.entity.ArticlePic;
-import org.gouzhong1223.cymmtj.entity.Pic;
-import org.gouzhong1223.cymmtj.entity.WechatUser;
+import org.gouzhong1223.cymmtj.entity.*;
+import org.gouzhong1223.cymmtj.mapper.ArticleAwesomeMapper;
 import org.gouzhong1223.cymmtj.mapper.ArticleMapper;
 import org.gouzhong1223.cymmtj.mapper.ArticlePicMapper;
 import org.gouzhong1223.cymmtj.mapper.WechatUserMapper;
@@ -55,13 +53,16 @@ public class ArticleServiceImpl implements ArticleService {
     private final WechatUserMapper wechatUserMapper;
     private final PicService picService;
     private final ArticlePicMapper articlePicMapper;
+    private final ArticleAwesomeMapper articleAwesomeMapper;
 
     public ArticleServiceImpl(ArticleMapper articleMapper, WechatUserMapper wechatUserMapper,
-                              PicService picService, ArticlePicMapper articlePicMapper) {
+                              PicService picService, ArticlePicMapper articlePicMapper,
+                              ArticleAwesomeMapper articleAwesomeMapper) {
         this.articleMapper = articleMapper;
         this.wechatUserMapper = wechatUserMapper;
         this.picService = picService;
         this.articlePicMapper = articlePicMapper;
+        this.articleAwesomeMapper = articleAwesomeMapper;
     }
 
     @Override
@@ -85,5 +86,19 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.SUCCESS.getMessaage());
+    }
+
+    @Override
+    public ResponseDto awesomeArticle(String token, Integer articleId) throws CymmtjException {
+        WechatUser wechatUser = wechatUserMapper.selectOneByToken(token);
+        try {
+            articleMapper.awesomeArticle(articleId);
+            articleAwesomeMapper.insertSelective(new ArticleAwesome(articleId, token, wechatUser.getNickName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "点赞的时候发生错误啦！");
+        }
+
+        return ResponseDto.SUCCESS();
     }
 }
