@@ -16,8 +16,14 @@
 
 package org.gouzhong1223.cymmtj.interceptor;
 
+import org.gouzhong1223.cymmtj.common.CymmtjException;
+import org.gouzhong1223.cymmtj.common.ResultCode;
+import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Author : Gouzhong
@@ -32,11 +38,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
  */
 @Component
 public class WeChatLoginInterceptor implements HandlerInterceptor {
-//    @Override
-//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//        String token = request.getHeader("token");
-//        String username = request.getHeader("username");
-//        // TODO
-//        throw new CymmtjException(ResultCode.UNLOGIN.getCode(), "未登录！");
-//    }
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        String token = request.getHeader("token");
+        if (token == null) {
+            throw new CymmtjException(ResultCode.UNLOGIN.getCode(), ResultMessage.UNLOGIN.getMessaage());
+        }
+        return true;
+    }
 }
