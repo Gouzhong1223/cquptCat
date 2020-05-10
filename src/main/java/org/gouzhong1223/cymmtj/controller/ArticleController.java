@@ -75,4 +75,12 @@ public class ArticleController {
         return articleService.awesomeArticle(token, articleId);
     }
 
+    @PostMapping("unAwesomeArticle")
+    public ResponseDto unAwesomeArticle(@RequestBody JSONObject jsonObject,
+                                        HttpServletRequest request) throws CymmtjException {
+        String token = request.getHeader("token");
+        Integer articleId = jsonObject.getInteger("articleId");
+        return articleService.unAwesomeArticle(token, articleId);
+    }
+
 }

@@ -101,4 +101,20 @@ public class ArticleServiceImpl implements ArticleService {
 
         return ResponseDto.SUCCESS();
     }
+
+    @Override
+    public ResponseDto unAwesomeArticle(String token, Integer articleId) throws CymmtjException {
+
+        try {
+            articleMapper.unAwesomeArticle(articleId);
+            articleAwesomeMapper.deleteByArticleIdAndToken(articleId, token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "取消点赞的时候发生错误啦！");
+        }
+
+        return ResponseDto.SUCCESS();
+    }
+
+
 }

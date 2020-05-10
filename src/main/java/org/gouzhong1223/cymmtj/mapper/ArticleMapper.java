@@ -29,4 +29,6 @@ public interface ArticleMapper {
 
     int awesomeArticle(@Param("id") Integer id);
 
+    int unAwesomeArticle(@Param("id") Integer id);
+
 }
