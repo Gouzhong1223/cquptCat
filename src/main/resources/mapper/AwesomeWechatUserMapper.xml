@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.AwesomeWechatUserMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.AwesomeWechatUser">
-    <!--@mbg.generated-->
-    <!--@Table tb_awesome_wechatUser-->
-    <result column="openId" jdbcType="VARCHAR" property="openId" />
-    <result column="catId" jdbcType="INTEGER" property="catId" />
-    <result column="praiseTime" jdbcType="TIMESTAMP" property="praiseTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    openId, catId, praiseTime
-  </sql>
-  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.AwesomeWechatUser">
-    <!--@mbg.generated-->
-    insert into tb_awesome_wechatUser (openId, catId, praiseTime
-      )
-    values (#{openId,jdbcType=VARCHAR}, #{catId,jdbcType=INTEGER}, #{praiseTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.AwesomeWechatUser">
-    <!--@mbg.generated-->
-    insert into tb_awesome_wechatUser
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="openId != null and openId != ''">
-        openId,
-      </if>
-      <if test="catId != null">
-        catId,
-      </if>
-      <if test="praiseTime != null">
-        praiseTime,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="openId != null and openId != ''">
-        #{openId,jdbcType=VARCHAR},
-      </if>
-      <if test="catId != null">
-        #{catId,jdbcType=INTEGER},
-      </if>
-      <if test="praiseTime != null">
-        #{praiseTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
+    <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.AwesomeWechatUser">
+        <!--@mbg.generated-->
+        <!--@Table tb_awesome_wechatUser-->
+        <result column="openId" jdbcType="VARCHAR" property="openId"/>
+        <result column="catId" jdbcType="INTEGER" property="catId"/>
+        <result column="praiseTime" jdbcType="TIMESTAMP" property="praiseTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        openId, catId, praiseTime
+    </sql>
+    <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.AwesomeWechatUser">
+        <!--@mbg.generated-->
+        insert into tb_awesome_wechatUser (openId, catId, praiseTime
+        )
+        values (#{openId,jdbcType=VARCHAR}, #{catId,jdbcType=INTEGER}, #{praiseTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.AwesomeWechatUser">
+        <!--@mbg.generated-->
+        insert into tb_awesome_wechatUser
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="openId != null and openId != ''">
+                openId,
+            </if>
+            <if test="catId != null">
+                catId,
+            </if>
+            <if test="praiseTime != null">
+                praiseTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="openId != null and openId != ''">
+                #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="catId != null">
+                #{catId,jdbcType=INTEGER},
+            </if>
+            <if test="praiseTime != null">
+                #{praiseTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
 </mapper>

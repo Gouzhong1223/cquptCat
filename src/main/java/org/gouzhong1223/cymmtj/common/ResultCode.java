@@ -38,10 +38,9 @@ public enum ResultCode {
     ISEXIST(203),
     LOGINFAIL(204),
     UNLOGIN(205),
-    SERVERFAIL(404)
-    ;
+    SERVERFAIL(404);
 
-    private Integer code;
+    private final Integer code;
 
     ResultCode(Integer code) {
         this.code = code;

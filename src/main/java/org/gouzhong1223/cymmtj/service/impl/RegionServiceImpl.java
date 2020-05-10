@@ -21,12 +21,12 @@ import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
+import org.gouzhong1223.cymmtj.entity.CatRegion;
+import org.gouzhong1223.cymmtj.entity.Region;
 import org.gouzhong1223.cymmtj.mapper.CatMapper;
 import org.gouzhong1223.cymmtj.mapper.CatRegionMapper;
 import org.gouzhong1223.cymmtj.mapper.PicMapper;
 import org.gouzhong1223.cymmtj.mapper.RegionMapper;
-import org.gouzhong1223.cymmtj.entity.CatRegion;
-import org.gouzhong1223.cymmtj.entity.Region;
 import org.gouzhong1223.cymmtj.service.RegionService;
 import org.gouzhong1223.cymmtj.util.RandomNumber;
 import org.springframework.stereotype.Service;
@@ -51,10 +51,10 @@ import java.util.List;
 public class RegionServiceImpl implements RegionService {
 
 
-    private RegionMapper regionMapper;
-    private CatRegionMapper catRegionMapper;
-    private CatMapper catMapper;
-    private PicMapper picMapper;
+    private final RegionMapper regionMapper;
+    private final CatRegionMapper catRegionMapper;
+    private final CatMapper catMapper;
+    private final PicMapper picMapper;
 
     public RegionServiceImpl(RegionMapper regionMapper, CatRegionMapper catRegionMapper, CatMapper catMapper, PicMapper picMapper) {
         this.regionMapper = regionMapper;

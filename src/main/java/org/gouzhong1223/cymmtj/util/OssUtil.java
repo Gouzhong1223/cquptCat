@@ -107,7 +107,7 @@ public class OssUtil {
     /**
      * 根据 URI 删除文件
      *
-     * @param key  URI
+     * @param key URI
      */
     public void deleteFile(String key) {
         logger.info("=========>OSS文件删除开始：" + key);

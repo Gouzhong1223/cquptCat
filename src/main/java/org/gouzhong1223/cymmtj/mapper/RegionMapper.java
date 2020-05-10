@@ -1,6 +1,8 @@
 package org.gouzhong1223.cymmtj.mapper;
 
-import org.gouzhong1223.cymmtj.entity.Region;import java.util.List;
+import org.gouzhong1223.cymmtj.entity.Region;
+
+import java.util.List;
 
 /**
  * @Author : Gouzhong

@@ -38,9 +38,9 @@ public interface MailService {
      * @param subject
      * @param content
      */
-    public void sendSimpleMail(String to, String subject, String content);
+    void sendSimpleMail(String to, String subject, String content);
 
-    public void sendSimpleMail(String to, String subject, String content, String... cc);
+    void sendSimpleMail(String to, String subject, String content, String... cc);
 
     /**
      * 发送HTML邮件
@@ -50,9 +50,9 @@ public interface MailService {
      * @param content
      * @throws MessagingException
      */
-    public void sendHtmlMail(String to, String subject, String content) throws MessagingException;
+    void sendHtmlMail(String to, String subject, String content) throws MessagingException;
 
-    public void sendHtmlMail(String to, String subject, String content, String... cc);
+    void sendHtmlMail(String to, String subject, String content, String... cc);
 
     /**
      * 发送带附件的邮件
@@ -63,9 +63,9 @@ public interface MailService {
      * @param filePath
      * @throws MessagingException
      */
-    public void sendAttachmentsMail(String to, String subject, String content, String filePath) throws MessagingException;
+    void sendAttachmentsMail(String to, String subject, String content, String filePath) throws MessagingException;
 
-    public void sendAttachmentsMail(String to, String subject, String content, String filePath, String... cc);
+    void sendAttachmentsMail(String to, String subject, String content, String filePath, String... cc);
 
     /**
      * 发送正文中有静态资源的邮件
@@ -77,7 +77,7 @@ public interface MailService {
      * @param rscId
      * @throws MessagingException
      */
-    public void sendResourceMail(String to, String subject, String content, String rscPath, String rscId) throws MessagingException;
+    void sendResourceMail(String to, String subject, String content, String rscPath, String rscId) throws MessagingException;
 
-    public void sendResourceMail(String to, String subject, String content, String rscPath, String rscId, String... cc);
+    void sendResourceMail(String to, String subject, String content, String rscPath, String rscId, String... cc);
 }

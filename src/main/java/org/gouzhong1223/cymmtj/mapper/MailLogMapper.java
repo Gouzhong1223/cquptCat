@@ -5,7 +5,7 @@ import org.gouzhong1223.cymmtj.entity.MailLog;
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description : 
+ * @Description :
  * @Date : create by QingSong in 2020-05-06 15:02
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8

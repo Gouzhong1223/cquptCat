@@ -16,14 +16,8 @@
 
 package org.gouzhong1223.cymmtj.interceptor;
 
-import org.apache.commons.lang.StringUtils;
-import org.gouzhong1223.cymmtj.common.CymmtjException;
-import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Author : Gouzhong

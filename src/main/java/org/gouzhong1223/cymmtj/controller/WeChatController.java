@@ -19,7 +19,6 @@ package org.gouzhong1223.cymmtj.controller;
 
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.service.WeChatService;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,7 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("wechat")
 public class WeChatController {
 
-    private WeChatService weChatService;
+    private final WeChatService weChatService;
 
     public WeChatController(WeChatService weChatService) {
         this.weChatService = weChatService;

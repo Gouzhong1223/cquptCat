@@ -1,107 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.MailLogMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.MailLog">
-    <!--@mbg.generated-->
-    <!--@Table tb_mail_log-->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="sendFrom" jdbcType="VARCHAR" property="sendFrom" />
-    <result column="sendTo" jdbcType="VARCHAR" property="sendTo" />
-    <result column="sendTime" jdbcType="TIMESTAMP" property="sendTime" />
-    <result column="subject" jdbcType="VARCHAR" property="subject" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, sendFrom, sendTo, sendTime, subject, content
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from tb_mail_log
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--@mbg.generated-->
-    delete from tb_mail_log
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.gouzhong1223.cymmtj.entity.MailLog" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into tb_mail_log (sendFrom, sendTo, sendTime, 
-      subject, content)
-    values (#{sendFrom,jdbcType=VARCHAR}, #{sendTo,jdbcType=VARCHAR}, #{sendTime,jdbcType=TIMESTAMP}, 
-      #{subject,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.gouzhong1223.cymmtj.entity.MailLog" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into tb_mail_log
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="sendFrom != null and sendFrom != ''">
-        sendFrom,
-      </if>
-      <if test="sendTo != null and sendTo != ''">
-        sendTo,
-      </if>
-      <if test="sendTime != null">
-        sendTime,
-      </if>
-      <if test="subject != null and subject != ''">
-        subject,
-      </if>
-      <if test="content != null and content != ''">
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="sendFrom != null and sendFrom != ''">
-        #{sendFrom,jdbcType=VARCHAR},
-      </if>
-      <if test="sendTo != null and sendTo != ''">
-        #{sendTo,jdbcType=VARCHAR},
-      </if>
-      <if test="sendTime != null">
-        #{sendTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="subject != null and subject != ''">
-        #{subject,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null and content != ''">
-        #{content,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.entity.MailLog">
-    <!--@mbg.generated-->
-    update tb_mail_log
-    <set>
-      <if test="sendFrom != null and sendFrom != ''">
-        sendFrom = #{sendFrom,jdbcType=VARCHAR},
-      </if>
-      <if test="sendTo != null and sendTo != ''">
+    <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.MailLog">
+        <!--@mbg.generated-->
+        <!--@Table tb_mail_log-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="sendFrom" jdbcType="VARCHAR" property="sendFrom"/>
+        <result column="sendTo" jdbcType="VARCHAR" property="sendTo"/>
+        <result column="sendTime" jdbcType="TIMESTAMP" property="sendTime"/>
+        <result column="subject" jdbcType="VARCHAR" property="subject"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, sendFrom, sendTo, sendTime, subject, content
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from tb_mail_log
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete from tb_mail_log
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.gouzhong1223.cymmtj.entity.MailLog"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into tb_mail_log (sendFrom, sendTo, sendTime,
+        subject, content)
+        values (#{sendFrom,jdbcType=VARCHAR}, #{sendTo,jdbcType=VARCHAR}, #{sendTime,jdbcType=TIMESTAMP},
+        #{subject,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.gouzhong1223.cymmtj.entity.MailLog"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into tb_mail_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sendFrom != null and sendFrom != ''">
+                sendFrom,
+            </if>
+            <if test="sendTo != null and sendTo != ''">
+                sendTo,
+            </if>
+            <if test="sendTime != null">
+                sendTime,
+            </if>
+            <if test="subject != null and subject != ''">
+                subject,
+            </if>
+            <if test="content != null and content != ''">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sendFrom != null and sendFrom != ''">
+                #{sendFrom,jdbcType=VARCHAR},
+            </if>
+            <if test="sendTo != null and sendTo != ''">
+                #{sendTo,jdbcType=VARCHAR},
+            </if>
+            <if test="sendTime != null">
+                #{sendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="subject != null and subject != ''">
+                #{subject,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null and content != ''">
+                #{content,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.entity.MailLog">
+        <!--@mbg.generated-->
+        update tb_mail_log
+        <set>
+            <if test="sendFrom != null and sendFrom != ''">
+                sendFrom = #{sendFrom,jdbcType=VARCHAR},
+            </if>
+            <if test="sendTo != null and sendTo != ''">
+                sendTo = #{sendTo,jdbcType=VARCHAR},
+            </if>
+            <if test="sendTime != null">
+                sendTime = #{sendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="subject != null and subject != ''">
+                subject = #{subject,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.entity.MailLog">
+        <!--@mbg.generated-->
+        update tb_mail_log
+        set sendFrom = #{sendFrom,jdbcType=VARCHAR},
         sendTo = #{sendTo,jdbcType=VARCHAR},
-      </if>
-      <if test="sendTime != null">
         sendTime = #{sendTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="subject != null and subject != ''">
         subject = #{subject,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null and content != ''">
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.entity.MailLog">
-    <!--@mbg.generated-->
-    update tb_mail_log
-    set sendFrom = #{sendFrom,jdbcType=VARCHAR},
-      sendTo = #{sendTo,jdbcType=VARCHAR},
-      sendTime = #{sendTime,jdbcType=TIMESTAMP},
-      subject = #{subject,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        content = #{content,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

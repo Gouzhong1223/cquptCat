@@ -1,212 +1,214 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.CatMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.Cat">
-    <!--@mbg.generated-->
-    <!--@Table tb_cat-->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="color" jdbcType="VARCHAR" property="color" />
-    <result column="sex" jdbcType="VARCHAR" property="sex" />
-    <result column="foreignTrade" jdbcType="VARCHAR" property="foreignTrade" />
-    <result column="character" jdbcType="VARCHAR" property="character" />
-    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="visible" jdbcType="INTEGER" property="visible" />
-    <result column="referrer" jdbcType="VARCHAR" property="referrer" />
-    <result column="audit" jdbcType="INTEGER" property="audit" />
-    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="awesomeCount" jdbcType="INTEGER" property="awesomeCount" />
-    <result column="collectCount" jdbcType="INTEGER" property="collectCount" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, `name`, color, sex, foreignTrade, `character`, updateTime, `type`, visible, referrer, 
-    `audit`, createTime, awesomeCount, collectCount
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from tb_cat
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--@mbg.generated-->
-    delete from tb_cat
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.gouzhong1223.cymmtj.entity.Cat" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into tb_cat (`name`, color, sex, 
-      foreignTrade, `character`, updateTime, 
-      `type`, visible, referrer, 
-      `audit`, createTime, awesomeCount, 
-      collectCount)
-    values (#{name,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
-      #{foreignTrade,jdbcType=VARCHAR}, #{character,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{type,jdbcType=VARCHAR}, #{visible,jdbcType=INTEGER}, #{referrer,jdbcType=VARCHAR}, 
-      #{audit,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{awesomeCount,jdbcType=INTEGER}, 
-      #{collectCount,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.gouzhong1223.cymmtj.entity.Cat" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into tb_cat
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null and name != ''">
-        `name`,
-      </if>
-      <if test="color != null and color != ''">
-        color,
-      </if>
-      <if test="sex != null and sex != ''">
-        sex,
-      </if>
-      <if test="foreignTrade != null and foreignTrade != ''">
-        foreignTrade,
-      </if>
-      <if test="character != null and character != ''">
-        `character`,
-      </if>
-      <if test="updateTime != null">
-        updateTime,
-      </if>
-      <if test="type != null and type != ''">
-        `type`,
-      </if>
-      <if test="visible != null">
-        visible,
-      </if>
-      <if test="referrer != null and referrer != ''">
-        referrer,
-      </if>
-      <if test="audit != null">
-        `audit`,
-      </if>
-      <if test="createTime != null">
-        createTime,
-      </if>
-      <if test="awesomeCount != null">
-        awesomeCount,
-      </if>
-      <if test="collectCount != null">
-        collectCount,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null and name != ''">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="color != null and color != ''">
-        #{color,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null and sex != ''">
-        #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="foreignTrade != null and foreignTrade != ''">
-        #{foreignTrade,jdbcType=VARCHAR},
-      </if>
-      <if test="character != null and character != ''">
-        #{character,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="type != null and type != ''">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="visible != null">
-        #{visible,jdbcType=INTEGER},
-      </if>
-      <if test="referrer != null and referrer != ''">
-        #{referrer,jdbcType=VARCHAR},
-      </if>
-      <if test="audit != null">
-        #{audit,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="awesomeCount != null">
-        #{awesomeCount,jdbcType=INTEGER},
-      </if>
-      <if test="collectCount != null">
-        #{collectCount,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.entity.Cat">
-    <!--@mbg.generated-->
-    update tb_cat
-    <set>
-      <if test="name != null and name != ''">
-        `name` = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="color != null and color != ''">
+    <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.Cat">
+        <!--@mbg.generated-->
+        <!--@Table tb_cat-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="color" jdbcType="VARCHAR" property="color"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="foreignTrade" jdbcType="VARCHAR" property="foreignTrade"/>
+        <result column="character" jdbcType="VARCHAR" property="character"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="visible" jdbcType="INTEGER" property="visible"/>
+        <result column="referrer" jdbcType="VARCHAR" property="referrer"/>
+        <result column="audit" jdbcType="INTEGER" property="audit"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="awesomeCount" jdbcType="INTEGER" property="awesomeCount"/>
+        <result column="collectCount" jdbcType="INTEGER" property="collectCount"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, `name`, color, sex, foreignTrade, `character`, updateTime, `type`, visible, referrer,
+        `audit`, createTime, awesomeCount, collectCount
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from tb_cat
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete from tb_cat
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.gouzhong1223.cymmtj.entity.Cat"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into tb_cat (`name`, color, sex,
+        foreignTrade, `character`, updateTime,
+        `type`, visible, referrer,
+        `audit`, createTime, awesomeCount,
+        collectCount)
+        values (#{name,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
+        #{foreignTrade,jdbcType=VARCHAR}, #{character,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
+        #{type,jdbcType=VARCHAR}, #{visible,jdbcType=INTEGER}, #{referrer,jdbcType=VARCHAR},
+        #{audit,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{awesomeCount,jdbcType=INTEGER},
+        #{collectCount,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.gouzhong1223.cymmtj.entity.Cat"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into tb_cat
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                `name`,
+            </if>
+            <if test="color != null and color != ''">
+                color,
+            </if>
+            <if test="sex != null and sex != ''">
+                sex,
+            </if>
+            <if test="foreignTrade != null and foreignTrade != ''">
+                foreignTrade,
+            </if>
+            <if test="character != null and character != ''">
+                `character`,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="type != null and type != ''">
+                `type`,
+            </if>
+            <if test="visible != null">
+                visible,
+            </if>
+            <if test="referrer != null and referrer != ''">
+                referrer,
+            </if>
+            <if test="audit != null">
+                `audit`,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="awesomeCount != null">
+                awesomeCount,
+            </if>
+            <if test="collectCount != null">
+                collectCount,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="color != null and color != ''">
+                #{color,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null and sex != ''">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="foreignTrade != null and foreignTrade != ''">
+                #{foreignTrade,jdbcType=VARCHAR},
+            </if>
+            <if test="character != null and character != ''">
+                #{character,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null and type != ''">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="visible != null">
+                #{visible,jdbcType=INTEGER},
+            </if>
+            <if test="referrer != null and referrer != ''">
+                #{referrer,jdbcType=VARCHAR},
+            </if>
+            <if test="audit != null">
+                #{audit,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="awesomeCount != null">
+                #{awesomeCount,jdbcType=INTEGER},
+            </if>
+            <if test="collectCount != null">
+                #{collectCount,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.entity.Cat">
+        <!--@mbg.generated-->
+        update tb_cat
+        <set>
+            <if test="name != null and name != ''">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="color != null and color != ''">
+                color = #{color,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="foreignTrade != null and foreignTrade != ''">
+                foreignTrade = #{foreignTrade,jdbcType=VARCHAR},
+            </if>
+            <if test="character != null and character != ''">
+                `character` = #{character,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null and type != ''">
+                `type` = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="visible != null">
+                visible = #{visible,jdbcType=INTEGER},
+            </if>
+            <if test="referrer != null and referrer != ''">
+                referrer = #{referrer,jdbcType=VARCHAR},
+            </if>
+            <if test="audit != null">
+                `audit` = #{audit,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="awesomeCount != null">
+                awesomeCount = #{awesomeCount,jdbcType=INTEGER},
+            </if>
+            <if test="collectCount != null">
+                collectCount = #{collectCount,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.entity.Cat">
+        <!--@mbg.generated-->
+        update tb_cat
+        set `name` = #{name,jdbcType=VARCHAR},
         color = #{color,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null and sex != ''">
         sex = #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="foreignTrade != null and foreignTrade != ''">
         foreignTrade = #{foreignTrade,jdbcType=VARCHAR},
-      </if>
-      <if test="character != null and character != ''">
         `character` = #{character,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
         updateTime = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="type != null and type != ''">
         `type` = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="visible != null">
         visible = #{visible,jdbcType=INTEGER},
-      </if>
-      <if test="referrer != null and referrer != ''">
         referrer = #{referrer,jdbcType=VARCHAR},
-      </if>
-      <if test="audit != null">
         `audit` = #{audit,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
         createTime = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="awesomeCount != null">
         awesomeCount = #{awesomeCount,jdbcType=INTEGER},
-      </if>
-      <if test="collectCount != null">
-        collectCount = #{collectCount,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.entity.Cat">
-    <!--@mbg.generated-->
-    update tb_cat
-    set `name` = #{name,jdbcType=VARCHAR},
-      color = #{color,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=VARCHAR},
-      foreignTrade = #{foreignTrade,jdbcType=VARCHAR},
-      `character` = #{character,jdbcType=VARCHAR},
-      updateTime = #{updateTime,jdbcType=TIMESTAMP},
-      `type` = #{type,jdbcType=VARCHAR},
-      visible = #{visible,jdbcType=INTEGER},
-      referrer = #{referrer,jdbcType=VARCHAR},
-      `audit` = #{audit,jdbcType=INTEGER},
-      createTime = #{createTime,jdbcType=TIMESTAMP},
-      awesomeCount = #{awesomeCount,jdbcType=INTEGER},
-      collectCount = #{collectCount,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        collectCount = #{collectCount,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <resultMap id="PopularCat" type="org.gouzhong1223.cymmtj.dto.rep.ResultCat">
-        <result column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="commont" property="commont" />
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="commont" property="commont"/>
     </resultMap>
     <resultMap id="CatResponse" type="org.gouzhong1223.cymmtj.dto.rep.CatResponse">
-        <result column="id" property="id" />
-        <result column="name" property="name" />
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
     </resultMap>
 
     <!--auto generated by MybatisCodeHelper on 2020-04-19-->
@@ -237,7 +239,7 @@
 
     <select id="selectAllCats" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from tb_cat
     </select>
 
@@ -281,8 +283,8 @@
         = praise-1
     </update>
 
-<!--auto generated by MybatisCodeHelper on 2020-05-06-->
-  <update id="updateAuditById">
+    <!--auto generated by MybatisCodeHelper on 2020-05-06-->
+    <update id="updateAuditById">
         update tb_cat
         set `audit`=#{updatedAudit,jdbcType=INTEGER}
         <where>
@@ -292,8 +294,8 @@
         </where>
     </update>
 
-<!--auto generated by MybatisCodeHelper on 2020-05-06-->
-  <update id="updateVisibleById">
+    <!--auto generated by MybatisCodeHelper on 2020-05-06-->
+    <update id="updateVisibleById">
         update tb_cat
         set visible=#{updatedVisible,jdbcType=INTEGER}
         <where>

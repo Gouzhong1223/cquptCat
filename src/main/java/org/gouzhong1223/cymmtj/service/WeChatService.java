@@ -46,6 +46,7 @@ public interface WeChatService {
 
     /**
      * 根据 skey 查询 User
+     *
      * @param skey
      * @return
      */

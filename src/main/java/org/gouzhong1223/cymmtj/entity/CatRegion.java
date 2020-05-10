@@ -2,16 +2,17 @@ package org.gouzhong1223.cymmtj.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description : 
+ * @Description :
  * @Date : create by QingSong in 2020-05-10 16:53
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
@@ -29,19 +30,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CatRegion implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 猫咪 ID
      */
     @ApiModelProperty(value = "猫咪 ID")
     private Integer catId;
-
     /**
      * 区域ID
      */
     @ApiModelProperty(value = "区域ID")
     private Integer reginId;
-
-    private static final long serialVersionUID = 1L;
 
     public static CatRegionBuilder builder() {
         return new CatRegionBuilder();

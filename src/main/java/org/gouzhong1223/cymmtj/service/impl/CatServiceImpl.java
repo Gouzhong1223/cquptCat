@@ -28,8 +28,8 @@ import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
-import org.gouzhong1223.cymmtj.mapper.*;
 import org.gouzhong1223.cymmtj.entity.*;
+import org.gouzhong1223.cymmtj.mapper.*;
 import org.gouzhong1223.cymmtj.service.CatService;
 import org.gouzhong1223.cymmtj.service.MailService;
 import org.gouzhong1223.cymmtj.service.PicService;
@@ -59,6 +59,9 @@ import java.util.List;
 public class CatServiceImpl implements CatService {
 
 
+    private static final String MAILSUBJECT = "重游猫咪图鉴";
+    private static final Integer DEFAULTVIEWED = 0;
+    private static final Integer DEFAULTAUDITED = 0;
     private final CatMapper catMapper;
     private final PraiseWechatUserMapper praiseWechatUserMapper;
     private final PicService picService;
@@ -66,14 +69,8 @@ public class CatServiceImpl implements CatService {
     private final MailService mailService;
     private final CatRefrrerMapper catRefrrerMapper;
     private final MailLogMapper mailLogMapper;
-
     @Value("${spring.mail.from}")
     private String from;
-
-    private static Integer DEFAULTVIEWED = 0;
-    private static Integer DEFAULTAUDITED = 0;
-
-    private static final String MAILSUBJECT = "重游猫咪图鉴";
 
     public CatServiceImpl(CatMapper catMapper, PraiseWechatUserMapper praiseWechatUserMapper,
                           PicService picService, WechatUserMapper wechatUserMapper,
@@ -193,7 +190,7 @@ public class CatServiceImpl implements CatService {
             // 开始生成 Cat 对象
             Cat cat = new Cat(catId, name, color, sex, foreignTrade, character,
                     LocalDateTime.now(), type, DEFAULTVIEWED,
-                    wechatUser.getNickName(), DEFAULTAUDITED, LocalDateTime.now(),0,0);
+                    wechatUser.getNickName(), DEFAULTAUDITED, LocalDateTime.now(), 0, 0);
             cat.setId(catId);
             // 插入 Cat
             this.insertOrUpdateCat(cat);

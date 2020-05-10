@@ -41,10 +41,9 @@ public enum ResultMessage {
     SERVER("服务器打瞌睡啦！"),
     EMAILCANNOTBEEMPTY("邮箱不能为空"),
     EMAILFORMATISINCORRECT("邮箱格式不正确"),
-    UPLOADIMAGEFAILED("上传图片失败！")
-    ;
+    UPLOADIMAGEFAILED("上传图片失败！");
 
-    private String messaage;
+    private final String messaage;
 
     ResultMessage(String messaage) {
         this.messaage = messaage;

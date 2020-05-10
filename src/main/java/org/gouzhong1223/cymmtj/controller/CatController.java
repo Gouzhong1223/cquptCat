@@ -22,8 +22,8 @@ import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
-import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
+import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.entity.Cat;
 import org.gouzhong1223.cymmtj.entity.Pic;
 import org.gouzhong1223.cymmtj.entity.Region;
@@ -55,10 +55,10 @@ import java.util.List;
 @RequestMapping("/cat")
 public class CatController {
 
-    private CatService catService;
-    private PicService picService;
-    private RegionService regionService;
-    private WeChatService weChatService;
+    private final CatService catService;
+    private final PicService picService;
+    private final RegionService regionService;
+    private final WeChatService weChatService;
 
     public CatController(CatService catService, PicService picService, RegionService regionService, WeChatService weChatService) {
         this.catService = catService;

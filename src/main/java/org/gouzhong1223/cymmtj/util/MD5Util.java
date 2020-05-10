@@ -44,7 +44,7 @@ public class MD5Util {
             md.update(str.getBytes());
             byte[] byteDigest = md.digest();
             int i;
-            StringBuffer buf = new StringBuffer("");
+            StringBuffer buf = new StringBuffer();
             for (int offset = 0; offset < byteDigest.length; offset++) {
                 i = byteDigest[offset];
                 if (i < 0) {

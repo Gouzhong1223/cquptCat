@@ -19,11 +19,14 @@ package org.gouzhong1223.cymmtj.controller;
 import org.apache.commons.collections.CollectionUtils;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
-import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
+import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.entity.Region;
 import org.gouzhong1223.cymmtj.service.RegionService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +47,7 @@ import java.util.List;
 public class RegionController {
 
 
-    private RegionService regionService;
+    private final RegionService regionService;
 
     public RegionController(RegionService regionService) {
         this.regionService = regionService;

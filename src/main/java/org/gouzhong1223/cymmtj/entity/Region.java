@@ -2,14 +2,13 @@ package org.gouzhong1223.cymmtj.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @Author : Gouzhong
@@ -32,31 +31,27 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Region implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 区域 ID
      */
     @ApiModelProperty(value = "区域 ID")
     private Integer id;
-
     /**
      * 区域名称
      */
     @ApiModelProperty(value = "区域名称")
     private String regionName;
-
     /**
      * 区域创建时间
      */
     @ApiModelProperty(value = "区域创建时间")
     private LocalDateTime createTime;
-
     /**
      * 区域更新时间
      */
     @ApiModelProperty(value = "区域更新时间")
     private LocalDateTime updateTime;
-
-    private static final long serialVersionUID = 1L;
 
     public static RegionBuilder builder() {
         return new RegionBuilder();

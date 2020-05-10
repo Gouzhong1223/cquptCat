@@ -38,13 +38,12 @@ import org.springframework.stereotype.Service;
 public class MailServiceImpl implements MailService {
 
     private final JavaMailSender mailSender;
+    @Value("${spring.mail.from}")
+    private String from;
 
     public MailServiceImpl(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
-
-    @Value("${spring.mail.from}")
-    private String from;
 
     @Override
     public void sendSimpleMail(String to, String subject, String content) {

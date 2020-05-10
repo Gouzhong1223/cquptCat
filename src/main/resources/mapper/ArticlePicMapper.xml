@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.ArticlePicMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.ArticlePic">
-    <!--@mbg.generated-->
-    <!--@Table tb_article_pic-->
-    <result column="picId" jdbcType="INTEGER" property="picId" />
-    <result column="articleId" jdbcType="INTEGER" property="articleId" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    picId, articleId
-  </sql>
-  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.ArticlePic">
-    <!--@mbg.generated-->
-    insert into tb_article_pic (picId, articleId)
-    values (#{picId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.ArticlePic">
-    <!--@mbg.generated-->
-    insert into tb_article_pic
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="picId != null">
-        picId,
-      </if>
-      <if test="articleId != null">
-        articleId,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="picId != null">
-        #{picId,jdbcType=INTEGER},
-      </if>
-      <if test="articleId != null">
-        #{articleId,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
+    <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.ArticlePic">
+        <!--@mbg.generated-->
+        <!--@Table tb_article_pic-->
+        <result column="picId" jdbcType="INTEGER" property="picId"/>
+        <result column="articleId" jdbcType="INTEGER" property="articleId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        picId, articleId
+    </sql>
+    <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.ArticlePic">
+        <!--@mbg.generated-->
+        insert into tb_article_pic (picId, articleId)
+        values (#{picId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.ArticlePic">
+        <!--@mbg.generated-->
+        insert into tb_article_pic
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="picId != null">
+                picId,
+            </if>
+            <if test="articleId != null">
+                articleId,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="picId != null">
+                #{picId,jdbcType=INTEGER},
+            </if>
+            <if test="articleId != null">
+                #{articleId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
 </mapper>

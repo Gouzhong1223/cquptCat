@@ -16,10 +16,10 @@
 
 package org.gouzhong1223.cymmtj.service.impl;
 
-import org.gouzhong1223.cymmtj.mapper.CatPicMapper;
-import org.gouzhong1223.cymmtj.mapper.PicMapper;
 import org.gouzhong1223.cymmtj.entity.CatPic;
 import org.gouzhong1223.cymmtj.entity.Pic;
+import org.gouzhong1223.cymmtj.mapper.CatPicMapper;
+import org.gouzhong1223.cymmtj.mapper.PicMapper;
 import org.gouzhong1223.cymmtj.service.PicService;
 import org.gouzhong1223.cymmtj.util.OssUtil;
 import org.gouzhong1223.cymmtj.util.RandomNumber;
@@ -33,7 +33,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * @Author : Gouzhong
@@ -50,11 +53,10 @@ import java.util.concurrent.*;
 @Transactional
 public class PicServiceImpl implements PicService {
 
-    private OssUtil ossUtil;
-    private PicMapper picMapper;
-    private CatPicMapper catPicMapper;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(PicServiceImpl.class);
+    private final OssUtil ossUtil;
+    private final PicMapper picMapper;
+    private final CatPicMapper catPicMapper;
 
 
     public PicServiceImpl(OssUtil ossUtil, PicMapper picMapper, CatPicMapper catPicMapper) {

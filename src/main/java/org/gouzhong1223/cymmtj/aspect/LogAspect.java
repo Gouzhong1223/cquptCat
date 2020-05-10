@@ -69,10 +69,10 @@ public class LogAspect {
     }
 
     private class RequestLog {
-        private String url;
-        private String ip;
-        private String classMethod;
-        private Object[] args;
+        private final String url;
+        private final String ip;
+        private final String classMethod;
+        private final Object[] args;
 
         public RequestLog(String url, String ip, String classMethod, Object[] args) {
             this.url = url;

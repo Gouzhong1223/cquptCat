@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("admin/region")
 public class AdminRegionController {
 
-    private RegionService regionService;
+    private final RegionService regionService;
 
     public AdminRegionController(RegionService regionService) {
         this.regionService = regionService;
