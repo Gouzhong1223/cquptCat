@@ -1,6 +1,6 @@
 package org.gouzhong1223.cymmtj.mapper;
 
-import org.apache.ibatis.annotations.Param;import org.gouzhong1223.cymmtj.entity.CatRefrrer;
+import org.gouzhong1223.cymmtj.entity.AwesomeWechatUser;
 
 /**
  * @Author : Gouzhong
@@ -13,10 +13,8 @@ import org.apache.ibatis.annotations.Param;import org.gouzhong1223.cymmtj.entity
  * @ProjectName : cymmtj
  * @Version : 1.0.0
  */
-public interface CatRefrrerMapper {
-    int insert(CatRefrrer record);
+public interface AwesomeWechatUserMapper {
+    int insert(AwesomeWechatUser record);
 
-    int insertSelective(CatRefrrer record);
-
-    CatRefrrer selectOneByCatId(@Param("catId") Integer catId);
+    int insertSelective(AwesomeWechatUser record);
 }

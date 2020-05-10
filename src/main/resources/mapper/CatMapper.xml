@@ -16,11 +16,13 @@
     <result column="referrer" jdbcType="VARCHAR" property="referrer" />
     <result column="audit" jdbcType="INTEGER" property="audit" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="awesomeCount" jdbcType="INTEGER" property="awesomeCount" />
+    <result column="collectCount" jdbcType="INTEGER" property="collectCount" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     id, `name`, color, sex, foreignTrade, `character`, updateTime, `type`, visible, referrer, 
-    `audit`, createTime
+    `audit`, createTime, awesomeCount, collectCount
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -34,26 +36,23 @@
     delete from tb_cat
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.Cat">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.gouzhong1223.cymmtj.entity.Cat" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into tb_cat (id, `name`, color, 
-      sex, foreignTrade, `character`, 
-      updateTime, `type`, visible, 
-      referrer, `audit`, createTime
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=VARCHAR}, #{foreignTrade,jdbcType=VARCHAR}, #{character,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}, #{visible,jdbcType=INTEGER}, 
-      #{referrer,jdbcType=VARCHAR}, #{audit,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
-      )
+    insert into tb_cat (`name`, color, sex, 
+      foreignTrade, `character`, updateTime, 
+      `type`, visible, referrer, 
+      `audit`, createTime, awesomeCount, 
+      collectCount)
+    values (#{name,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{foreignTrade,jdbcType=VARCHAR}, #{character,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=VARCHAR}, #{visible,jdbcType=INTEGER}, #{referrer,jdbcType=VARCHAR}, 
+      #{audit,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{awesomeCount,jdbcType=INTEGER}, 
+      #{collectCount,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.Cat">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.gouzhong1223.cymmtj.entity.Cat" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into tb_cat
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="name != null and name != ''">
         `name`,
       </if>
@@ -87,11 +86,14 @@
       <if test="createTime != null">
         createTime,
       </if>
+      <if test="awesomeCount != null">
+        awesomeCount,
+      </if>
+      <if test="collectCount != null">
+        collectCount,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="name != null and name != ''">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -124,6 +126,12 @@
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="awesomeCount != null">
+        #{awesomeCount,jdbcType=INTEGER},
+      </if>
+      <if test="collectCount != null">
+        #{collectCount,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -164,6 +172,12 @@
       <if test="createTime != null">
         createTime = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="awesomeCount != null">
+        awesomeCount = #{awesomeCount,jdbcType=INTEGER},
+      </if>
+      <if test="collectCount != null">
+        collectCount = #{collectCount,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -180,7 +194,9 @@
       visible = #{visible,jdbcType=INTEGER},
       referrer = #{referrer,jdbcType=VARCHAR},
       `audit` = #{audit,jdbcType=INTEGER},
-      createTime = #{createTime,jdbcType=TIMESTAMP}
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      awesomeCount = #{awesomeCount,jdbcType=INTEGER},
+      collectCount = #{collectCount,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
     <resultMap id="PopularCat" type="org.gouzhong1223.cymmtj.dto.rep.ResultCat">

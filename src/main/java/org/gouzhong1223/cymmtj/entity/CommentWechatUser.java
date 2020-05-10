@@ -12,38 +12,33 @@ import lombok.NoArgsConstructor;
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
  * @Description : 
- * @Date : create by QingSong in 2020-05-10 16:56
+ * @Date : create by QingSong in 2020-05-10 16:57
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
  * @PackageName : org.gouzhong1223.cymmtj.entity
  * @ProjectName : cymmtj
  * @Version : 1.0.0
  */
-
 /**
- * 猫咪和猫咪图片的中间表
- */
-@ApiModel(value = "org-gouzhong1223-cymmtj-entity-CatPic")
+    * 用户评论中间表
+    */
+@ApiModel(value="org-gouzhong1223-cymmtj-entity-CommentWechatUser")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CatPic implements Serializable {
+public class CommentWechatUser implements Serializable {
     /**
-     * 图片主键
-     */
-    @ApiModelProperty(value = "图片主键")
-    private Integer pic_id;
+    * 评论 id
+    */
+    @ApiModelProperty(value="评论 id")
+    private Integer commentId;
 
     /**
-     * 猫咪 id
-     */
-    @ApiModelProperty(value = "猫咪 id")
-    private Integer cat_id;
+    * 微信用户 openId
+    */
+    @ApiModelProperty(value="微信用户 openId")
+    private String openId;
 
     private static final long serialVersionUID = 1L;
-
-    public static CatPicBuilder builder() {
-        return new CatPicBuilder();
-    }
 }

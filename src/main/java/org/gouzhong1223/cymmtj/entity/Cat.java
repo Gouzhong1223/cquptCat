@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
  * @Description : 
- * @Date : create by QingSong in 2020-05-06 15:01
+ * @Date : create by QingSong in 2020-05-10 16:51
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
  * @PackageName : org.gouzhong1223.cymmtj.entity
@@ -101,6 +101,18 @@ public class Cat implements Serializable {
      */
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
+
+    /**
+     * 点赞数
+     */
+    @ApiModelProperty(value = "点赞数")
+    private Integer awesomeCount;
+
+    /**
+     * 收藏数
+     */
+    @ApiModelProperty(value = "收藏数")
+    private Integer collectCount;
 
     private static final long serialVersionUID = 1L;
 

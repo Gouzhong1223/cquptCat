@@ -21,29 +21,35 @@ import lombok.NoArgsConstructor;
  */
 
 /**
- * 猫咪和猫咪图片的中间表
+ * 用户和文章点赞中间表
  */
-@ApiModel(value = "org-gouzhong1223-cymmtj-entity-CatPic")
+@ApiModel(value = "org-gouzhong1223-cymmtj-entity-ArticleAwesome")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CatPic implements Serializable {
+public class ArticleAwesome implements Serializable {
     /**
-     * 图片主键
+     * 文章 ID
      */
-    @ApiModelProperty(value = "图片主键")
-    private Integer pic_id;
+    @ApiModelProperty(value = "文章 ID")
+    private Integer articleId;
 
     /**
-     * 猫咪 id
+     * 微信用户 openId
      */
-    @ApiModelProperty(value = "猫咪 id")
-    private Integer cat_id;
+    @ApiModelProperty(value = "微信用户 openId")
+    private String openId;
+
+    /**
+     * 昵称
+     */
+    @ApiModelProperty(value = "昵称")
+    private String nickName;
 
     private static final long serialVersionUID = 1L;
 
-    public static CatPicBuilder builder() {
-        return new CatPicBuilder();
+    public static ArticleAwesomeBuilder builder() {
+        return new ArticleAwesomeBuilder();
     }
 }

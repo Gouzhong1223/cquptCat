@@ -193,7 +193,7 @@ public class CatServiceImpl implements CatService {
             // 开始生成 Cat 对象
             Cat cat = new Cat(catId, name, color, sex, foreignTrade, character,
                     LocalDateTime.now(), type, DEFAULTVIEWED,
-                    wechatUser.getNickName(), DEFAULTAUDITED, LocalDateTime.now());
+                    wechatUser.getNickName(), DEFAULTAUDITED, LocalDateTime.now(),0,0);
             cat.setId(catId);
             // 插入 Cat
             this.insertOrUpdateCat(cat);
@@ -218,12 +218,12 @@ public class CatServiceImpl implements CatService {
             // 通过审核
             visible = 1;
             mailContent = "尊敬的" + cat.getReferrer() + ":\n您于" + cat.getCreateTime() +
-                    "向我们推荐的猫咪已经通过管理员审核了，感谢您对社区做出的贡献！";
+                    "向我们推荐的猫咪已经通过管理员审核了，感谢您对社区做出的贡献。";
         } else {
             // 未通过审核
             visible = 0;
             mailContent = "尊敬的" + cat.getReferrer() + ":\n您于" + cat.getCreateTime() +
-                    "向我们推荐的猫咪未通过管理员审核，未通过原因是：" + reasonForFailure + ",感谢您对社区做出的贡献！";
+                    "向我们推荐的猫咪未通过管理员审核，未通过原因是：" + reasonForFailure + ",感谢您对社区做出的贡献。";
 
         }
         try {

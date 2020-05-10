@@ -3,6 +3,7 @@ package org.gouzhong1223.cymmtj.entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,29 +22,35 @@ import lombok.NoArgsConstructor;
  */
 
 /**
- * 猫咪和猫咪图片的中间表
+ * 微信用户点赞记录表
  */
-@ApiModel(value = "org-gouzhong1223-cymmtj-entity-CatPic")
+@ApiModel(value = "org-gouzhong1223-cymmtj-entity-AwesomeWechatUser")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CatPic implements Serializable {
+public class AwesomeWechatUser implements Serializable {
     /**
-     * 图片主键
+     * 微信用户 openId
      */
-    @ApiModelProperty(value = "图片主键")
-    private Integer pic_id;
+    @ApiModelProperty(value = "微信用户 openId")
+    private String openId;
 
     /**
-     * 猫咪 id
+     * 猫咪 ID
      */
-    @ApiModelProperty(value = "猫咪 id")
-    private Integer cat_id;
+    @ApiModelProperty(value = "猫咪 ID")
+    private Integer catId;
+
+    /**
+     * 点赞时间
+     */
+    @ApiModelProperty(value = "点赞时间")
+    private LocalDateTime praiseTime;
 
     private static final long serialVersionUID = 1L;
 
-    public static CatPicBuilder builder() {
-        return new CatPicBuilder();
+    public static AwesomeWechatUserBuilder builder() {
+        return new AwesomeWechatUserBuilder();
     }
 }
