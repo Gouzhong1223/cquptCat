@@ -59,6 +59,10 @@ public class ResponseDto<T> {
         return new ResponseDto<T>(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), data);
     }
 
+    public static <T> ResponseDto<T> SUCCESS() {
+        return new ResponseDto<T>(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), null);
+    }
+
     public static <T> ResponseDto<T> FAIL(T data) {
         return new ResponseDto<T>(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage(), data);
     }

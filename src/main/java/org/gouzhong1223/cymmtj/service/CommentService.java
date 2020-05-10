@@ -14,29 +14,31 @@
  *    limitations under the License.
  */
 
-package org.gouzhong1223.cymmtj.interceptor;
+package org.gouzhong1223.cymmtj.service;
 
-import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.gouzhong1223.cymmtj.common.CymmtjException;
+import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
  * @Description :
- * @Date : create by QingSong in 2020-04-21 12:36 下午
+ * @Date : create by QingSong in 2020-05-10 18:41
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
- * @PackageName : org.gouzhong1223.cymmtj.interceptor
+ * @PackageName : org.gouzhong1223.cymmtj.service
  * @ProjectName : cymmtj
  * @Version : 1.0.0
  */
-@SpringBootConfiguration
-public class WebConfig implements WebMvcConfigurer {
-
-    private final WeChatLoginInterceptor weChatLoginInterceptor;
-
-    public WebConfig(WeChatLoginInterceptor weChatLoginInterceptor) {
-        this.weChatLoginInterceptor = weChatLoginInterceptor;
-    }
-
+public interface CommentService {
+    /**
+     * 添加评论
+     *
+     * @param token          微信用户 token
+     * @param commentContext 评论正文
+     * @param catId          猫咪 ID
+     * @param articleId      帖子 ID
+     * @return
+     */
+    ResponseDto addComment(String token, String commentContext, Integer catId, Integer articleId) throws CymmtjException;
 }
