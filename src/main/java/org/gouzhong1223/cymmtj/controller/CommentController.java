@@ -62,4 +62,13 @@ public class CommentController {
         String token = request.getHeader("token");
         return commentService.awesomeComment(commentId,token);
     }
+
+    @GetMapping
+    public ResponseDto unAwesomeComment(HttpServletRequest request,
+                                      @RequestBody JSONObject jsonObject) {
+        Integer commentId = jsonObject.getInteger("commentId");
+        String token = request.getHeader("token");
+        return commentService.unAwesomeComment(commentId,token);
+    }
+
 }

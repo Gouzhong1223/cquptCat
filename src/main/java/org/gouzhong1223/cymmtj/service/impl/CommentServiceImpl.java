@@ -98,4 +98,17 @@ public class CommentServiceImpl implements CommentService {
         }
         return ResponseDto.SUCCESS();
     }
+
+    @Override
+    public ResponseDto unAwesomeComment(Integer commentId, String token) {
+        WechatUser wechatUser = wechatUserMapper.selectOneByToken(token);
+        try {
+            commentMapper.unAwesomeComment(commentId);
+            commentWechatUserMapper.deleteByCommentIdAndToken(commentId, wechatUser.getToken());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseDto(ResultCode.FAIL.getCode(), "取消点赞出错啦！");
+        }
+        return ResponseDto.SUCCESS();
+    }
 }

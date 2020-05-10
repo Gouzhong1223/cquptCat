@@ -28,4 +28,7 @@ public interface CommentMapper {
     int updateByPrimaryKey(Comment record);
 
     int awesomeComment(@Param("id")Integer id);
+
+    int unAwesomeComment(@Param("id")Integer id);
+
 }

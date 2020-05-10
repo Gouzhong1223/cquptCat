@@ -130,4 +130,14 @@
             </if>
         </where>
     </update>
+
+    <update id="unAwesomeComment">
+        update tb_comment
+        set awesomeCount=awesomeCount-1
+        <where>
+            <if test="id != null">
+                and id=#{id,jdbcType=INTEGER}
+            </if>
+        </where>
+    </update>
 </mapper>

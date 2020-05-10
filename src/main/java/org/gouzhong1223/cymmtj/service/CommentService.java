@@ -50,4 +50,13 @@ public interface CommentService {
      * @return
      */
     ResponseDto awesomeComment(Integer commentId, String token);
+
+    /**
+     * 取消对评论的点赞
+     *
+     * @param commentId 评论 ID
+     * @param token     微信用户 token
+     * @return
+     */
+    ResponseDto unAwesomeComment(Integer commentId, String token);
 }
