@@ -65,4 +65,19 @@ public class CollectServiceImpl implements CollectService {
         }
         return ResponseDto.SUCCESS();
     }
+
+    @Override
+    public ResponseDto unCollect(Integer catId, String token) throws CymmtjException {
+
+        WechatUser wechatUser = wechatUserMapper.selectOneByToken(token);
+
+        catMapper.unCollect(catId);
+        try {
+            collectWechatUserMapper.deleteByCatIdAndToken(catId, token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "收藏失败！");
+        }
+        return ResponseDto.SUCCESS();
+    }
 }

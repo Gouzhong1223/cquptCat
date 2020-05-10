@@ -1,4 +1,5 @@
 package org.gouzhong1223.cymmtj.mapper;
+import org.apache.ibatis.annotations.Param;
 
 import org.gouzhong1223.cymmtj.entity.CollectWechatUser;
 
@@ -17,4 +18,8 @@ public interface CollectWechatUserMapper {
     int insert(CollectWechatUser record);
 
     int insertSelective(CollectWechatUser record);
+
+    int deleteByCatIdAndToken(@Param("catId")Integer catId,@Param("token")String token);
+
+
 }

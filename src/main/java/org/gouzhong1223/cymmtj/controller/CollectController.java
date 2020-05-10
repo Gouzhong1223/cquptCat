@@ -48,13 +48,21 @@ public class CollectController {
         this.collectService = collectService;
     }
 
-    @PostMapping
+    @PostMapping("addCollect")
     public ResponseDto collect(@RequestBody JSONObject jsonObject,
                                HttpServletRequest request) throws CymmtjException {
         String token = request.getHeader("token");
         Integer catId = jsonObject.getInteger("catId");
 
         return collectService.collect(catId, token);
+    }
+
+    @PostMapping("unCollect")
+    public ResponseDto unCollect(@RequestBody JSONObject jsonObject,
+                                 HttpServletRequest request) throws CymmtjException {
+        String token = request.getHeader("token");
+        Integer catId = jsonObject.getInteger("catId");
+        return collectService.unCollect(catId, token);
     }
 
 

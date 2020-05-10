@@ -39,4 +39,13 @@ public interface CollectService {
      * @return
      */
     ResponseDto collect(Integer catId, String token) throws CymmtjException;
+
+    /**
+     * 取消收藏
+     *
+     * @param catId catId
+     * @param token 微信用户 token
+     * @return
+     */
+    ResponseDto unCollect(Integer catId, String token) throws CymmtjException;
 }

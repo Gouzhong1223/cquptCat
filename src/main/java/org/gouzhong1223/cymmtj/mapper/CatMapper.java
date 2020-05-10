@@ -109,4 +109,11 @@ public interface CatMapper {
      */
     int collect(@Param("id")Integer id);
 
+    /**
+     * 将 cat 收藏数量-1
+     * @param id catId
+     * @return
+     */
+    int unCollect(@Param("id")Integer id);
+
 }
