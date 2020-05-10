@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.ArticleAwesomeMapper">
-    <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.ArticleAwesome">
-        <!--@mbg.generated-->
-        <!--@Table tb_article_awesome-->
-        <result column="articleId" jdbcType="INTEGER" property="articleId"/>
-        <result column="openId" jdbcType="VARCHAR" property="openId"/>
-        <result column="nickName" jdbcType="VARCHAR" property="nickName"/>
-    </resultMap>
-    <sql id="Base_Column_List">
-        <!--@mbg.generated-->
-        articleId, openId, nickName
-    </sql>
-    <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.ArticleAwesome">
-        <!--@mbg.generated-->
-        insert into tb_article_awesome (articleId, openId, nickName
-        )
-        values (#{articleId,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}
-        )
-    </insert>
-    <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.ArticleAwesome">
-        <!--@mbg.generated-->
-        insert into tb_article_awesome
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="articleId != null">
-                articleId,
-            </if>
-            <if test="openId != null and openId != ''">
-                openId,
-            </if>
-            <if test="nickName != null and nickName != ''">
-                nickName,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="articleId != null">
-                #{articleId,jdbcType=INTEGER},
-            </if>
-            <if test="openId != null and openId != ''">
-                #{openId,jdbcType=VARCHAR},
-            </if>
-            <if test="nickName != null and nickName != ''">
-                #{nickName,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
+  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.ArticleAwesome">
+    <!--@mbg.generated-->
+    <!--@Table tb_article_awesome-->
+    <result column="articleId" jdbcType="INTEGER" property="articleId" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="nickName" jdbcType="VARCHAR" property="nickName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    articleId, token, nickName
+  </sql>
+  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.ArticleAwesome">
+    <!--@mbg.generated-->
+    insert into tb_article_awesome (articleId, token, nickName
+      )
+    values (#{articleId,jdbcType=INTEGER}, #{token,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.ArticleAwesome">
+    <!--@mbg.generated-->
+    insert into tb_article_awesome
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="articleId != null">
+        articleId,
+      </if>
+      <if test="token != null and token != ''">
+        token,
+      </if>
+      <if test="nickName != null and nickName != ''">
+        nickName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="articleId != null">
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="token != null and token != ''">
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null and nickName != ''">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
 </mapper>

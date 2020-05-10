@@ -1,13 +1,12 @@
 package org.gouzhong1223.cymmtj.mapper;
 
-import org.apache.ibatis.annotations.Param;
-import org.gouzhong1223.cymmtj.entity.WechatUser;
+import org.apache.ibatis.annotations.Param;import org.gouzhong1223.cymmtj.entity.WechatUser;
 
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
  * @Description :
- * @Date : create by QingSong in 2020-05-05 18:19
+ * @Date : create by QingSong in 2020-05-10 18:12
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
  * @PackageName : org.gouzhong1223.cymmtj.mapper
@@ -30,6 +29,4 @@ public interface WechatUserMapper {
     WechatUser selectBySkey(@Param("skey") String skey);
 
     WechatUser selectOneByOpenId(@Param("openId") String openId);
-
-
 }

@@ -2,18 +2,17 @@ package org.gouzhong1223.cymmtj.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description :
- * @Date : create by QingSong in 2020-05-10 16:56
+ * @Description : 
+ * @Date : create by QingSong in 2020-05-10 18:11
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
  * @PackageName : org.gouzhong1223.cymmtj.entity
@@ -30,22 +29,25 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArticleAwesome implements Serializable {
-    private static final long serialVersionUID = 1L;
     /**
      * 文章 ID
      */
     @ApiModelProperty(value = "文章 ID")
     private Integer articleId;
+
     /**
-     * 微信用户 openId
+     * 微信用户 token
      */
-    @ApiModelProperty(value = "微信用户 openId")
-    private String openId;
+    @ApiModelProperty(value = "微信用户 token")
+    private String token;
+
     /**
      * 昵称
      */
     @ApiModelProperty(value = "昵称")
     private String nickName;
+
+    private static final long serialVersionUID = 1L;
 
     public static ArticleAwesomeBuilder builder() {
         return new ArticleAwesomeBuilder();

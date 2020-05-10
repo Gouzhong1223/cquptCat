@@ -19,6 +19,8 @@ package org.gouzhong1223.cymmtj.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.gouzhong1223.cymmtj.common.ResultCode;
+import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.entity.WechatUser;
 import org.gouzhong1223.cymmtj.mapper.WechatUserMapper;
@@ -71,7 +73,7 @@ public class WeChatServiceImpl implements WeChatService {
         // 5.根据返回的User实体类，判断用户是否是新用户，是的话，将用户信息存到数据库；不是的话，更新最新登录时间
         WechatUser user = this.wechatUserMapper.selectByPrimaryKey(openid);
         // uuid生成唯一key，用于维护微信小程序用户与服务端的会话
-        String skey = UUID.randomUUID().toString();
+        String token = UUID.randomUUID().toString();
         if (user == null) {
             // 用户信息入库
             String nickName = rawDataJson.getString("nickName");
@@ -83,7 +85,7 @@ public class WeChatServiceImpl implements WeChatService {
 
             user = new WechatUser();
             user.setOpenId(openid);
-            user.setSkey(skey);
+            user.setToken(token);
             user.setCreateTime(LocalDateTime.now());
             user.setLastVisitTime(LocalDateTime.now());
             user.setSessionKey(sessionKey);
@@ -99,13 +101,13 @@ public class WeChatServiceImpl implements WeChatService {
             // 已存在，更新用户登录时间
             user.setLastVisitTime(LocalDateTime.now());
             // 重新设置会话skey
-            user.setSkey(skey);
+            user.setToken(token);
             this.wechatUserMapper.updateByPrimaryKeySelective(user);
         }
         // encrypteData比rowData多了appid和openid
         // JSONObject userInfo = WechatUtil.getUserInfo(encrypteData, sessionKey, iv);
         // 6. 把新的skey返回给小程序
-        ResponseDto result = new ResponseDto(200, null, skey);
+        ResponseDto result = new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), token);
         return result;
     }
 

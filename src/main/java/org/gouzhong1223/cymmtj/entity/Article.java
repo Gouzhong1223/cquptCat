@@ -2,19 +2,18 @@ package org.gouzhong1223.cymmtj.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description :
- * @Date : create by QingSong in 2020-05-10 16:55
+ * @Description : 
+ * @Date : create by QingSong in 2020-05-10 18:11
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
  * @PackageName : org.gouzhong1223.cymmtj.entity
@@ -31,37 +30,43 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Article implements Serializable {
-    private static final long serialVersionUID = 1L;
     /**
      * 文章主键
      */
     @ApiModelProperty(value = "文章主键")
     private Integer id;
+
     /**
      * 文章内容
      */
     @ApiModelProperty(value = "文章内容")
     private String context;
+
     /**
      * 点赞数量
      */
     @ApiModelProperty(value = "点赞数量")
     private Integer awesomeCount;
+
     /**
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
+
     /**
-     * 微信用户 openID
+     * 微信用户 token
      */
-    @ApiModelProperty(value = "微信用户 openID")
-    private String openId;
+    @ApiModelProperty(value = "微信用户 token")
+    private String token;
+
     /**
      * 昵称
      */
     @ApiModelProperty(value = "昵称")
     private String nickName;
+
+    private static final long serialVersionUID = 1L;
 
     public static ArticleBuilder builder() {
         return new ArticleBuilder();
