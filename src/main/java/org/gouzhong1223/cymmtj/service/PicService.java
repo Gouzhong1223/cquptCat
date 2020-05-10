@@ -59,4 +59,5 @@ public interface PicService {
      * @return {@link List<Pic>} 该 ID 相关联的所有图片
      */
     List<Pic> selectPicsByCatId(Integer id);
+
 }

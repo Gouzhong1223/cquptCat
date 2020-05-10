@@ -17,11 +17,13 @@
 package org.gouzhong1223.cymmtj.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.service.ArticleService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,13 +52,14 @@ public class ArticleController {
 
     @PostMapping("insertArticle")
     public ResponseDto insertArticle(@RequestBody JSONObject jsonObject,
-                                     @RequestParam("files") MultipartFile[] multipartFiles) {
+                                     @RequestParam("files") MultipartFile[] multipartFiles,
+                                     HttpServletRequest request) throws CymmtjException {
+        String token = request.getHeader("token");
         List<MultipartFile> fileList = Arrays.asList(multipartFiles);
         String articleContext = jsonObject.getString("context");
 
-//        articleService.insertArticle(fileList,articleContext,)
+        return articleService.insertArticle(fileList, articleContext, token);
 
-        return null;
     }
 
     @GetMapping("articleDetails/{articleId}")

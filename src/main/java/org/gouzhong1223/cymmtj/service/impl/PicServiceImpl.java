@@ -109,14 +109,16 @@ public class PicServiceImpl implements PicService {
             return null;
         }
 
-        pics.forEach(e -> {
-            try {
-                catPicMapper.insertSelective(new CatPic(catId, e.getId()));
-            } catch (Exception exception) {
-                exception.printStackTrace();
-                return;
-            }
-        });
+        if (catId != null) {
+            pics.forEach(e -> {
+                try {
+                    catPicMapper.insertSelective(new CatPic(catId, e.getId()));
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    return;
+                }
+            });
+        }
         return pics;
     }
 
@@ -135,4 +137,5 @@ public class PicServiceImpl implements PicService {
         });
         return pics;
     }
+
 }

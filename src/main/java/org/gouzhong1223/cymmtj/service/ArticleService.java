@@ -16,6 +16,12 @@
 
 package org.gouzhong1223.cymmtj.service;
 
+import org.gouzhong1223.cymmtj.common.CymmtjException;
+import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
@@ -28,4 +34,13 @@ package org.gouzhong1223.cymmtj.service;
  * @Version : 1.0.0
  */
 public interface ArticleService {
+    /**
+     * 用户新增帖子
+     *
+     * @param fileList       图片文件
+     * @param articleContext 帖子正文
+     * @param token          用户 token
+     * @return
+     */
+    ResponseDto insertArticle(List<MultipartFile> fileList, String articleContext, String token) throws CymmtjException;
 }
