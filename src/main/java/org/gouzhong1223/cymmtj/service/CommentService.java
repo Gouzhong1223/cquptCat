@@ -41,4 +41,13 @@ public interface CommentService {
      * @return
      */
     ResponseDto addComment(String token, String commentContext, Integer catId, Integer articleId) throws CymmtjException;
+
+    /**
+     * 给评论点赞
+     *
+     * @param commentId 评论 id
+     * @param token     微信用户 token
+     * @return
+     */
+    ResponseDto awesomeComment(Integer commentId, String token);
 }

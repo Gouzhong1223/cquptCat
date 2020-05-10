@@ -20,10 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.service.CommentService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -56,5 +53,13 @@ public class CommentController {
         Integer catId = jsonObject.getInteger("catId");
         Integer articleId = jsonObject.getInteger("articleId");
         return commentService.addComment(token, commentContext, catId, articleId);
+    }
+
+    @GetMapping
+    public ResponseDto awesomeComment(HttpServletRequest request,
+                                      @RequestBody JSONObject jsonObject) {
+        Integer commentId = jsonObject.getInteger("commentId");
+        String token = request.getHeader("token");
+        return commentService.awesomeComment(commentId,token);
     }
 }

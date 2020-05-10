@@ -19,14 +19,8 @@ package org.gouzhong1223.cymmtj.service.impl;
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
-import org.gouzhong1223.cymmtj.entity.ArticleComment;
-import org.gouzhong1223.cymmtj.entity.CatComment;
-import org.gouzhong1223.cymmtj.entity.Comment;
-import org.gouzhong1223.cymmtj.entity.WechatUser;
-import org.gouzhong1223.cymmtj.mapper.ArticleCommentMapper;
-import org.gouzhong1223.cymmtj.mapper.CatCommentMapper;
-import org.gouzhong1223.cymmtj.mapper.CommentMapper;
-import org.gouzhong1223.cymmtj.mapper.WechatUserMapper;
+import org.gouzhong1223.cymmtj.entity.*;
+import org.gouzhong1223.cymmtj.mapper.*;
 import org.gouzhong1223.cymmtj.service.CommentService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,13 +46,16 @@ public class CommentServiceImpl implements CommentService {
     private final CommentMapper commentMapper;
     private final CatCommentMapper catCommentMapper;
     private final ArticleCommentMapper articleCommentMapper;
+    private final CommentWechatUserMapper commentWechatUserMapper;
 
     public CommentServiceImpl(WechatUserMapper wechatUserMapper, CommentMapper commentMapper,
-                              CatCommentMapper catCommentMapper, ArticleCommentMapper articleCommentMapper) {
+                              CatCommentMapper catCommentMapper, ArticleCommentMapper articleCommentMapper,
+                              CommentWechatUserMapper commentWechatUserMapper) {
         this.wechatUserMapper = wechatUserMapper;
         this.commentMapper = commentMapper;
         this.catCommentMapper = catCommentMapper;
         this.articleCommentMapper = articleCommentMapper;
+        this.commentWechatUserMapper = commentWechatUserMapper;
     }
 
     @Override
@@ -86,6 +83,19 @@ public class CommentServiceImpl implements CommentService {
             throw new CymmtjException(ResultCode.FAIL.getCode(), "评论出错误啦！");
         }
 
+        return ResponseDto.SUCCESS();
+    }
+
+    @Override
+    public ResponseDto awesomeComment(Integer commentId, String token) {
+        WechatUser wechatUser = wechatUserMapper.selectOneByToken(token);
+        try {
+            commentMapper.awesomeComment(commentId);
+            commentWechatUserMapper.insertSelective(new CommentWechatUser(commentId, wechatUser.getToken()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseDto(ResultCode.FAIL.getCode(), "评论点赞出错啦！");
+        }
         return ResponseDto.SUCCESS();
     }
 }
