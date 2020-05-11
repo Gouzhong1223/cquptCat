@@ -64,6 +64,31 @@ public class CommentServiceImpl implements CommentService {
         this.awesomeCommentWechatUserMapper = awesomeCommentWechatUserMapper;
     }
 
+    /**
+     * 处理所有的评论，重新封装评论对象集合
+     *
+     * @param comments                  所有的评论
+     * @param awesomeCommentWechatUsers 该用户所赞过的评论
+     * @return
+     */
+    public static List<CommentRep> dealCommentsWithToken(ArrayList<Comment> comments, List<AwesomeCommentWechatUser> awesomeCommentWechatUsers) {
+
+        ArrayList<CommentRep> commentReps = new ArrayList<>();
+
+        for (Comment comment : comments) {
+            Boolean awesome = false;
+            for (AwesomeCommentWechatUser awesomeCommentWechatUser : awesomeCommentWechatUsers) {
+                if (Objects.equals(comment.getId(), awesomeCommentWechatUser.getCommentId())) {
+                    awesome = true;
+                }
+            }
+            commentReps.add(new CommentRep(comment.getId(), comment.getContent(),
+                    comment.getCreateTime(), comment.getAwesomeCount(), comment.getToken(),
+                    comment.getNickName(), comment.getAvaterUrl(), awesome));
+        }
+        return commentReps;
+    }
+
     @Override
     public ResponseDto addComment(String token, String commentContext, Integer catId, Integer articleId) throws CymmtjException {
         WechatUser wechatUser = wechatUserMapper.selectOneByToken(token);
@@ -135,32 +160,6 @@ public class CommentServiceImpl implements CommentService {
         }
 
         return ResponseDto.SUCCESS(commentReps);
-    }
-
-
-    /**
-     * 处理所有的评论，重新封装评论对象集合
-     *
-     * @param comments                  所有的评论
-     * @param awesomeCommentWechatUsers 该用户所赞过的评论
-     * @return
-     */
-    public static List<CommentRep> dealCommentsWithToken(ArrayList<Comment> comments, List<AwesomeCommentWechatUser> awesomeCommentWechatUsers) {
-
-        ArrayList<CommentRep> commentReps = new ArrayList<>();
-
-        for (Comment comment : comments) {
-            Boolean awesome = false;
-            for (AwesomeCommentWechatUser awesomeCommentWechatUser : awesomeCommentWechatUsers) {
-                if (Objects.equals(comment.getId(), awesomeCommentWechatUser.getCommentId())) {
-                    awesome = true;
-                }
-            }
-            commentReps.add(new CommentRep(comment.getId(), comment.getContent(),
-                    comment.getCreateTime(), comment.getAwesomeCount(), comment.getToken(),
-                    comment.getNickName(), comment.getAvaterUrl(), awesome));
-        }
-        return commentReps;
     }
 
     /**

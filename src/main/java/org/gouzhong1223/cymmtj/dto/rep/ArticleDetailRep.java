@@ -18,7 +18,6 @@ package org.gouzhong1223.cymmtj.dto.rep;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.gouzhong1223.cymmtj.entity.Article;
 
 import java.time.LocalDateTime;
 import java.util.List;

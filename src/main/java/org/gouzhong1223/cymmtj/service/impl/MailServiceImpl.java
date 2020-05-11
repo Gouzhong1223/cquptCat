@@ -16,7 +16,6 @@
 
 package org.gouzhong1223.cymmtj.service.impl;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import org.gouzhong1223.cymmtj.service.MailService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -55,38 +54,4 @@ public class MailServiceImpl implements MailService {
         mailSender.send(message);
     }
 
-    @Override
-    public void sendSimpleMail(String to, String subject, String content, String... cc) {
-
-    }
-
-    @Override
-    public void sendHtmlMail(String to, String subject, String content) throws MessagingException {
-
-    }
-
-    @Override
-    public void sendHtmlMail(String to, String subject, String content, String... cc) {
-
-    }
-
-    @Override
-    public void sendAttachmentsMail(String to, String subject, String content, String filePath) throws MessagingException {
-
-    }
-
-    @Override
-    public void sendAttachmentsMail(String to, String subject, String content, String filePath, String... cc) {
-
-    }
-
-    @Override
-    public void sendResourceMail(String to, String subject, String content, String rscPath, String rscId) throws MessagingException {
-
-    }
-
-    @Override
-    public void sendResourceMail(String to, String subject, String content, String rscPath, String rscId, String... cc) {
-
-    }
 }

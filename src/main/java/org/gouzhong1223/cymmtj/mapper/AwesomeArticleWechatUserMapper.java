@@ -1,8 +1,9 @@
 package org.gouzhong1223.cymmtj.mapper;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Param;
 import org.gouzhong1223.cymmtj.entity.AwesomeArticleWechatUser;
+
+import java.util.List;
 
 /**
  * @Author : Gouzhong
@@ -20,10 +21,10 @@ public interface AwesomeArticleWechatUserMapper {
 
     int insertSelective(AwesomeArticleWechatUser record);
 
-    int deleteByArticleIdAndToken(@Param("articleId")Integer articleId,@Param("token")String token);
+    int deleteByArticleIdAndToken(@Param("articleId") Integer articleId, @Param("token") String token);
 
-    List<AwesomeArticleWechatUser> selectAllByToken(@Param("token")String token);
+    List<AwesomeArticleWechatUser> selectAllByToken(@Param("token") String token);
 
-    List<AwesomeArticleWechatUser> selectByTokenAndArticleId(@Param("token")String token,@Param("articleId")Integer articleId);
+    List<AwesomeArticleWechatUser> selectByTokenAndArticleId(@Param("token") String token, @Param("articleId") Integer articleId);
 
 }

@@ -1,133 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.ArticleMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.Article">
-    <!--@mbg.generated-->
-    <!--@Table tb_article-->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="context" jdbcType="VARCHAR" property="context" />
-    <result column="awesomeCount" jdbcType="INTEGER" property="awesomeCount" />
-    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="token" jdbcType="VARCHAR" property="token" />
-    <result column="nickName" jdbcType="VARCHAR" property="nickName" />
-    <result column="avatarUrl" jdbcType="VARCHAR" property="avatarUrl" />
-    <result column="commentCount" jdbcType="INTEGER" property="commentCount" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, context, awesomeCount, createTime, token, nickName, avatarUrl, commentCount
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from tb_article
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--@mbg.generated-->
-    delete from tb_article
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.gouzhong1223.cymmtj.entity.Article" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into tb_article (context, awesomeCount, createTime, 
-      token, nickName, avatarUrl, 
-      commentCount)
-    values (#{context,jdbcType=VARCHAR}, #{awesomeCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{token,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, 
-      #{commentCount,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.gouzhong1223.cymmtj.entity.Article" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into tb_article
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="context != null and context != ''">
-        context,
-      </if>
-      <if test="awesomeCount != null">
-        awesomeCount,
-      </if>
-      <if test="createTime != null">
-        createTime,
-      </if>
-      <if test="token != null and token != ''">
-        token,
-      </if>
-      <if test="nickName != null and nickName != ''">
-        nickName,
-      </if>
-      <if test="avatarUrl != null and avatarUrl != ''">
-        avatarUrl,
-      </if>
-      <if test="commentCount != null">
-        commentCount,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="context != null and context != ''">
-        #{context,jdbcType=VARCHAR},
-      </if>
-      <if test="awesomeCount != null">
-        #{awesomeCount,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="token != null and token != ''">
-        #{token,jdbcType=VARCHAR},
-      </if>
-      <if test="nickName != null and nickName != ''">
-        #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="avatarUrl != null and avatarUrl != ''">
-        #{avatarUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="commentCount != null">
-        #{commentCount,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.entity.Article">
-    <!--@mbg.generated-->
-    update tb_article
-    <set>
-      <if test="context != null and context != ''">
-        context = #{context,jdbcType=VARCHAR},
-      </if>
-      <if test="awesomeCount != null">
+    <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.Article">
+        <!--@mbg.generated-->
+        <!--@Table tb_article-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="context" jdbcType="VARCHAR" property="context"/>
+        <result column="awesomeCount" jdbcType="INTEGER" property="awesomeCount"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="token" jdbcType="VARCHAR" property="token"/>
+        <result column="nickName" jdbcType="VARCHAR" property="nickName"/>
+        <result column="avatarUrl" jdbcType="VARCHAR" property="avatarUrl"/>
+        <result column="commentCount" jdbcType="INTEGER" property="commentCount"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, context, awesomeCount, createTime, token, nickName, avatarUrl, commentCount
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from tb_article
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete from tb_article
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.gouzhong1223.cymmtj.entity.Article"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into tb_article (context, awesomeCount, createTime,
+        token, nickName, avatarUrl,
+        commentCount)
+        values (#{context,jdbcType=VARCHAR}, #{awesomeCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+        #{token,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR},
+        #{commentCount,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.gouzhong1223.cymmtj.entity.Article"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into tb_article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="context != null and context != ''">
+                context,
+            </if>
+            <if test="awesomeCount != null">
+                awesomeCount,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="token != null and token != ''">
+                token,
+            </if>
+            <if test="nickName != null and nickName != ''">
+                nickName,
+            </if>
+            <if test="avatarUrl != null and avatarUrl != ''">
+                avatarUrl,
+            </if>
+            <if test="commentCount != null">
+                commentCount,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="context != null and context != ''">
+                #{context,jdbcType=VARCHAR},
+            </if>
+            <if test="awesomeCount != null">
+                #{awesomeCount,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="token != null and token != ''">
+                #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null and nickName != ''">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="avatarUrl != null and avatarUrl != ''">
+                #{avatarUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="commentCount != null">
+                #{commentCount,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.entity.Article">
+        <!--@mbg.generated-->
+        update tb_article
+        <set>
+            <if test="context != null and context != ''">
+                context = #{context,jdbcType=VARCHAR},
+            </if>
+            <if test="awesomeCount != null">
+                awesomeCount = #{awesomeCount,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="token != null and token != ''">
+                token = #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null and nickName != ''">
+                nickName = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="avatarUrl != null and avatarUrl != ''">
+                avatarUrl = #{avatarUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="commentCount != null">
+                commentCount = #{commentCount,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.entity.Article">
+        <!--@mbg.generated-->
+        update tb_article
+        set context = #{context,jdbcType=VARCHAR},
         awesomeCount = #{awesomeCount,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
         createTime = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="token != null and token != ''">
         token = #{token,jdbcType=VARCHAR},
-      </if>
-      <if test="nickName != null and nickName != ''">
         nickName = #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="avatarUrl != null and avatarUrl != ''">
         avatarUrl = #{avatarUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="commentCount != null">
-        commentCount = #{commentCount,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.entity.Article">
-    <!--@mbg.generated-->
-    update tb_article
-    set context = #{context,jdbcType=VARCHAR},
-      awesomeCount = #{awesomeCount,jdbcType=INTEGER},
-      createTime = #{createTime,jdbcType=TIMESTAMP},
-      token = #{token,jdbcType=VARCHAR},
-      nickName = #{nickName,jdbcType=VARCHAR},
-      avatarUrl = #{avatarUrl,jdbcType=VARCHAR},
-      commentCount = #{commentCount,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        commentCount = #{commentCount,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 
     <!--auto generated by MybatisCodeHelper on 2020-05-10-->
     <update id="awesomeArticle">
@@ -150,10 +152,10 @@
         </where>
     </update>
 
-<!--auto generated by MybatisCodeHelper on 2020-05-11-->
-  <select id="selectAll" resultMap="BaseResultMap">
+    <!--auto generated by MybatisCodeHelper on 2020-05-11-->
+    <select id="selectAll" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from tb_article
     </select>
 </mapper>

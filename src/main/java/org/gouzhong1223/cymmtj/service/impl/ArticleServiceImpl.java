@@ -86,7 +86,8 @@ public class ArticleServiceImpl implements ArticleService {
             return new ResponseDto(ResultCode.FAIL.getCode(), "用户不存在");
         }
 
-        Article record = new Article(null, articleContext, 0, LocalDateTime.now(), token, wechatUser.getNickName(), wechatUser.getAvatarUrl(), 0);
+        Article record = new Article(null, articleContext, 0, LocalDateTime.now(),
+                token, wechatUser.getNickName(), wechatUser.getAvatarUrl(), 0);
 
         try {
             List<Pic> pics = picService.insertPics(fileList, null);
