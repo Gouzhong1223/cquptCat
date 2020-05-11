@@ -16,10 +16,13 @@
 
 package org.gouzhong1223.cymmtj.service.impl;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
+import org.gouzhong1223.cymmtj.dto.rep.ArticleDetailRep;
 import org.gouzhong1223.cymmtj.dto.rep.ArticleRep;
+import org.gouzhong1223.cymmtj.dto.rep.CommentRep;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.entity.*;
 import org.gouzhong1223.cymmtj.mapper.*;
@@ -56,10 +59,14 @@ public class ArticleServiceImpl implements ArticleService {
     private final ArticleAwesomeMapper articleAwesomeMapper;
     private final AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper;
     private final AwesomeArticleWechatUserMapper awesomeArticleWechatUserMapper;
+    private final ArticleCommentMapper articleCommentMapper;
+    private final CommentMapper commentMapper;
 
     public ArticleServiceImpl(ArticleMapper articleMapper, WechatUserMapper wechatUserMapper,
                               PicService picService, ArticlePicMapper articlePicMapper,
-                              ArticleAwesomeMapper articleAwesomeMapper, AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper, AwesomeArticleWechatUserMapper awesomeArticleWechatUserMapper) {
+                              ArticleAwesomeMapper articleAwesomeMapper, AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper,
+                              AwesomeArticleWechatUserMapper awesomeArticleWechatUserMapper, ArticleCommentMapper articleCommentMapper,
+                              CommentMapper commentMapper) {
         this.articleMapper = articleMapper;
         this.wechatUserMapper = wechatUserMapper;
         this.picService = picService;
@@ -67,6 +74,8 @@ public class ArticleServiceImpl implements ArticleService {
         this.articleAwesomeMapper = articleAwesomeMapper;
         this.awesomeCommentWechatUserMapper = awesomeCommentWechatUserMapper;
         this.awesomeArticleWechatUserMapper = awesomeArticleWechatUserMapper;
+        this.articleCommentMapper = articleCommentMapper;
+        this.commentMapper = commentMapper;
     }
 
     @Override
@@ -141,6 +150,48 @@ public class ArticleServiceImpl implements ArticleService {
                     article.getNickName(), article.getAvatarUrl(), article.getCommentCount(), awesome));
         }
         return ResponseDto.SUCCESS(articleReps);
+    }
+
+    @Override
+    public ResponseDto articleDetail(String token, Integer articleId) {
+
+        // 先查询出对应的帖子
+        Article article = articleMapper.selectByPrimaryKey(articleId);
+        // 根据帖子 ID 查出对应的评论 ID
+        List<ArticleComment> articleComments = articleCommentMapper.selectAllByActicleId(articleId);
+        // 查询出所有的评论
+        ArrayList<Comment> comments = listAllCommentsByArticleCommentInfo(articleComments);
+        // 获取该用户所有赞过的评论
+        List<AwesomeCommentWechatUser> awesomeCommentWechatUsers = awesomeCommentWechatUserMapper.selectAllByToken(token);
+        // 根据评论和该用户赞过的评论重新封装评论信息
+        List<CommentRep> commentReps = CommentServiceImpl.dealCommentsWithToken(comments, awesomeCommentWechatUsers);
+        // 判断该用户是否赞过改帖子
+        List<AwesomeArticleWechatUser> awesomeArticleWechatUsers = awesomeArticleWechatUserMapper.selectByTokenAndArticleId(token, articleId);
+        Boolean awecome = false;
+        if (CollectionUtils.isNotEmpty(awesomeArticleWechatUsers)) {
+            awecome = true;
+        }
+
+        ArticleDetailRep articleDetailRep = new ArticleDetailRep(article.getId(), article.getContext(),
+                article.getAwesomeCount(), article.getCreateTime(), article.getToken(),
+                article.getNickName(), article.getAvatarUrl(), article.getCommentCount(), awecome, commentReps);
+
+
+        return ResponseDto.SUCCESS(articleDetailRep);
+    }
+
+    /**
+     * 根据ArticleComment获取所有的评论
+     *
+     * @param articleComments ArticleCommentInfo
+     * @return
+     */
+    public ArrayList<Comment> listAllCommentsByArticleCommentInfo(List<ArticleComment> articleComments) {
+        ArrayList<Comment> comments = new ArrayList<>();
+        for (ArticleComment articleComment : articleComments) {
+            comments.add(commentMapper.selectByPrimaryKey(articleComment.getCommentId()));
+        }
+        return comments;
     }
 
 

@@ -24,6 +24,6 @@ public interface AwesomeArticleWechatUserMapper {
 
     List<AwesomeArticleWechatUser> selectAllByToken(@Param("token")String token);
 
-
+    List<AwesomeArticleWechatUser> selectByTokenAndArticleId(@Param("token")String token,@Param("articleId")Integer articleId);
 
 }

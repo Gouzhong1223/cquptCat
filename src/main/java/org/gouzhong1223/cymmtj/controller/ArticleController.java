@@ -65,8 +65,9 @@ public class ArticleController {
     @PostMapping("articleDetails")
     public ResponseDto articleDetails(@RequestBody JSONObject jsonObject,
                                       HttpServletRequest request) {
-
-        return null;
+        String token = request.getHeader("token");
+        Integer articleId = jsonObject.getInteger("articleId");
+        return articleService.articleDetail(token, articleId);
     }
 
     @PostMapping("awesomeArticle")

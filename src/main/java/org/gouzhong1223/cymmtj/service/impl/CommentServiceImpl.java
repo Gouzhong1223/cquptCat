@@ -145,7 +145,7 @@ public class CommentServiceImpl implements CommentService {
      * @param awesomeCommentWechatUsers 该用户所赞过的评论
      * @return
      */
-    private List<CommentRep> dealCommentsWithToken(ArrayList<Comment> comments, List<AwesomeCommentWechatUser> awesomeCommentWechatUsers) {
+    public static List<CommentRep> dealCommentsWithToken(ArrayList<Comment> comments, List<AwesomeCommentWechatUser> awesomeCommentWechatUsers) {
 
         ArrayList<CommentRep> commentReps = new ArrayList<>();
 

@@ -1,4 +1,6 @@
 package org.gouzhong1223.cymmtj.mapper;
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
 
 import org.gouzhong1223.cymmtj.entity.ArticleComment;
 
@@ -17,4 +19,8 @@ public interface ArticleCommentMapper {
     int insert(ArticleComment record);
 
     int insertSelective(ArticleComment record);
+
+    List<ArticleComment> selectAllByActicleId(@Param("acticleId")Integer acticleId);
+
+
 }

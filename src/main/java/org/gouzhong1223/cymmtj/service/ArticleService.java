@@ -69,4 +69,13 @@ public interface ArticleService {
      * @return
      */
     ResponseDto listAllArticles(String token);
+
+    /**
+     * 获取帖子详情
+     *
+     * @param token     微信用户 token
+     * @param articleId 帖子 Id
+     * @return
+     */
+    ResponseDto articleDetail(String token, Integer articleId);
 }
