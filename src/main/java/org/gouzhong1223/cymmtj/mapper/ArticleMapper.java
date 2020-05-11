@@ -1,13 +1,12 @@
 package org.gouzhong1223.cymmtj.mapper;
 
-import org.apache.ibatis.annotations.Param;
-import org.gouzhong1223.cymmtj.entity.Article;
+import org.apache.ibatis.annotations.Param;import org.gouzhong1223.cymmtj.entity.Article;import java.util.List;
 
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
  * @Description :
- * @Date : create by QingSong in 2020-05-11 15:36
+ * @Date : create by QingSong in 2020-05-11 17:15
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
  * @PackageName : org.gouzhong1223.cymmtj.mapper
@@ -30,4 +29,6 @@ public interface ArticleMapper {
     int awesomeArticle(@Param("id") Integer id);
 
     int unAwesomeArticle(@Param("id") Integer id);
+
+    List<Article> selectAll();
 }

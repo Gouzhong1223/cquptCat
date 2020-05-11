@@ -72,7 +72,9 @@ public class CommentServiceImpl implements CommentService {
         }
 
         Comment comment = new Comment(null, commentContext, LocalDateTime.now(), 0, token, wechatUser.getNickName(), wechatUser.getAvatarUrl());
+
         commentMapper.insertSelective(comment);
+        commentWechatUserMapper.insertSelective(new CommentWechatUser(comment.getId(), wechatUser.getToken()));
 
         if (catId != null && articleId == null) {
             try {
@@ -148,17 +150,17 @@ public class CommentServiceImpl implements CommentService {
         ArrayList<CommentRep> commentReps = new ArrayList<>();
 
         for (Comment comment : comments) {
+            Boolean awesome = false;
             for (AwesomeCommentWechatUser awesomeCommentWechatUser : awesomeCommentWechatUsers) {
-                Boolean awesome = false;
                 if (Objects.equals(comment.getId(), awesomeCommentWechatUser.getCommentId())) {
                     awesome = true;
                 }
-                commentReps.add(new CommentRep(comment.getId(), comment.getContent(),
-                        comment.getCreateTime(), comment.getAwesomeCount(), comment.getToken(),
-                        comment.getNickName(), comment.getAvaterUrl(), awesome));
             }
+            commentReps.add(new CommentRep(comment.getId(), comment.getContent(),
+                    comment.getCreateTime(), comment.getAwesomeCount(), comment.getToken(),
+                    comment.getNickName(), comment.getAvaterUrl(), awesome));
         }
-        return null;
+        return commentReps;
     }
 
     /**

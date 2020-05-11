@@ -61,4 +61,12 @@ public interface ArticleService {
      * @return
      */
     ResponseDto unAwesomeArticle(String token, Integer articleId) throws CymmtjException;
+
+    /**
+     * 获取所有的帖子
+     *
+     * @param token 微信用户 token
+     * @return
+     */
+    ResponseDto listAllArticles(String token);
 }

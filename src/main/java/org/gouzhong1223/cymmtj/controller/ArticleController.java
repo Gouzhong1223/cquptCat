@@ -62,8 +62,10 @@ public class ArticleController {
 
     }
 
-    @GetMapping("articleDetails/{articleId}")
-    public ResponseDto articleDetails(@PathVariable("articleId") Integer articleId) {
+    @PostMapping("articleDetails")
+    public ResponseDto articleDetails(@RequestBody JSONObject jsonObject,
+                                      HttpServletRequest request) {
+
         return null;
     }
 
@@ -81,6 +83,12 @@ public class ArticleController {
         String token = request.getHeader("token");
         Integer articleId = jsonObject.getInteger("articleId");
         return articleService.unAwesomeArticle(token, articleId);
+    }
+
+    @GetMapping("listAllArticles")
+    public ResponseDto listAllArticles(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        return articleService.listAllArticles(token);
     }
 
 }
