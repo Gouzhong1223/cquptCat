@@ -2,17 +2,18 @@ package org.gouzhong1223.cymmtj.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description : 
+ * @Description :
  * @Date : create by QingSong in 2020-05-10 18:12
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
@@ -30,73 +31,62 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WechatUser implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * open_id
      */
     @ApiModelProperty(value = "open_id")
     private String openId;
-
     /**
      * token
      */
     @ApiModelProperty(value = "token")
     private String token;
-
     /**
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
-
     /**
      * 最后登录时间
      */
     @ApiModelProperty(value = "最后登录时间")
     private LocalDateTime lastVisitTime;
-
     /**
      * session_key
      */
     @ApiModelProperty(value = "session_key")
     private String sessionKey;
-
     /**
      * 市
      */
     @ApiModelProperty(value = "市")
     private String city;
-
     /**
      * 省
      */
     @ApiModelProperty(value = "省")
     private String province;
-
     /**
      * 国
      */
     @ApiModelProperty(value = "国")
     private String country;
-
     /**
      * 头像
      */
     @ApiModelProperty(value = "头像")
     private String avatarUrl;
-
     /**
      * 性别
      */
     @ApiModelProperty(value = "性别")
     private Integer gender;
-
     /**
      * 网名
      */
     @ApiModelProperty(value = "网名")
     private String nickName;
-
-    private static final long serialVersionUID = 1L;
 
     public static WechatUserBuilder builder() {
         return new WechatUserBuilder();

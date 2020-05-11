@@ -18,6 +18,7 @@ package org.gouzhong1223.cymmtj.service.impl;
 
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.ResultCode;
+import org.gouzhong1223.cymmtj.dto.rep.CommentRep;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.entity.*;
 import org.gouzhong1223.cymmtj.mapper.*;
@@ -26,6 +27,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @Author : Gouzhong
@@ -47,15 +51,17 @@ public class CommentServiceImpl implements CommentService {
     private final CatCommentMapper catCommentMapper;
     private final ArticleCommentMapper articleCommentMapper;
     private final CommentWechatUserMapper commentWechatUserMapper;
+    private final AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper;
 
     public CommentServiceImpl(WechatUserMapper wechatUserMapper, CommentMapper commentMapper,
                               CatCommentMapper catCommentMapper, ArticleCommentMapper articleCommentMapper,
-                              CommentWechatUserMapper commentWechatUserMapper) {
+                              CommentWechatUserMapper commentWechatUserMapper, AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper) {
         this.wechatUserMapper = wechatUserMapper;
         this.commentMapper = commentMapper;
         this.catCommentMapper = catCommentMapper;
         this.articleCommentMapper = articleCommentMapper;
         this.commentWechatUserMapper = commentWechatUserMapper;
+        this.awesomeCommentWechatUserMapper = awesomeCommentWechatUserMapper;
     }
 
     @Override
@@ -91,7 +97,7 @@ public class CommentServiceImpl implements CommentService {
         WechatUser wechatUser = wechatUserMapper.selectOneByToken(token);
         try {
             commentMapper.awesomeComment(commentId);
-            commentWechatUserMapper.insertSelective(new CommentWechatUser(commentId, wechatUser.getToken()));
+            awesomeCommentWechatUserMapper.insertSelective(new AwesomeCommentWechatUser(commentId, wechatUser.getToken()));
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseDto(ResultCode.FAIL.getCode(), "评论点赞出错啦！");
@@ -104,11 +110,69 @@ public class CommentServiceImpl implements CommentService {
         WechatUser wechatUser = wechatUserMapper.selectOneByToken(token);
         try {
             commentMapper.unAwesomeComment(commentId);
-            commentWechatUserMapper.deleteByCommentIdAndToken(commentId, wechatUser.getToken());
+            awesomeCommentWechatUserMapper.deleteByCommentIdAndToken(commentId, wechatUser.getToken());
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseDto(ResultCode.FAIL.getCode(), "取消点赞出错啦！");
         }
         return ResponseDto.SUCCESS();
     }
+
+    @Override
+    public ResponseDto listCommentByCatId(Integer catId, String token) throws CymmtjException {
+
+        List<CommentRep> commentReps = null;
+        try {
+            List<CatComment> catComments = catCommentMapper.selectAllByCatId(catId);
+            List<AwesomeCommentWechatUser> awesomeCommentWechatUsers = awesomeCommentWechatUserMapper.selectAllByToken(token);
+            ArrayList<Comment> comments = getAllCommentsByCatCommentInfo(catComments);
+            commentReps = dealCommentsWithToken(comments, awesomeCommentWechatUsers);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "获取评论失败啦！");
+        }
+
+        return ResponseDto.SUCCESS(commentReps);
+    }
+
+
+    /**
+     * 处理所有的评论，重新封装评论对象集合
+     *
+     * @param comments                  所有的评论
+     * @param awesomeCommentWechatUsers 该用户所赞过的评论
+     * @return
+     */
+    private List<CommentRep> dealCommentsWithToken(ArrayList<Comment> comments, List<AwesomeCommentWechatUser> awesomeCommentWechatUsers) {
+
+        ArrayList<CommentRep> commentReps = new ArrayList<>();
+
+        for (Comment comment : comments) {
+            for (AwesomeCommentWechatUser awesomeCommentWechatUser : awesomeCommentWechatUsers) {
+                Boolean awesome = false;
+                if (Objects.equals(comment.getId(), awesomeCommentWechatUser.getCommentId())) {
+                    awesome = true;
+                }
+                commentReps.add(new CommentRep(comment.getId(), comment.getContent(),
+                        comment.getCreateTime(), comment.getAwesomeCount(), comment.getToken(),
+                        comment.getNickName(), comment.getAvaterUrl(), awesome));
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 根据 catComment 信息获取该 Cat 对应的所有 Comments
+     *
+     * @param catComments
+     * @return
+     */
+    private ArrayList<Comment> getAllCommentsByCatCommentInfo(List<CatComment> catComments) {
+        ArrayList<Comment> comments = new ArrayList<>();
+        catComments.forEach(e -> {
+            comments.add(commentMapper.selectByPrimaryKey(e.getCommentId()));
+        });
+        return comments;
+    }
+
 }

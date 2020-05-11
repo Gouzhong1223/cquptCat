@@ -20,7 +20,10 @@ import com.alibaba.fastjson.JSONObject;
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.service.CommentService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -55,20 +58,29 @@ public class CommentController {
         return commentService.addComment(token, commentContext, catId, articleId);
     }
 
-    @GetMapping
+    @PostMapping("awesomeComment")
     public ResponseDto awesomeComment(HttpServletRequest request,
                                       @RequestBody JSONObject jsonObject) {
         Integer commentId = jsonObject.getInteger("commentId");
         String token = request.getHeader("token");
-        return commentService.awesomeComment(commentId,token);
+        return commentService.awesomeComment(commentId, token);
     }
 
-    @GetMapping
+    @PostMapping("unAwesomeComment")
     public ResponseDto unAwesomeComment(HttpServletRequest request,
-                                      @RequestBody JSONObject jsonObject) {
+                                        @RequestBody JSONObject jsonObject) {
         Integer commentId = jsonObject.getInteger("commentId");
         String token = request.getHeader("token");
-        return commentService.unAwesomeComment(commentId,token);
+        return commentService.unAwesomeComment(commentId, token);
     }
+
+    @PostMapping("listCommentByCatId")
+    public ResponseDto listCommentByCatId(HttpServletRequest request,
+                                          @RequestBody JSONObject jsonObject) throws CymmtjException {
+        Integer catId = jsonObject.getInteger("catId");
+        String token = request.getHeader("token");
+        return commentService.listCommentByCatId(catId, token);
+    }
+
 
 }

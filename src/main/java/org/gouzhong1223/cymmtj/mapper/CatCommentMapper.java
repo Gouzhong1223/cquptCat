@@ -1,6 +1,9 @@
 package org.gouzhong1223.cymmtj.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.gouzhong1223.cymmtj.entity.CatComment;
+
+import java.util.List;
 
 /**
  * @Author : Gouzhong
@@ -17,4 +20,7 @@ public interface CatCommentMapper {
     int insert(CatComment record);
 
     int insertSelective(CatComment record);
+
+    List<CatComment> selectAllByCatId(@Param("catId") Integer catId);
+
 }

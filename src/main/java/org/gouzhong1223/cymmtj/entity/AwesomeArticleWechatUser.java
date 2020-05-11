@@ -22,27 +22,28 @@ import java.io.Serializable;
  */
 
 /**
- * 文章评论中间表
+ * 用户和文章点赞中间表
  */
-@ApiModel(value = "org-gouzhong1223-cymmtj-entity-ArticleComment")
+@ApiModel(value = "org-gouzhong1223-cymmtj-entity-AwesomeArticleWechatUser")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArticleComment implements Serializable {
+public class AwesomeArticleWechatUser implements Serializable {
     private static final long serialVersionUID = 1L;
-    /**
-     * 评论 ID
-     */
-    @ApiModelProperty(value = "评论 ID")
-    private Integer commentId;
     /**
      * 文章 ID
      */
     @ApiModelProperty(value = "文章 ID")
-    private Integer acticleId;
-
-    public static ArticleCommentBuilder builder() {
-        return new ArticleCommentBuilder();
-    }
+    private Integer articleId;
+    /**
+     * 微信用户 token
+     */
+    @ApiModelProperty(value = "微信用户 token")
+    private String token;
+    /**
+     * 昵称
+     */
+    @ApiModelProperty(value = "昵称")
+    private String nickName;
 }

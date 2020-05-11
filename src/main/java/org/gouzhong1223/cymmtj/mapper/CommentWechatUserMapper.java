@@ -1,7 +1,9 @@
 package org.gouzhong1223.cymmtj.mapper;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Param;
 import org.gouzhong1223.cymmtj.entity.CommentWechatUser;
+
+import java.util.List;
 
 /**
  * @Author : Gouzhong
@@ -19,7 +21,8 @@ public interface CommentWechatUserMapper {
 
     int insertSelective(CommentWechatUser record);
 
-    int deleteByCommentIdAndToken(@Param("commentId")Integer commentId,@Param("token")String token);
+    int deleteByCommentIdAndToken(@Param("commentId") Integer commentId, @Param("token") String token);
 
+    List<CommentWechatUser> selectAllByToken(@Param("token") String token);
 
 }

@@ -15,7 +15,7 @@
   ~    limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -31,6 +31,7 @@
     <description>CQUPT-Cat-Illustrated-Handbook</description>
 
     <properties>
+        <docker.image.prefix>gouzhong1223</docker.image.prefix>
         <java.version>1.8</java.version>
         <mybatis.version>2.1.2</mybatis.version>
         <pagehelper.version>1.2.10</pagehelper.version>
@@ -200,10 +201,35 @@
     </dependencies>
 
     <build>
+        <finalName>cymmtj</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <imageTags>
+                        <imageTag>1.0.0</imageTag>
+                    </imageTags>
+                    <baseImage>java</baseImage>
+                    <maintainer>gouzhong1223@gmail.com</maintainer>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <workdir>/ROOT</workdir>
+                    <cmd>["java","-version"]</cmd>
+                    <entryPoint>["java","-jar","${project.build.finalName}.jar"]</entryPoint>
+                    <dockerHost>http://192.168.1.4:2375</dockerHost>
+                    <resources>
+                        <resource>
+                            <targetPath>/ROOT</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
         </plugins>
     </build>

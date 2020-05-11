@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.gouzhong1223.cymmtj.mapper.AwesomeWechatUserMapper">
-    <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.AwesomeWechatUser">
+<mapper namespace="org.gouzhong1223.cymmtj.mapper.AwesomeCatWechatUserMapper">
+    <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.AwesomeCatWechatUser">
         <!--@mbg.generated-->
-        <!--@Table tb_awesome_wechatUser-->
+        <!--@Table tb_awesome_cat_wechatUser-->
         <result column="token" jdbcType="VARCHAR" property="token"/>
         <result column="catId" jdbcType="INTEGER" property="catId"/>
         <result column="praiseTime" jdbcType="TIMESTAMP" property="praiseTime"/>
@@ -12,16 +12,16 @@
         <!--@mbg.generated-->
         token, catId, praiseTime
     </sql>
-    <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.AwesomeWechatUser">
+    <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.AwesomeCatWechatUser">
         <!--@mbg.generated-->
-        insert into tb_awesome_wechatUser (token, catId, praiseTime
+        insert into tb_awesome_cat_wechatUser (token, catId, praiseTime
         )
         values (#{token,jdbcType=VARCHAR}, #{catId,jdbcType=INTEGER}, #{praiseTime,jdbcType=TIMESTAMP}
         )
     </insert>
-    <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.AwesomeWechatUser">
+    <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.AwesomeCatWechatUser">
         <!--@mbg.generated-->
-        insert into tb_awesome_wechatUser
+        insert into tb_awesome_cat_wechatUser
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="token != null and token != ''">
                 token,

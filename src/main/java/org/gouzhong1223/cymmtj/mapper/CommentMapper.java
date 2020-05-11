@@ -1,6 +1,6 @@
 package org.gouzhong1223.cymmtj.mapper;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Param;
 import org.gouzhong1223.cymmtj.entity.Comment;
 
 /**
@@ -27,8 +27,8 @@ public interface CommentMapper {
 
     int updateByPrimaryKey(Comment record);
 
-    int awesomeComment(@Param("id")Integer id);
+    int awesomeComment(@Param("id") Integer id);
 
-    int unAwesomeComment(@Param("id")Integer id);
+    int unAwesomeComment(@Param("id") Integer id);
 
 }

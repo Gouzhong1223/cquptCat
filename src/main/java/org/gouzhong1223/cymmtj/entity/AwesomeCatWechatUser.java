@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @Author : Gouzhong
@@ -22,27 +23,28 @@ import java.io.Serializable;
  */
 
 /**
- * 文章评论中间表
+ * 微信用户猫咪点赞记录表
  */
-@ApiModel(value = "org-gouzhong1223-cymmtj-entity-ArticleComment")
+@ApiModel(value = "org-gouzhong1223-cymmtj-entity-AwesomeCatWechatUser")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArticleComment implements Serializable {
+public class AwesomeCatWechatUser implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
-     * 评论 ID
+     * 微信用户 token
      */
-    @ApiModelProperty(value = "评论 ID")
-    private Integer commentId;
+    @ApiModelProperty(value = "微信用户 token")
+    private String token;
     /**
-     * 文章 ID
+     * 猫咪 ID
      */
-    @ApiModelProperty(value = "文章 ID")
-    private Integer acticleId;
-
-    public static ArticleCommentBuilder builder() {
-        return new ArticleCommentBuilder();
-    }
+    @ApiModelProperty(value = "猫咪 ID")
+    private Integer catId;
+    /**
+     * 点赞时间
+     */
+    @ApiModelProperty(value = "点赞时间")
+    private LocalDateTime praiseTime;
 }

@@ -59,4 +59,13 @@ public interface CommentService {
      * @return
      */
     ResponseDto unAwesomeComment(Integer commentId, String token);
+
+    /**
+     * 根据 CatID 获取所有的评论
+     *
+     * @param catId
+     * @param token
+     * @return
+     */
+    ResponseDto listCommentByCatId(Integer catId, String token) throws CymmtjException;
 }

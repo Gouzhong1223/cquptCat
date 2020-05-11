@@ -1,180 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gouzhong1223.cymmtj.mapper.WechatUserMapper">
-  <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.WechatUser">
-    <!--@mbg.generated-->
-    <!--@Table tb_wechatUser-->
-    <id column="open_id" jdbcType="VARCHAR" property="openId" />
-    <result column="token" jdbcType="VARCHAR" property="token" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="last_visit_time" jdbcType="TIMESTAMP" property="lastVisitTime" />
-    <result column="session_key" jdbcType="VARCHAR" property="sessionKey" />
-    <result column="city" jdbcType="VARCHAR" property="city" />
-    <result column="province" jdbcType="VARCHAR" property="province" />
-    <result column="country" jdbcType="VARCHAR" property="country" />
-    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
-    <result column="gender" jdbcType="TINYINT" property="gender" />
-    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    open_id, token, create_time, last_visit_time, session_key, city, province, country, 
-    avatar_url, gender, nick_name
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from tb_wechatUser
-    where open_id = #{openId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    <!--@mbg.generated-->
-    delete from tb_wechatUser
-    where open_id = #{openId,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.WechatUser">
-    <!--@mbg.generated-->
-    insert into tb_wechatUser (open_id, token, create_time, 
-      last_visit_time, session_key, city, 
-      province, country, avatar_url, 
-      gender, nick_name)
-    values (#{openId,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{lastVisitTime,jdbcType=TIMESTAMP}, #{sessionKey,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
-      #{province,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=TINYINT}, #{nickName,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.WechatUser">
-    <!--@mbg.generated-->
-    insert into tb_wechatUser
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="openId != null and openId != ''">
-        open_id,
-      </if>
-      <if test="token != null and token != ''">
-        token,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="lastVisitTime != null">
-        last_visit_time,
-      </if>
-      <if test="sessionKey != null and sessionKey != ''">
-        session_key,
-      </if>
-      <if test="city != null and city != ''">
-        city,
-      </if>
-      <if test="province != null and province != ''">
-        province,
-      </if>
-      <if test="country != null and country != ''">
-        country,
-      </if>
-      <if test="avatarUrl != null and avatarUrl != ''">
-        avatar_url,
-      </if>
-      <if test="gender != null">
-        gender,
-      </if>
-      <if test="nickName != null and nickName != ''">
-        nick_name,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="openId != null and openId != ''">
-        #{openId,jdbcType=VARCHAR},
-      </if>
-      <if test="token != null and token != ''">
-        #{token,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastVisitTime != null">
-        #{lastVisitTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="sessionKey != null and sessionKey != ''">
-        #{sessionKey,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null and city != ''">
-        #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="province != null and province != ''">
-        #{province,jdbcType=VARCHAR},
-      </if>
-      <if test="country != null and country != ''">
-        #{country,jdbcType=VARCHAR},
-      </if>
-      <if test="avatarUrl != null and avatarUrl != ''">
-        #{avatarUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null">
-        #{gender,jdbcType=TINYINT},
-      </if>
-      <if test="nickName != null and nickName != ''">
-        #{nickName,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.entity.WechatUser">
-    <!--@mbg.generated-->
-    update tb_wechatUser
-    <set>
-      <if test="token != null and token != ''">
-        token = #{token,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
+    <resultMap id="BaseResultMap" type="org.gouzhong1223.cymmtj.entity.WechatUser">
+        <!--@mbg.generated-->
+        <!--@Table tb_wechatUser-->
+        <id column="open_id" jdbcType="VARCHAR" property="openId"/>
+        <result column="token" jdbcType="VARCHAR" property="token"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="last_visit_time" jdbcType="TIMESTAMP" property="lastVisitTime"/>
+        <result column="session_key" jdbcType="VARCHAR" property="sessionKey"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="country" jdbcType="VARCHAR" property="country"/>
+        <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl"/>
+        <result column="gender" jdbcType="TINYINT" property="gender"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        open_id, token, create_time, last_visit_time, session_key, city, province, country,
+        avatar_url, gender, nick_name
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from tb_wechatUser
+        where open_id = #{openId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        <!--@mbg.generated-->
+        delete from tb_wechatUser
+        where open_id = #{openId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="org.gouzhong1223.cymmtj.entity.WechatUser">
+        <!--@mbg.generated-->
+        insert into tb_wechatUser (open_id, token, create_time,
+        last_visit_time, session_key, city,
+        province, country, avatar_url,
+        gender, nick_name)
+        values (#{openId,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+        #{lastVisitTime,jdbcType=TIMESTAMP}, #{sessionKey,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
+        #{province,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR},
+        #{gender,jdbcType=TINYINT}, #{nickName,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="org.gouzhong1223.cymmtj.entity.WechatUser">
+        <!--@mbg.generated-->
+        insert into tb_wechatUser
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="openId != null and openId != ''">
+                open_id,
+            </if>
+            <if test="token != null and token != ''">
+                token,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="lastVisitTime != null">
+                last_visit_time,
+            </if>
+            <if test="sessionKey != null and sessionKey != ''">
+                session_key,
+            </if>
+            <if test="city != null and city != ''">
+                city,
+            </if>
+            <if test="province != null and province != ''">
+                province,
+            </if>
+            <if test="country != null and country != ''">
+                country,
+            </if>
+            <if test="avatarUrl != null and avatarUrl != ''">
+                avatar_url,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="nickName != null and nickName != ''">
+                nick_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="openId != null and openId != ''">
+                #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="token != null and token != ''">
+                #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastVisitTime != null">
+                #{lastVisitTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sessionKey != null and sessionKey != ''">
+                #{sessionKey,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null and city != ''">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null and province != ''">
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null and country != ''">
+                #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="avatarUrl != null and avatarUrl != ''">
+                #{avatarUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=TINYINT},
+            </if>
+            <if test="nickName != null and nickName != ''">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.gouzhong1223.cymmtj.entity.WechatUser">
+        <!--@mbg.generated-->
+        update tb_wechatUser
+        <set>
+            <if test="token != null and token != ''">
+                token = #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastVisitTime != null">
+                last_visit_time = #{lastVisitTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sessionKey != null and sessionKey != ''">
+                session_key = #{sessionKey,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null and city != ''">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null and province != ''">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null and country != ''">
+                country = #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="avatarUrl != null and avatarUrl != ''">
+                avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=TINYINT},
+            </if>
+            <if test="nickName != null and nickName != ''">
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where open_id = #{openId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.entity.WechatUser">
+        <!--@mbg.generated-->
+        update tb_wechatUser
+        set token = #{token,jdbcType=VARCHAR},
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastVisitTime != null">
         last_visit_time = #{lastVisitTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="sessionKey != null and sessionKey != ''">
         session_key = #{sessionKey,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null and city != ''">
         city = #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="province != null and province != ''">
         province = #{province,jdbcType=VARCHAR},
-      </if>
-      <if test="country != null and country != ''">
         country = #{country,jdbcType=VARCHAR},
-      </if>
-      <if test="avatarUrl != null and avatarUrl != ''">
         avatar_url = #{avatarUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null">
         gender = #{gender,jdbcType=TINYINT},
-      </if>
-      <if test="nickName != null and nickName != ''">
-        nick_name = #{nickName,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where open_id = #{openId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.gouzhong1223.cymmtj.entity.WechatUser">
-    <!--@mbg.generated-->
-    update tb_wechatUser
-    set token = #{token,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      last_visit_time = #{lastVisitTime,jdbcType=TIMESTAMP},
-      session_key = #{sessionKey,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR},
-      province = #{province,jdbcType=VARCHAR},
-      country = #{country,jdbcType=VARCHAR},
-      avatar_url = #{avatarUrl,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=TINYINT},
-      nick_name = #{nickName,jdbcType=VARCHAR}
-    where open_id = #{openId,jdbcType=VARCHAR}
-  </update>
+        nick_name = #{nickName,jdbcType=VARCHAR}
+        where open_id = #{openId,jdbcType=VARCHAR}
+    </update>
 
     <!--auto generated by MybatisCodeHelper on 2020-04-21-->
     <select id="selectBySkey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from tb_wechatUser
         <where>
             <if test="skey != null and skey != ''">
@@ -186,7 +186,7 @@
     <!--auto generated by MybatisCodeHelper on 2020-05-05-->
     <select id="selectOneByOpenId" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from tb_wechatUser
         <where>
             <if test="openId != null and openId != ''">
@@ -195,8 +195,8 @@
         </where>
     </select>
 
-<!--auto generated by MybatisCodeHelper on 2020-05-10-->
-  <select id="selectOneByToken" resultMap="BaseResultMap">
+    <!--auto generated by MybatisCodeHelper on 2020-05-10-->
+    <select id="selectOneByToken" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from tb_wechatUser

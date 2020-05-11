@@ -1,6 +1,6 @@
 package org.gouzhong1223.cymmtj.mapper;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Param;
 import org.gouzhong1223.cymmtj.entity.ArticleAwesome;
 
 /**
@@ -19,6 +19,6 @@ public interface ArticleAwesomeMapper {
 
     int insertSelective(ArticleAwesome record);
 
-    int deleteByArticleIdAndToken(@Param("articleId")Integer articleId,@Param("token")String token);
+    int deleteByArticleIdAndToken(@Param("articleId") Integer articleId, @Param("token") String token);
 
 }

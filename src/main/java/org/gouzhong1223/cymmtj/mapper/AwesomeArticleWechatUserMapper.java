@@ -1,6 +1,6 @@
 package org.gouzhong1223.cymmtj.mapper;
 
-import org.gouzhong1223.cymmtj.entity.ArticleComment;
+import org.gouzhong1223.cymmtj.entity.AwesomeArticleWechatUser;
 
 /**
  * @Author : Gouzhong
@@ -13,8 +13,8 @@ import org.gouzhong1223.cymmtj.entity.ArticleComment;
  * @ProjectName : cymmtj
  * @Version : 1.0.0
  */
-public interface ArticleCommentMapper {
-    int insert(ArticleComment record);
+public interface AwesomeArticleWechatUserMapper {
+    int insert(AwesomeArticleWechatUser record);
 
-    int insertSelective(ArticleComment record);
+    int insertSelective(AwesomeArticleWechatUser record);
 }
