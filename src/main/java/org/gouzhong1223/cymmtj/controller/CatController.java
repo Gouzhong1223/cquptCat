@@ -24,9 +24,6 @@ import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
-import org.gouzhong1223.cymmtj.entity.Cat;
-import org.gouzhong1223.cymmtj.entity.Pic;
-import org.gouzhong1223.cymmtj.entity.Region;
 import org.gouzhong1223.cymmtj.entity.WechatUser;
 import org.gouzhong1223.cymmtj.service.CatService;
 import org.gouzhong1223.cymmtj.service.PicService;
@@ -36,7 +33,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -93,19 +89,15 @@ public class CatController {
         return new ResponseDto<>(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), resultCats);
     }
 
-    @PostMapping("/catDetail")
-    public ResponseDto getCatDetail(@RequestParam("id") Integer id, @RequestParam("skey") String skey) {
-        Cat cat = catService.selectCatByid(id);
-        if (cat != null) {
-            List<Pic> pics = picService.selectPicsByCatId(id);
-            List<Region> regions = regionService.selectRegionsByCatId(id);
-            HashMap hashMap = new HashMap();
-            hashMap.put("cat", cat);
-            hashMap.put("pics", pics);
-            hashMap.put("regions", regions);
-            return new ResponseDto<>(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), hashMap);
-        }
-        return new ResponseDto<>(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage());
+    @PostMapping("catDetail")
+    public ResponseDto getCatDetail(@RequestBody JSONObject jsonObject,
+                                    HttpServletRequest request) {
+
+        String token = request.getHeader("token");
+        Integer catId = jsonObject.getInteger("catId");
+
+        return catService.catDetail(token, catId);
+
     }
 
     @PostMapping("/thumbUp")

@@ -109,4 +109,13 @@ public interface CatService {
      * @return
      */
     ResponseDto auditCat(Integer id, Integer auditStatus, String reasonForFailure) throws CymmtjException;
+
+    /**
+     * 获取猫咪详情
+     *
+     * @param token 微信用户 token
+     * @param catId 猫咪 ID
+     * @return
+     */
+    ResponseDto catDetail(String token, Integer catId);
 }

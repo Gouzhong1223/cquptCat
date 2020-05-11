@@ -130,10 +130,10 @@ public class PicServiceImpl implements PicService {
 
     @Override
     public List<Pic> selectPicsByCatId(Integer id) {
-        List<CatPic> catPics = catPicMapper.selectAllByCat_id(id);
+        List<CatPic> catPics = catPicMapper.selectAllByCatId(id);
         ArrayList<Pic> pics = new ArrayList<>();
         catPics.forEach(e -> {
-            pics.add(picMapper.selectByPrimaryKey(e.getPic_id()));
+            pics.add(picMapper.selectByPrimaryKey(e.getPicId()));
         });
         return pics;
     }

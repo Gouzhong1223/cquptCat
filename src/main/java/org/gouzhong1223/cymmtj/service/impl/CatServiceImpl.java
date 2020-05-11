@@ -25,9 +25,7 @@ import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
-import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
-import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
-import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
+import org.gouzhong1223.cymmtj.dto.rep.*;
 import org.gouzhong1223.cymmtj.entity.*;
 import org.gouzhong1223.cymmtj.mapper.*;
 import org.gouzhong1223.cymmtj.service.CatService;
@@ -41,6 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,13 +68,22 @@ public class CatServiceImpl implements CatService {
     private final MailService mailService;
     private final CatRefrrerMapper catRefrrerMapper;
     private final MailLogMapper mailLogMapper;
+    private final CatCommentMapper catCommentMapper;
+    private final CommentMapper commentMapper;
+    private final AwesomeCatWechatUserMapper awesomeCatWechatUserMapper;
+    private final CollectWechatUserMapper collectWechatUserMapper;
+    private final AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper;
+    private final CatPicMapper catPicMapper;
+    private final PicMapper picMapper;
+
     @Value("${spring.mail.from}")
     private String from;
 
     public CatServiceImpl(CatMapper catMapper, PraiseWechatUserMapper praiseWechatUserMapper,
                           PicService picService, WechatUserMapper wechatUserMapper,
                           MailService mailService, CatRefrrerMapper catRefrrerMapper,
-                          MailLogMapper mailLogMapper) {
+                          MailLogMapper mailLogMapper, CatCommentMapper catCommentMapper, CommentMapper commentMapper,
+                          AwesomeCatWechatUserMapper awesomeCatWechatUserMapper, CollectWechatUserMapper collectWechatUserMapper, AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper, CatPicMapper catPicMapper, PicMapper picMapper) {
         this.catMapper = catMapper;
         this.praiseWechatUserMapper = praiseWechatUserMapper;
         this.picService = picService;
@@ -83,6 +91,13 @@ public class CatServiceImpl implements CatService {
         this.mailService = mailService;
         this.catRefrrerMapper = catRefrrerMapper;
         this.mailLogMapper = mailLogMapper;
+        this.catCommentMapper = catCommentMapper;
+        this.commentMapper = commentMapper;
+        this.awesomeCatWechatUserMapper = awesomeCatWechatUserMapper;
+        this.collectWechatUserMapper = collectWechatUserMapper;
+        this.awesomeCommentWechatUserMapper = awesomeCommentWechatUserMapper;
+        this.catPicMapper = catPicMapper;
+        this.picMapper = picMapper;
     }
 
     @Override
@@ -234,6 +249,68 @@ public class CatServiceImpl implements CatService {
             throw new CymmtjException(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage());
         }
         return ResponseDto.SUCCESS(null);
+    }
+
+    @Override
+    public ResponseDto catDetail(String token, Integer catId) {
+
+        Boolean awesome = false;
+        Boolean collect = false;
+        // 查询对应猫咪信息
+        Cat cat = selectCatByid(catId);
+        // 查询该猫咪对应的所有评论主键
+        List<CatComment> catComments = catCommentMapper.selectAllByCatId(catId);
+        ArrayList<Comment> comments = listAllCommentsByCatCommentInfo(catComments);
+        // 判断用户是否已经赞过该帖
+        AwesomeCatWechatUser awesomeCatWechatUser = awesomeCatWechatUserMapper.selectOneByCatIdAndToken(catId, token);
+        if (awesomeCatWechatUser.getToken() != null) {
+            awesome = true;
+        }
+        // 判断用户是否已经收藏
+        CollectWechatUser collectWechatUser = collectWechatUserMapper.selectOneByCatIdAndToken(catId, token);
+        if (collectWechatUser.getToken() != null) {
+            collect = true;
+        }
+        List<AwesomeCommentWechatUser> awesomeCommentWechatUsers = awesomeCommentWechatUserMapper.selectAllByToken(token);
+        // 封装评论
+        List<CommentRep> commentReps = CommentServiceImpl.dealCommentsWithToken(comments, awesomeCommentWechatUsers);
+
+        List<CatPic> catPics = catPicMapper.selectAllByCatId(catId);
+        ArrayList<Pic> pics = listAllPicsByCatPicInfo(catPics);
+
+        new CatRep(cat.getId(), cat.getName(), cat.getColor(), cat.getSex(), cat.getForeignTrade(), cat.getCharacter(), cat.getUpdateTime(), cat.getType(),
+                cat.getVisible(), cat.getReferrer(), cat.getAudit(), cat.getCreateTime(), cat.getAwesomeCount(), cat.getCollectCount(), pics, commentReps.size(),
+                commentReps, awesome, collect);
+
+        return null;
+    }
+
+    /**
+     * 根据catComments获取所有的评论
+     *
+     * @param catComments
+     * @return
+     */
+    public ArrayList<Comment> listAllCommentsByCatCommentInfo(List<CatComment> catComments) {
+        ArrayList<Comment> comments = new ArrayList<>();
+        for (CatComment catComment : catComments) {
+            comments.add(commentMapper.selectByPrimaryKey(catComment.getCommentId()));
+        }
+        return comments;
+    }
+
+    /**
+     * 根据 catpic 获取所有的图片
+     *
+     * @param catPics
+     * @return
+     */
+    public ArrayList<Pic> listAllPicsByCatPicInfo(List<CatPic> catPics) {
+        ArrayList<Pic> pics = new ArrayList<>();
+        for (CatPic catPic : catPics) {
+            pics.add(picMapper.selectByPrimaryKey(catPic.getPicId()));
+        }
+        return pics;
     }
 
 }
