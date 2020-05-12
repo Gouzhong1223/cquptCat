@@ -128,4 +128,11 @@ public interface CatMapper {
      */
     List<Cat> selectAllOrderByAwesomeCount();
 
+    /**
+     * 根据收藏数量降序查询所有 Cats
+     *
+     * @return
+     */
+    List<Cat> selectAllOrderByCollectCount();
+
 }
