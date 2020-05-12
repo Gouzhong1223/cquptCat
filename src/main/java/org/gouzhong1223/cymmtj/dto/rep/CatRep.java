@@ -20,6 +20,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.gouzhong1223.cymmtj.entity.Cat;
 import org.gouzhong1223.cymmtj.entity.Pic;
+import org.gouzhong1223.cymmtj.entity.Region;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -43,23 +44,24 @@ public class CatRep extends Cat {
     private List<CommentRep> commentReps;
     private Boolean awesome;
     private Boolean collect;
+    private List<Region> regions;
 
-    public CatRep(Integer id, String name, String color, String sex, String foreignTrade, String character, LocalDateTime updateTime, String type,
-                  Integer visible, String referrer, Integer audit, LocalDateTime createTime, Integer awesomeCount, Integer collectCount, List<Pic> pics,
-                  Integer commentCount, List<CommentRep> commentReps, Boolean awesome, Boolean collect) {
+    public CatRep(List<Pic> pics, Integer commentCount, List<CommentRep> commentReps, Boolean awesome, Boolean collect, List<Region> regions) {
+        this.pics = pics;
+        this.commentCount = commentCount;
+        this.commentReps = commentReps;
+        this.awesome = awesome;
+        this.collect = collect;
+        this.regions = regions;
+    }
+
+    public CatRep(Integer id, String name, String color, String sex, String foreignTrade, String character, LocalDateTime updateTime, String type, Integer visible, String referrer, Integer audit, LocalDateTime createTime, Integer awesomeCount, Integer collectCount, List<Pic> pics, Integer commentCount, List<CommentRep> commentReps, Boolean awesome, Boolean collect, List<Region> regions) {
         super(id, name, color, sex, foreignTrade, character, updateTime, type, visible, referrer, audit, createTime, awesomeCount, collectCount);
         this.pics = pics;
         this.commentCount = commentCount;
         this.commentReps = commentReps;
         this.awesome = awesome;
         this.collect = collect;
-    }
-
-    public CatRep(List<Pic> pics, Integer commentCount, List<CommentRep> commentReps, Boolean awesome, Boolean collect) {
-        this.pics = pics;
-        this.commentCount = commentCount;
-        this.commentReps = commentReps;
-        this.awesome = awesome;
-        this.collect = collect;
+        this.regions = regions;
     }
 }

@@ -75,6 +75,8 @@ public class CatServiceImpl implements CatService {
     private final AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper;
     private final CatPicMapper catPicMapper;
     private final PicMapper picMapper;
+    private final CatRegionMapper catRegionMapper;
+    private final RegionMapper regionMapper;
 
     @Value("${spring.mail.from}")
     private String from;
@@ -83,7 +85,9 @@ public class CatServiceImpl implements CatService {
                           PicService picService, WechatUserMapper wechatUserMapper,
                           MailService mailService, CatRefrrerMapper catRefrrerMapper,
                           MailLogMapper mailLogMapper, CatCommentMapper catCommentMapper, CommentMapper commentMapper,
-                          AwesomeCatWechatUserMapper awesomeCatWechatUserMapper, CollectWechatUserMapper collectWechatUserMapper, AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper, CatPicMapper catPicMapper, PicMapper picMapper) {
+                          AwesomeCatWechatUserMapper awesomeCatWechatUserMapper, CollectWechatUserMapper collectWechatUserMapper,
+                          AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper, CatPicMapper catPicMapper,
+                          PicMapper picMapper, CatRegionMapper catRegionMapper, RegionMapper regionMapper) {
         this.catMapper = catMapper;
         this.praiseWechatUserMapper = praiseWechatUserMapper;
         this.picService = picService;
@@ -98,6 +102,8 @@ public class CatServiceImpl implements CatService {
         this.awesomeCommentWechatUserMapper = awesomeCommentWechatUserMapper;
         this.catPicMapper = catPicMapper;
         this.picMapper = picMapper;
+        this.catRegionMapper = catRegionMapper;
+        this.regionMapper = regionMapper;
     }
 
     @Override
@@ -256,6 +262,7 @@ public class CatServiceImpl implements CatService {
 
         Boolean awesome = false;
         Boolean collect = false;
+
         // 查询对应猫咪信息
         Cat cat = selectCatByid(catId);
         // 查询该猫咪对应的所有评论主键
@@ -275,14 +282,17 @@ public class CatServiceImpl implements CatService {
         // 封装评论
         List<CommentRep> commentReps = CommentServiceImpl.dealCommentsWithToken(comments, awesomeCommentWechatUsers);
 
+        List<CatRegion> catRegions = catRegionMapper.selectAllByCatId(catId);
+        ArrayList<Region> regions = listAllRegionsByCatRegionsInfo(catRegions);
+
         List<CatPic> catPics = catPicMapper.selectAllByCatId(catId);
         ArrayList<Pic> pics = listAllPicsByCatPicInfo(catPics);
 
-        new CatRep(cat.getId(), cat.getName(), cat.getColor(), cat.getSex(), cat.getForeignTrade(), cat.getCharacter(), cat.getUpdateTime(), cat.getType(),
+        CatRep catRep = new CatRep(cat.getId(), cat.getName(), cat.getColor(), cat.getSex(), cat.getForeignTrade(), cat.getCharacter(), cat.getUpdateTime(), cat.getType(),
                 cat.getVisible(), cat.getReferrer(), cat.getAudit(), cat.getCreateTime(), cat.getAwesomeCount(), cat.getCollectCount(), pics, commentReps.size(),
-                commentReps, awesome, collect);
+                commentReps, awesome, collect, regions);
 
-        return null;
+        return ResponseDto.SUCCESS(catRep);
     }
 
     /**
@@ -311,6 +321,20 @@ public class CatServiceImpl implements CatService {
             pics.add(picMapper.selectByPrimaryKey(catPic.getPicId()));
         }
         return pics;
+    }
+
+    /**
+     * 根据 catRegions 获取所有的 Regions
+     *
+     * @param catRegions
+     * @return
+     */
+    public ArrayList<Region> listAllRegionsByCatRegionsInfo(List<CatRegion> catRegions) {
+        ArrayList<Region> regions = new ArrayList<>();
+        for (CatRegion catRegion : catRegions) {
+            regions.add(regionMapper.selectByPrimaryKey(catRegion.getReginId()));
+        }
+        return regions;
     }
 
 }
