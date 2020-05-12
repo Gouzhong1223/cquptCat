@@ -158,4 +158,13 @@ public interface CatService {
      * @return
      */
     ResponseDto listCatsOrderByCollectCount(Integer pageNum, Integer pageSize) throws CymmtjException;
+
+    /**
+     * 根据发表时间查询所有 Cats
+     *
+     * @param pageNum  当前页码
+     * @param pageSize 每页大小
+     * @return
+     */
+    ResponseDto listCatsOrderByCreateTime(Integer pageNum, Integer pageSize) throws CymmtjException;
 }

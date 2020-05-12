@@ -368,6 +368,18 @@ public class CatServiceImpl implements CatService {
         return ResponseDto.SUCCESS(new IndexRep(pageResult, popularCatIntroReps));
     }
 
+    @Override
+    public ResponseDto listCatsOrderByCreateTime(Integer pageNum, Integer pageSize) throws CymmtjException {
+        List<Cat> cats = catMapper.selectAllOrderByCreateTime();
+        HashMap<String, ArrayList<CatIntroRep>> resultMap = generateIndexInfo(cats);
+
+        ArrayList<CatIntroRep> popularCatIntroReps = resultMap.get("popularCatIntroReps");
+
+        PageResult pageResult = generatePageResult(pageNum, pageSize, resultMap);
+
+        return ResponseDto.SUCCESS(new IndexRep(pageResult, popularCatIntroReps));
+    }
+
     /**
      * 直接封装分页结果集
      *

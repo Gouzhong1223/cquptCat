@@ -135,4 +135,11 @@ public interface CatMapper {
      */
     List<Cat> selectAllOrderByCollectCount();
 
+    /**
+     * 根据创建时间降序查询所有 Cats
+     *
+     * @return
+     */
+    List<Cat> selectAllOrderByCreateTime();
+
 }

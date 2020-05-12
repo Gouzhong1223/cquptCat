@@ -85,6 +85,12 @@ public class CatController {
         return catService.listCatsOrderByCollectCount(pageNum, pageSize);
     }
 
+    @GetMapping("listCatsOrderByCreateTime")
+    public ResponseDto listCatsOrderByCreateTime(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                                   @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) throws CymmtjException {
+        return catService.listCatsOrderByCreateTime(pageNum, pageSize);
+    }
+
     @PostMapping("catDetail")
     public ResponseDto getCatDetail(@RequestBody JSONObject jsonObject,
                                     HttpServletRequest request) {
