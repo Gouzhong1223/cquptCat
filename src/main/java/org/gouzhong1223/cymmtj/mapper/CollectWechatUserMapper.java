@@ -21,9 +21,7 @@ public interface CollectWechatUserMapper {
 
     int deleteByCatIdAndToken(@Param("catId") Integer catId, @Param("token") String token);
 
-    CollectWechatUser selectOneByCatIdAndToken(@Param("catId")Integer catId,@Param("token")String token);
-
-
+    CollectWechatUser selectOneByCatIdAndToken(@Param("catId") Integer catId, @Param("token") String token);
 
 
 }

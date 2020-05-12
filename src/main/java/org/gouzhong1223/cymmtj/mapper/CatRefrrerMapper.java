@@ -1,8 +1,9 @@
 package org.gouzhong1223.cymmtj.mapper;
-import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.gouzhong1223.cymmtj.entity.CatRefrrer;
+
+import java.util.List;
 
 /**
  * @Author : Gouzhong
@@ -22,7 +23,7 @@ public interface CatRefrrerMapper {
 
     CatRefrrer selectOneByCatId(@Param("catId") Integer catId);
 
-    List<CatRefrrer> selectAllByToken(@Param("token")String token);
+    List<CatRefrrer> selectAllByToken(@Param("token") String token);
 
 
 }

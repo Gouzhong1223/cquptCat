@@ -322,6 +322,24 @@ public class CatServiceImpl implements CatService {
         return ResponseDto.SUCCESS();
     }
 
+    @Override
+    public ResponseDto indexResult(Integer pageNum, Integer pageSize) throws CymmtjException {
+
+        ArrayList<CatIntroRep> catIntroReps = null;
+        ArrayList<CatIntroRep> popularCatIntroReps = null;
+
+        try {
+            List<Cat> popularCats = catMapper.selectPopularCats();
+            List<Cat> cats = catMapper.selectAllCats();
+            popularCatIntroReps = generateCatIntroRepByCats(popularCats);
+            catIntroReps = generateCatIntroRepByCats(cats);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "服务器打瞌睡啦！");
+        }
+        return ResponseDto.SUCCESS(new IndexRep(catIntroReps, popularCatIntroReps));
+    }
+
     /**
      * 根据catComments获取所有的评论
      *

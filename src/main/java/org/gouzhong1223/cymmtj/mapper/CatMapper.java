@@ -120,4 +120,7 @@ public interface CatMapper {
      */
     int unCollect(@Param("id") Integer id);
 
+    List<Cat> selectPopularCats();
+
+
 }

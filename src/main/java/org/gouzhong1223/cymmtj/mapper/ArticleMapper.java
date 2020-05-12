@@ -35,7 +35,7 @@ public interface ArticleMapper {
 
     List<Article> selectAll();
 
-    List<Article> selectAllByToken(@Param("token")String token);
+    List<Article> selectAllByToken(@Param("token") String token);
 
 
 }

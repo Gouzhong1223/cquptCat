@@ -70,6 +70,12 @@ public class CatController {
         return ResponseDto.SUCCESS(resultCatPageResult);
     }
 
+    @GetMapping("index")
+    public ResponseDto indexPage(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) throws CymmtjException {
+        return catService.indexResult(pageNum, pageSize);
+    }
+
     @GetMapping("popularCat")
     public ResponseDto listPopularCats() {
         List<ResultCat> resultCats = catService.selectPopularCats();

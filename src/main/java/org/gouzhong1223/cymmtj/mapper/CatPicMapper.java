@@ -1,13 +1,14 @@
 package org.gouzhong1223.cymmtj.mapper;
-import org.apache.ibatis.annotations.Param;
-import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.gouzhong1223.cymmtj.entity.CatPic;
+
+import java.util.List;
 
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description : 
+ * @Description :
  * @Date : create by QingSong in 2020-05-11 22:23
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
@@ -20,7 +21,7 @@ public interface CatPicMapper {
 
     int insertSelective(CatPic record);
 
-    List<CatPic> selectAllByCatId(@Param("catId")Integer catId);
+    List<CatPic> selectAllByCatId(@Param("catId") Integer catId);
 
 
 }

@@ -24,7 +24,6 @@ import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.entity.Cat;
-import org.gouzhong1223.cymmtj.entity.WechatUser;
 
 import java.util.List;
 
@@ -131,4 +130,13 @@ public interface CatService {
      * @return
      */
     ResponseDto unThumbUp(Integer catId, String token) throws CymmtjException;
+
+    /**
+     * 获取首页结果集
+     *
+     * @param pageNum  当前页码
+     * @param pageSize 每页大小
+     * @return
+     */
+    ResponseDto indexResult(Integer pageNum, Integer pageSize) throws CymmtjException;
 }

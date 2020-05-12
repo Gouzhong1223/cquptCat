@@ -1,6 +1,6 @@
 package org.gouzhong1223.cymmtj.mapper;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Param;
 import org.gouzhong1223.cymmtj.entity.AwesomeCatWechatUser;
 
 /**
@@ -19,11 +19,9 @@ public interface AwesomeCatWechatUserMapper {
 
     int insertSelective(AwesomeCatWechatUser record);
 
-    AwesomeCatWechatUser selectOneByCatIdAndToken(@Param("catId")Integer catId,@Param("token")String token);
+    AwesomeCatWechatUser selectOneByCatIdAndToken(@Param("catId") Integer catId, @Param("token") String token);
 
-    int deleteByCatIdAndToken(@Param("catId")Integer catId,@Param("token")String token);
-
-
+    int deleteByCatIdAndToken(@Param("catId") Integer catId, @Param("token") String token);
 
 
 }
