@@ -130,12 +130,6 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public List<ResultCat> selectPopularCats() {
-        List<ResultCat> resultCats = catMapper.selectIdAndNameAndCommontOrderByPraiseDesc();
-        return resultCats;
-    }
-
-    @Override
     public Cat selectCatByid(Integer id) {
         return catMapper.selectByPrimaryKey(id);
     }
@@ -347,6 +341,19 @@ public class CatServiceImpl implements CatService {
 
         return ResponseDto.SUCCESS(new IndexRep(pageResult, popularCatIntroReps));
 
+    }
+
+    @Override
+    public ResponseDto listCatsOrderByAwesomeCount(Integer pageNum, Integer pageSize) throws CymmtjException {
+
+        List<Cat> cats = catMapper.selectAllOrderByAwesomeCount();
+        HashMap<String, ArrayList<CatIntroRep>> resultMap = generateIndexInfo(cats);
+
+        ArrayList<CatIntroRep> popularCatIntroReps = resultMap.get("popularCatIntroReps");
+
+        PageResult pageResult = generatePageResult(pageNum, pageSize, resultMap);
+
+        return ResponseDto.SUCCESS(new IndexRep(pageResult, popularCatIntroReps));
     }
 
     /**

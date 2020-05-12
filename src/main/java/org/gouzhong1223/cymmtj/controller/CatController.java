@@ -19,18 +19,14 @@ package org.gouzhong1223.cymmtj.controller;
 import com.alibaba.fastjson.JSONObject;
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.PageResult;
-import org.gouzhong1223.cymmtj.common.ResultCode;
-import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.CatIntroRep;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
-import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.service.CatService;
 import org.gouzhong1223.cymmtj.service.PicService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 
 /**
@@ -77,13 +73,10 @@ public class CatController {
         return catService.listCatsByRegion(pageNum, pageSize, regionId);
     }
 
-    @GetMapping("popularCat")
-    public ResponseDto listPopularCats() {
-        List<ResultCat> resultCats = catService.selectPopularCats();
-        resultCats.forEach(e -> {
-            e.setPicLink(picService.selectFirstPic(e.getId()));
-        });
-        return new ResponseDto<>(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), resultCats);
+    @GetMapping("listCatsOrderByAwesome")
+    public ResponseDto listCatsOrderByAwesomeCount(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                                   @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) throws CymmtjException {
+        return catService.listCatsOrderByAwesomeCount(pageNum, pageSize);
     }
 
     @PostMapping("catDetail")

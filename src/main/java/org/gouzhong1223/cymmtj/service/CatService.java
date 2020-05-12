@@ -22,10 +22,7 @@ import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.dto.rep.CatIntroRep;
 import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
-import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.entity.Cat;
-
-import java.util.List;
 
 /**
  * @Author : Gouzhong
@@ -61,12 +58,6 @@ public interface CatService {
      */
     PageResult<CatResponse> selectCatIdAndName(Integer pageNum, Integer pageSize);
 
-    /**
-     * 获取前四个最受欢迎的猫咪
-     *
-     * @return
-     */
-    List<ResultCat> selectPopularCats();
 
     /**
      * 根据 id 查询 Cat 详情
@@ -149,4 +140,13 @@ public interface CatService {
      * @return
      */
     ResponseDto listCatsByRegion(Integer pageNum, Integer pageSize, Integer regionId) throws CymmtjException;
+
+    /**
+     * 根据获赞数量查询所有 Cats
+     *
+     * @param pageNum  当前页码
+     * @param pageSize 每页大小
+     * @return
+     */
+    ResponseDto listCatsOrderByAwesomeCount(Integer pageNum, Integer pageSize) throws CymmtjException;
 }

@@ -48,12 +48,6 @@ public interface CatMapper {
 
     List<CatResponse> selectIdAndName();
 
-    /**
-     * 获取前四个最受欢迎的 Cat
-     *
-     * @return
-     */
-    List<ResultCat> selectIdAndNameAndCommontOrderByPraiseDesc();
 
     /**
      * 根据 id 查询 id，name，commont
@@ -120,8 +114,18 @@ public interface CatMapper {
      */
     int unCollect(@Param("id") Integer id);
 
+    /**
+     * 根据获赞数量查询前三个 Cat
+     *
+     * @return
+     */
     List<Cat> selectPopularCats();
 
-
+    /**
+     * 根据获赞数量降序查询所有 Cats
+     *
+     * @return
+     */
+    List<Cat> selectAllOrderByAwesomeCount();
 
 }
