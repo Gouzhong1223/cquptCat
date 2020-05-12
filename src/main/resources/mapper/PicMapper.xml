@@ -98,7 +98,7 @@
         <foreach collection="list" index="index" item="element" separator=",">
             (
             #{element.id,jdbcType=INTEGER},
-            #{element.link,jdbcType=VARCHAR}
+            #{element.fileLink,jdbcType=VARCHAR}
             )
         </foreach>
     </insert>

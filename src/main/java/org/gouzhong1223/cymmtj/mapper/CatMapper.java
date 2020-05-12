@@ -71,18 +71,20 @@ public interface CatMapper {
     List<ResultCat> selectIdAndNameAndCommont();
 
     /**
-     * 给点赞数量增加 1
+     * 点赞数量+1
      *
+     * @param id
      * @return
      */
-    int thumbUp();
+    int thumbUp(@Param("id") Integer id);
 
     /**
-     * 给点赞数量减少 1
+     * 点赞数量-1
      *
+     * @param id
      * @return
      */
-    int cancelPraise();
+    int unThumbUp(@Param("id") Integer id);
 
     /**
      * 根据猫咪主键更新审核状态

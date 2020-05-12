@@ -113,10 +113,12 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public PageResult<ResultCat> pagingListCat(Integer pageNum, Integer pageSize) {
+    public PageResult<CatIntroRep> pagingListCat(Integer pageNum, Integer pageSize) {
+
         PageHelper.startPage(pageNum, pageSize);
-        List<ResultCat> resultCats = catMapper.selectIdAndNameAndCommont();
-        PageInfo<ResultCat> resultCatPageInfo = new PageInfo<>(resultCats);
+        List<Cat> cats = catMapper.selectAllCats();
+        ArrayList<CatIntroRep> catIntroReps = generateCatIntroRepByCats(cats);
+        PageInfo<CatIntroRep> resultCatPageInfo = new PageInfo<>(catIntroReps);
         return new PageResult<>(resultCatPageInfo.getPageNum(), resultCatPageInfo.getPageSize(),
                 resultCatPageInfo.getTotal(), resultCatPageInfo.getPages(), resultCatPageInfo.getList());
     }
@@ -139,14 +141,14 @@ public class CatServiceImpl implements CatService {
 
     @Override
     public void thumbUp(Integer id, WechatUser wechatUser) {
-        catMapper.thumbUp();
+        catMapper.thumbUp(id);
         PraiseWechatUser praiseWechatUser = new PraiseWechatUser(wechatUser.getOpenId(), id, LocalDateTime.now());
         praiseWechatUserMapper.insertSelective(praiseWechatUser);
     }
 
     @Override
     public void cancelPraise(Integer id, WechatUser wechatUser) {
-        catMapper.cancelPraise();
+        catMapper.unThumbUp(id);
         int i = praiseWechatUserMapper.deleteByCatIdAndOpenId(id, wechatUser.getOpenId());
     }
 
@@ -288,11 +290,24 @@ public class CatServiceImpl implements CatService {
         List<CatPic> catPics = catPicMapper.selectAllByCatId(catId);
         ArrayList<Pic> pics = listAllPicsByCatPicInfo(catPics);
 
-        CatRep catRep = new CatRep(cat.getId(), cat.getName(), cat.getColor(), cat.getSex(), cat.getForeignTrade(), cat.getCharacter(), cat.getUpdateTime(), cat.getType(),
+        CatDetailRep catDetailRep = new CatDetailRep(cat.getId(), cat.getName(), cat.getColor(), cat.getSex(), cat.getForeignTrade(), cat.getCharacter(), cat.getUpdateTime(), cat.getType(),
                 cat.getVisible(), cat.getReferrer(), cat.getAudit(), cat.getCreateTime(), cat.getAwesomeCount(), cat.getCollectCount(), pics, commentReps.size(),
                 commentReps, awesome, collect, regions);
 
-        return ResponseDto.SUCCESS(catRep);
+        return ResponseDto.SUCCESS(catDetailRep);
+    }
+
+    @Override
+    public ResponseDto listAllCatsByToken(Integer pageNum, Integer pageSize, String token) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<CatRefrrer> catRefrrers = catRefrrerMapper.selectAllByToken(token);
+        ArrayList<Cat> cats = listAllCatByCatRefrrers(catRefrrers);
+        ArrayList<CatIntroRep> catIntroReps = generateCatIntroRepByCats(cats);
+        PageInfo<CatIntroRep> resultCatPageInfo = new PageInfo<>(catIntroReps);
+        PageResult<CatIntroRep> catIntroRepPageResult = new PageResult<>(resultCatPageInfo.getPageNum(), resultCatPageInfo.getPageSize(),
+                resultCatPageInfo.getTotal(), resultCatPageInfo.getPages(), resultCatPageInfo.getList());
+        return ResponseDto.SUCCESS(catIntroRepPageResult);
+
     }
 
     /**
@@ -335,6 +350,36 @@ public class CatServiceImpl implements CatService {
             regions.add(regionMapper.selectByPrimaryKey(catRegion.getReginId()));
         }
         return regions;
+    }
+
+    /**
+     * 根据List<CatRefrrer> catRefrrers获取所有的 Cats
+     *
+     * @param catRefrrers
+     * @return
+     */
+    public ArrayList<Cat> listAllCatByCatRefrrers(List<CatRefrrer> catRefrrers) {
+        ArrayList<Cat> cats = new ArrayList<>();
+        for (CatRefrrer catRefrrer : catRefrrers) {
+            cats.add(catMapper.selectByPrimaryKey(catRefrrer.getCatId()));
+        }
+        return cats;
+    }
+
+    /**
+     * 根据 cats 信息重新组装 CatIntroRep
+     *
+     * @param cats
+     * @return
+     */
+    public ArrayList<CatIntroRep> generateCatIntroRepByCats(List<Cat> cats) {
+        ArrayList<CatIntroRep> catIntroReps = new ArrayList<>();
+        for (Cat cat : cats) {
+            List<CatPic> catPics = catPicMapper.selectAllByCatId(cat.getId());
+            ArrayList<Pic> pics = listAllPicsByCatPicInfo(catPics);
+            catIntroReps.add(new CatIntroRep(cat.getId(), cat.getName(), pics.get(0)));
+        }
+        return catIntroReps;
     }
 
 }

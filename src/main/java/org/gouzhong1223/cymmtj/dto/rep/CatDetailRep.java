@@ -38,7 +38,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class CatRep extends Cat {
+public class CatDetailRep extends Cat {
     private List<Pic> pics;
     private Integer commentCount;
     private List<CommentRep> commentReps;
@@ -46,7 +46,7 @@ public class CatRep extends Cat {
     private Boolean collect;
     private List<Region> regions;
 
-    public CatRep(List<Pic> pics, Integer commentCount, List<CommentRep> commentReps, Boolean awesome, Boolean collect, List<Region> regions) {
+    public CatDetailRep(List<Pic> pics, Integer commentCount, List<CommentRep> commentReps, Boolean awesome, Boolean collect, List<Region> regions) {
         this.pics = pics;
         this.commentCount = commentCount;
         this.commentReps = commentReps;
@@ -55,7 +55,7 @@ public class CatRep extends Cat {
         this.regions = regions;
     }
 
-    public CatRep(Integer id, String name, String color, String sex, String foreignTrade, String character, LocalDateTime updateTime, String type, Integer visible, String referrer, Integer audit, LocalDateTime createTime, Integer awesomeCount, Integer collectCount, List<Pic> pics, Integer commentCount, List<CommentRep> commentReps, Boolean awesome, Boolean collect, List<Region> regions) {
+    public CatDetailRep(Integer id, String name, String color, String sex, String foreignTrade, String character, LocalDateTime updateTime, String type, Integer visible, String referrer, Integer audit, LocalDateTime createTime, Integer awesomeCount, Integer collectCount, List<Pic> pics, Integer commentCount, List<CommentRep> commentReps, Boolean awesome, Boolean collect, List<Region> regions) {
         super(id, name, color, sex, foreignTrade, character, updateTime, type, visible, referrer, audit, createTime, awesomeCount, collectCount);
         this.pics = pics;
         this.commentCount = commentCount;

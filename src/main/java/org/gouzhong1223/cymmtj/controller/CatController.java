@@ -17,11 +17,11 @@
 package org.gouzhong1223.cymmtj.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.collections.CollectionUtils;
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
+import org.gouzhong1223.cymmtj.dto.rep.CatIntroRep;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.entity.WechatUser;
@@ -66,18 +66,9 @@ public class CatController {
     @GetMapping("/pagingListCat")
     public ResponseDto pagingListCatInfo(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                          @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
-
         // 获取分页结果
-        PageResult<ResultCat> resultCatPageResult = catService.pagingListCat(pageNum, pageSize);
-
-        if (CollectionUtils.isNotEmpty(resultCatPageResult.getList())) {
-            // 设置首图
-            resultCatPageResult.getList().forEach(e -> {
-                e.setPicLink(picService.selectFirstPic(e.getId()));
-            });
-            return ResponseDto.builder().code(ResultCode.SUCCESS.getCode()).message(ResultMessage.SUCCESS.getMessaage()).data(resultCatPageResult).build();
-        }
-        return ResponseDto.builder().code(ResultCode.SUCCESS.getCode()).message(ResultMessage.SUCCESS.getMessaage()).build();
+        PageResult<CatIntroRep> resultCatPageResult = catService.pagingListCat(pageNum, pageSize);
+        return ResponseDto.SUCCESS(resultCatPageResult);
     }
 
     @GetMapping("/popularCat")
@@ -121,6 +112,14 @@ public class CatController {
         String openId = (String) session.getAttribute("openId");
 
         return catService.contributeCat(jsonObject, openId);
+    }
+
+    @GetMapping("listAllCatsByToken")
+    public ResponseDto listAllCatsByToken(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                          @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                          HttpServletRequest request) {
+        String token = request.getHeader("token");
+        return catService.listAllCatsByToken(pageNum,pageSize,token);
     }
 
 

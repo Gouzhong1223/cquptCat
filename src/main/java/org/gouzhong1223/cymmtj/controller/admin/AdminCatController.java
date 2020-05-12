@@ -64,6 +64,7 @@ public class AdminCatController {
     }
 
     @PostMapping(value = "/insertCat")
+    // TODO 这个接口要改
     public ResponseDto insertCat(@RequestBody CatRequest catRequest, @RequestParam("files") List<MultipartFile> files) {
 
         if (catRequest != null && CollectionUtils.isNotEmpty(files)) {

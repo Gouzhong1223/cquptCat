@@ -19,6 +19,7 @@ package org.gouzhong1223.cymmtj.service;
 import com.alibaba.fastjson.JSONObject;
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.PageResult;
+import org.gouzhong1223.cymmtj.dto.rep.CatIntroRep;
 import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
@@ -50,9 +51,9 @@ public interface CatService {
     /**
      * 分页查询 CatInfo
      *
-     * @return {@link PageResult<ResultCat>} 分页查询结果
+     * @return {@link PageResult<CatIntroRep>} 分页查询结果
      */
-    PageResult<ResultCat> pagingListCat(Integer pageNum, Integer pageSize);
+    PageResult<CatIntroRep> pagingListCat(Integer pageNum, Integer pageSize);
 
     /**
      * @param pageNum  当前页码
@@ -118,4 +119,14 @@ public interface CatService {
      * @return
      */
     ResponseDto catDetail(String token, Integer catId);
+
+    /**
+     * 根据微信用户token 获取 cat 简介
+     *
+     * @param pageNum  当前页码
+     * @param pageSize 每页大小
+     * @param token    微信用户 token
+     * @return
+     */
+    ResponseDto listAllCatsByToken(Integer pageNum, Integer pageSize, String token);
 }

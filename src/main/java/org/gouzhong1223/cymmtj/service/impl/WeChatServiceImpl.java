@@ -101,13 +101,13 @@ public class WeChatServiceImpl implements WeChatService {
             // 已存在，更新用户登录时间
             user.setLastVisitTime(LocalDateTime.now());
             // 重新设置会话skey
-            user.setToken(token);
+//            user.setToken(token);
             this.wechatUserMapper.updateByPrimaryKeySelective(user);
         }
         // encrypteData比rowData多了appid和openid
         // JSONObject userInfo = WechatUtil.getUserInfo(encrypteData, sessionKey, iv);
         // 6. 把新的skey返回给小程序
-        ResponseDto result = new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), token);
+        ResponseDto result = new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), user.getToken());
         return result;
     }
 
