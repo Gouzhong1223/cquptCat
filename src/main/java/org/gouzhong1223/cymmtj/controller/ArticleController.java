@@ -92,4 +92,10 @@ public class ArticleController {
         return articleService.listAllArticles(token);
     }
 
+    @GetMapping("listAllArticleByToken")
+    public ResponseDto listAllArticleByToken(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        return articleService.listAllArticleByToken(token);
+    }
+
 }

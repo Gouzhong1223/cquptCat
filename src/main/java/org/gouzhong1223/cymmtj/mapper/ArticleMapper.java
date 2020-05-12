@@ -34,4 +34,8 @@ public interface ArticleMapper {
     int unAwesomeArticle(@Param("id") Integer id);
 
     List<Article> selectAll();
+
+    List<Article> selectAllByToken(@Param("token")String token);
+
+
 }

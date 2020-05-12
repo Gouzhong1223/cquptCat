@@ -135,21 +135,9 @@ public class ArticleServiceImpl implements ArticleService {
     public ResponseDto listAllArticles(String token) {
 
         List<Article> articles = articleMapper.selectAll();
-        ArrayList<ArticleRep> articleReps = new ArrayList<>();
-        List<AwesomeArticleWechatUser> awesomeArticleWechatUsers = awesomeArticleWechatUserMapper.selectAllByToken(token);
 
-        // 判断用户是否已经赞过帖子了
-        for (Article article : articles) {
-            Boolean awesome = false;
-            for (AwesomeArticleWechatUser awesomeArticleWechatUser : awesomeArticleWechatUsers) {
-                if (Objects.equals(article.getId(), awesomeArticleWechatUser.getArticleId())) {
-                    awesome = true;
-                }
-            }
-            articleReps.add(new ArticleRep(article.getId(), article.getContext(),
-                    article.getAwesomeCount(), article.getCreateTime(), article.getToken(),
-                    article.getNickName(), article.getAvatarUrl(), article.getCommentCount(), awesome));
-        }
+        ArrayList<ArticleRep> articleReps = dealArticleWithToken(articles, token);
+
         return ResponseDto.SUCCESS(articleReps);
     }
 
@@ -181,6 +169,13 @@ public class ArticleServiceImpl implements ArticleService {
         return ResponseDto.SUCCESS(articleDetailRep);
     }
 
+    @Override
+    public ResponseDto listAllArticleByToken(String token) {
+        List<Article> articles = articleMapper.selectAllByToken(token);
+        ArrayList<ArticleRep> articleReps = dealArticleWithToken(articles, token);
+        return ResponseDto.SUCCESS(articleReps);
+    }
+
     /**
      * 根据ArticleComment获取所有的评论
      *
@@ -193,6 +188,33 @@ public class ArticleServiceImpl implements ArticleService {
             comments.add(commentMapper.selectByPrimaryKey(articleComment.getCommentId()));
         }
         return comments;
+    }
+
+    /**
+     * 根据 token 重新封装返回的帖子
+     *
+     * @param articles 帖子源对象
+     * @param token    微信用户 token
+     * @return
+     */
+    public ArrayList<ArticleRep> dealArticleWithToken(List<Article> articles, String token) {
+
+        ArrayList<ArticleRep> articleReps = new ArrayList<>();
+        List<AwesomeArticleWechatUser> awesomeArticleWechatUsers = awesomeArticleWechatUserMapper.selectAllByToken(token);
+
+        // 判断用户是否已经赞过帖子了
+        for (Article article : articles) {
+            Boolean awesome = false;
+            for (AwesomeArticleWechatUser awesomeArticleWechatUser : awesomeArticleWechatUsers) {
+                if (Objects.equals(article.getId(), awesomeArticleWechatUser.getArticleId())) {
+                    awesome = true;
+                }
+            }
+            articleReps.add(new ArticleRep(article.getId(), article.getContext(),
+                    article.getAwesomeCount(), article.getCreateTime(), article.getToken(),
+                    article.getNickName(), article.getAvatarUrl(), article.getCommentCount(), awesome));
+        }
+        return articleReps;
     }
 
 
