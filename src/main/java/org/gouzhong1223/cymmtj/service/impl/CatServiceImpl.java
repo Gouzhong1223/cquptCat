@@ -40,6 +40,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -325,19 +326,74 @@ public class CatServiceImpl implements CatService {
     @Override
     public ResponseDto indexResult(Integer pageNum, Integer pageSize) throws CymmtjException {
 
-        ArrayList<CatIntroRep> catIntroReps = null;
-        ArrayList<CatIntroRep> popularCatIntroReps = null;
+        List<Cat> cats = catMapper.selectAllCats();
 
-        try {
-            List<Cat> popularCats = catMapper.selectPopularCats();
-            List<Cat> cats = catMapper.selectAllCats();
-            popularCatIntroReps = generateCatIntroRepByCats(popularCats);
-            catIntroReps = generateCatIntroRepByCats(cats);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new CymmtjException(ResultCode.FAIL.getCode(), "服务器打瞌睡啦！");
+        HashMap<String, ArrayList<CatIntroRep>> resultMap = generateIndexInfo(cats);
+
+        ArrayList<CatIntroRep> popularCatIntroReps = resultMap.get("popularCatIntroReps");
+
+        PageResult pageResult = generatePageResult(pageNum, pageSize, resultMap);
+
+        return ResponseDto.SUCCESS(new IndexRep(pageResult, popularCatIntroReps));
+    }
+
+    @Override
+    public ResponseDto listCatsByRegion(Integer pageNum, Integer pageSize, Integer regionId) throws CymmtjException {
+        List<CatRegion> catRegions = catRegionMapper.selectAllByRegionId(regionId);
+        ArrayList<Cat> cats = listAllCatsByCatRegionInfo(catRegions);
+        HashMap<String, ArrayList<CatIntroRep>> resultMap = generateIndexInfo(cats);
+        ArrayList<CatIntroRep> popularCatIntroReps = resultMap.get("popularCatIntroReps");
+        PageResult pageResult = generatePageResult(pageNum, pageSize, resultMap);
+
+        return ResponseDto.SUCCESS(new IndexRep(pageResult, popularCatIntroReps));
+
+    }
+
+    /**
+     * 直接封装分页结果集
+     *
+     * @param pageNum  当前页码
+     * @param pageSize 每页大小
+     * @return
+     * @throws CymmtjException
+     */
+    public PageResult generatePageResult(Integer pageNum, Integer pageSize, HashMap<String, ArrayList<CatIntroRep>> resultMap) {
+        ArrayList<CatIntroRep> catIntroReps = resultMap.get("catIntroReps");
+        PageResult pageResult = dealPageResult(pageNum, pageSize, catIntroReps);
+        return pageResult;
+    }
+
+    /**
+     * 根据catRegions获取所有的猫咪
+     *
+     * @param catRegions catRegions
+     * @return
+     */
+    public ArrayList<Cat> listAllCatsByCatRegionInfo(List<CatRegion> catRegions) {
+        ArrayList<Cat> cats = new ArrayList<>();
+        for (CatRegion catRegion : catRegions) {
+            cats.add(catMapper.selectByPrimaryKey(catRegion.getCatId()));
         }
-        return ResponseDto.SUCCESS(new IndexRep(catIntroReps, popularCatIntroReps));
+        return cats;
+    }
+
+    /**
+     * 预处理分页结果
+     *
+     * @param pageNum      当前页码
+     * @param pageSize     每页大小
+     * @param catIntroReps cat 源
+     * @return
+     */
+    public PageResult dealPageResult(Integer pageNum, Integer pageSize, ArrayList<CatIntroRep> catIntroReps) {
+        PageHelper.startPage(pageNum, pageSize);
+
+        PageInfo<CatIntroRep> resultCatPageInfo = new PageInfo<>(catIntroReps);
+
+        PageResult<CatIntroRep> catIntroRepPageResult = new PageResult<>(resultCatPageInfo.getPageNum(), resultCatPageInfo.getPageSize(),
+                resultCatPageInfo.getTotal(), resultCatPageInfo.getPages(), resultCatPageInfo.getList());
+
+        return catIntroRepPageResult;
     }
 
     /**
@@ -410,6 +466,32 @@ public class CatServiceImpl implements CatService {
             catIntroReps.add(new CatIntroRep(cat.getId(), cat.getName(), pics.get(0)));
         }
         return catIntroReps;
+    }
+
+    /**
+     * 根据 cat 封装首页展示的数据
+     *
+     * @param cats
+     * @return
+     * @throws CymmtjException
+     */
+    public HashMap<String, ArrayList<CatIntroRep>> generateIndexInfo(List<Cat> cats) throws CymmtjException {
+        ArrayList<CatIntroRep> catIntroReps = null;
+        ArrayList<CatIntroRep> popularCatIntroReps = null;
+        try {
+            List<Cat> popularCats = catMapper.selectPopularCats();
+            popularCatIntroReps = generateCatIntroRepByCats(popularCats);
+            catIntroReps = generateCatIntroRepByCats(cats);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "服务器打瞌睡啦！");
+        }
+
+        HashMap<String, ArrayList<CatIntroRep>> resultMap = new HashMap<>();
+        resultMap.put("catIntroReps", catIntroReps);
+        resultMap.put("popularCatIntroReps", popularCatIntroReps);
+        return resultMap;
+
     }
 
 }

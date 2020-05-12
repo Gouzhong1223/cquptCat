@@ -26,8 +26,6 @@ import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
 import org.gouzhong1223.cymmtj.service.CatService;
 import org.gouzhong1223.cymmtj.service.PicService;
-import org.gouzhong1223.cymmtj.service.RegionService;
-import org.gouzhong1223.cymmtj.service.WeChatService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,14 +50,10 @@ public class CatController {
 
     private final CatService catService;
     private final PicService picService;
-    private final RegionService regionService;
-    private final WeChatService weChatService;
 
-    public CatController(CatService catService, PicService picService, RegionService regionService, WeChatService weChatService) {
+    public CatController(CatService catService, PicService picService) {
         this.catService = catService;
         this.picService = picService;
-        this.regionService = regionService;
-        this.weChatService = weChatService;
     }
 
     @GetMapping("pagingListCat")
@@ -74,6 +68,13 @@ public class CatController {
     public ResponseDto indexPage(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                  @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) throws CymmtjException {
         return catService.indexResult(pageNum, pageSize);
+    }
+
+    @GetMapping("listCatsByRegion/{regionId}")
+    public ResponseDto listCatsByRegion(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                        @PathVariable("regionId") Integer regionId) throws CymmtjException {
+        return catService.listCatsByRegion(pageNum, pageSize, regionId);
     }
 
     @GetMapping("popularCat")

@@ -19,6 +19,7 @@ package org.gouzhong1223.cymmtj.dto.rep;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.gouzhong1223.cymmtj.common.PageResult;
 
 import java.util.ArrayList;
 
@@ -37,6 +38,6 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 public class IndexRep {
-    private ArrayList<CatIntroRep> catIntroReps;
+    private PageResult pageResult;
     private ArrayList<CatIntroRep> popularCats;
 }

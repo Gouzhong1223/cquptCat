@@ -139,4 +139,14 @@ public interface CatService {
      * @return
      */
     ResponseDto indexResult(Integer pageNum, Integer pageSize) throws CymmtjException;
+
+    /**
+     * 获取指定区域的 Cat
+     *
+     * @param pageNum  当前页码
+     * @param pageSize 每页大小
+     * @param regionId 区域id
+     * @return
+     */
+    ResponseDto listCatsByRegion(Integer pageNum, Integer pageSize, Integer regionId) throws CymmtjException;
 }
