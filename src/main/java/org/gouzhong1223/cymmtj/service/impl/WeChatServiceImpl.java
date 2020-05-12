@@ -112,8 +112,8 @@ public class WeChatServiceImpl implements WeChatService {
     }
 
     @Override
-    public WechatUser selectUserBySkey(String skey) {
-        WechatUser wechatUser = wechatUserMapper.selectBySkey(skey);
+    public WechatUser selectUserByToken(String token) {
+        WechatUser wechatUser = wechatUserMapper.selectOneByToken(token);
         return wechatUser;
     }
 

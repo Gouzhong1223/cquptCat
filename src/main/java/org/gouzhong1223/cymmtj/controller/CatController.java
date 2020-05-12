@@ -24,7 +24,6 @@ import org.gouzhong1223.cymmtj.common.ResultMessage;
 import org.gouzhong1223.cymmtj.dto.rep.CatIntroRep;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.dto.rep.ResultCat;
-import org.gouzhong1223.cymmtj.entity.WechatUser;
 import org.gouzhong1223.cymmtj.service.CatService;
 import org.gouzhong1223.cymmtj.service.PicService;
 import org.gouzhong1223.cymmtj.service.RegionService;
@@ -63,7 +62,7 @@ public class CatController {
         this.weChatService = weChatService;
     }
 
-    @GetMapping("/pagingListCat")
+    @GetMapping("pagingListCat")
     public ResponseDto pagingListCatInfo(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                          @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
         // 获取分页结果
@@ -71,7 +70,7 @@ public class CatController {
         return ResponseDto.SUCCESS(resultCatPageResult);
     }
 
-    @GetMapping("/popularCat")
+    @GetMapping("popularCat")
     public ResponseDto listPopularCats() {
         List<ResultCat> resultCats = catService.selectPopularCats();
         resultCats.forEach(e -> {
@@ -91,18 +90,21 @@ public class CatController {
 
     }
 
-    @PostMapping("/thumbUp")
-    public ResponseDto thumbUp(@RequestParam("id") Integer id, @RequestParam("skey") String skey) {
-        WechatUser wechatUser = weChatService.selectUserBySkey(skey);
-        catService.thumbUp(id, wechatUser);
-        return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage());
+    @PostMapping("thumbUp")
+    public ResponseDto thumbUp(@RequestBody JSONObject jsonObject,
+                               HttpServletRequest request) throws CymmtjException {
+        Integer catId = jsonObject.getInteger("catId");
+        String token = request.getHeader("token");
+        return catService.thumbUp(catId, token);
+
     }
 
-    @PostMapping("/cancelPraise")
-    public ResponseDto cancelPraise(@RequestParam("id") Integer id, @RequestParam("skey") String skey) {
-        WechatUser wechatUser = weChatService.selectUserBySkey(skey);
-        catService.cancelPraise(id, wechatUser);
-        return null;
+    @PostMapping("unThumbUp")
+    public ResponseDto cancelPraise(@RequestBody JSONObject jsonObject,
+                                    HttpServletRequest request) throws CymmtjException {
+        Integer catId = jsonObject.getInteger("catId");
+        String token = request.getHeader("token");
+        return catService.unThumbUp(catId, token);
     }
 
     @PostMapping("contribute")
@@ -119,7 +121,7 @@ public class CatController {
                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                           HttpServletRequest request) {
         String token = request.getHeader("token");
-        return catService.listAllCatsByToken(pageNum,pageSize,token);
+        return catService.listAllCatsByToken(pageNum, pageSize, token);
     }
 
 

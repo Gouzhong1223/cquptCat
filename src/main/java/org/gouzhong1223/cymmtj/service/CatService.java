@@ -78,20 +78,13 @@ public interface CatService {
     Cat selectCatByid(Integer id);
 
     /**
-     * 点赞
+     * 用户给猫咪点赞
      *
-     * @param id         被点赞的 Cat
-     * @param wechatUser 点赞的用户
+     * @param catId 猫咪主键
+     * @param token 微信用户 token
      */
-    void thumbUp(Integer id, WechatUser wechatUser);
+    ResponseDto thumbUp(Integer catId, String token) throws CymmtjException;
 
-    /**
-     * 取消点赞
-     *
-     * @param id         被取消点赞的 Cat
-     * @param wechatUser 取消点赞的用户
-     */
-    void cancelPraise(Integer id, WechatUser wechatUser);
 
     /**
      * 小程序用户推荐 Cat
@@ -129,4 +122,13 @@ public interface CatService {
      * @return
      */
     ResponseDto listAllCatsByToken(Integer pageNum, Integer pageSize, String token);
+
+    /**
+     * 微信用户取消对 Cat 的点赞
+     *
+     * @param catId 猫咪主键
+     * @param token 微信用户 token
+     * @return
+     */
+    ResponseDto unThumbUp(Integer catId, String token) throws CymmtjException;
 }

@@ -140,17 +140,17 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public void thumbUp(Integer id, WechatUser wechatUser) {
-        catMapper.thumbUp(id);
-        PraiseWechatUser praiseWechatUser = new PraiseWechatUser(wechatUser.getOpenId(), id, LocalDateTime.now());
-        praiseWechatUserMapper.insertSelective(praiseWechatUser);
+    public ResponseDto thumbUp(Integer catId, String token) throws CymmtjException {
+        catMapper.thumbUp(catId);
+        try {
+            awesomeCatWechatUserMapper.insertSelective(new AwesomeCatWechatUser(token, catId, LocalDateTime.now()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "点赞失败啦！");
+        }
+        return ResponseDto.SUCCESS();
     }
 
-    @Override
-    public void cancelPraise(Integer id, WechatUser wechatUser) {
-        catMapper.unThumbUp(id);
-        int i = praiseWechatUserMapper.deleteByCatIdAndOpenId(id, wechatUser.getOpenId());
-    }
 
     @Override
     public ResponseDto contributeCat(JSONObject jsonObject, String openId) throws CymmtjException {
@@ -308,6 +308,18 @@ public class CatServiceImpl implements CatService {
                 resultCatPageInfo.getTotal(), resultCatPageInfo.getPages(), resultCatPageInfo.getList());
         return ResponseDto.SUCCESS(catIntroRepPageResult);
 
+    }
+
+    @Override
+    public ResponseDto unThumbUp(Integer catId, String token) throws CymmtjException {
+        catMapper.unThumbUp(catId);
+        try {
+            awesomeCatWechatUserMapper.deleteByCatIdAndToken(catId, token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "取消点赞失败啦！");
+        }
+        return ResponseDto.SUCCESS();
     }
 
     /**

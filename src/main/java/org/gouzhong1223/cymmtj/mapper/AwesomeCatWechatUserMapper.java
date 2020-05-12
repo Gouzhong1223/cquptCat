@@ -21,5 +21,9 @@ public interface AwesomeCatWechatUserMapper {
 
     AwesomeCatWechatUser selectOneByCatIdAndToken(@Param("catId")Integer catId,@Param("token")String token);
 
+    int deleteByCatIdAndToken(@Param("catId")Integer catId,@Param("token")String token);
+
+
+
 
 }

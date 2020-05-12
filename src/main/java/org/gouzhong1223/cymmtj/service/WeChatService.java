@@ -45,10 +45,10 @@ public interface WeChatService {
     ResponseDto login(String code, String rawData, String signature, String encrypteData, String iv);
 
     /**
-     * 根据 skey 查询 User
+     * 根据 token 查询 User
      *
      * @param skey
      * @return
      */
-    WechatUser selectUserBySkey(String skey);
+    WechatUser selectUserByToken(String skey);
 }
