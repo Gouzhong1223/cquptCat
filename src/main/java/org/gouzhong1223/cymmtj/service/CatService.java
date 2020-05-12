@@ -148,7 +148,7 @@ public interface CatService {
      * @param pageSize 每页大小
      * @return
      */
-    ResponseDto listCatsOrderByAwesomeCount(Integer pageNum, Integer pageSize) throws CymmtjException;
+    ResponseDto listCatsOrderByAwesomeCount(Integer pageNum, Integer pageSize, Integer regionId) throws CymmtjException;
 
     /**
      * 根据收藏数量查询所有 Cats
@@ -157,7 +157,7 @@ public interface CatService {
      * @param pageSize 每页大小
      * @return
      */
-    ResponseDto listCatsOrderByCollectCount(Integer pageNum, Integer pageSize) throws CymmtjException;
+    ResponseDto listCatsOrderByCollectCount(Integer pageNum, Integer pageSize, Integer regionId) throws CymmtjException;
 
     /**
      * 根据发表时间查询所有 Cats
@@ -166,5 +166,5 @@ public interface CatService {
      * @param pageSize 每页大小
      * @return
      */
-    ResponseDto listCatsOrderByCreateTime(Integer pageNum, Integer pageSize) throws CymmtjException;
+    ResponseDto listCatsOrderByCreateTime(Integer pageNum, Integer pageSize, Integer regionId) throws CymmtjException;
 }

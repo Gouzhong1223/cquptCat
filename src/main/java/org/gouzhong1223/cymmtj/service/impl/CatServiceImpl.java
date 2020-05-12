@@ -40,6 +40,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -344,9 +345,19 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public ResponseDto listCatsOrderByAwesomeCount(Integer pageNum, Integer pageSize) throws CymmtjException {
-
-        List<Cat> cats = catMapper.selectAllOrderByAwesomeCount();
+    public ResponseDto listCatsOrderByAwesomeCount(Integer pageNum, Integer pageSize, Integer regionId) throws CymmtjException {
+        List<Cat> cats = null;
+        if (regionId == 0) {
+            cats = catMapper.selectAllOrderByAwesomeCount();
+        } else {
+            cats = listAllCatsByRegionId(regionId);
+            Collections.sort(cats, (o1, o2) -> {
+                if (o1.getAwesomeCount() > o2.getAwesomeCount()) {
+                    return 1;
+                }
+                return -1;
+            });
+        }
         HashMap<String, ArrayList<CatIntroRep>> resultMap = generateIndexInfo(cats);
 
         ArrayList<CatIntroRep> popularCatIntroReps = resultMap.get("popularCatIntroReps");
@@ -357,8 +368,19 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public ResponseDto listCatsOrderByCollectCount(Integer pageNum, Integer pageSize) throws CymmtjException {
-        List<Cat> cats = catMapper.selectAllOrderByCollectCount();
+    public ResponseDto listCatsOrderByCollectCount(Integer pageNum, Integer pageSize, Integer regionId) throws CymmtjException {
+        List<Cat> cats = null;
+        if (regionId == 0) {
+            cats = catMapper.selectAllOrderByCollectCount();
+        } else {
+            cats = listAllCatsByRegionId(regionId);
+            Collections.sort(cats, (o1, o2) -> {
+                if (o1.getCollectCount() > o2.getCollectCount()) {
+                    return 1;
+                }
+                return -1;
+            });
+        }
         HashMap<String, ArrayList<CatIntroRep>> resultMap = generateIndexInfo(cats);
 
         ArrayList<CatIntroRep> popularCatIntroReps = resultMap.get("popularCatIntroReps");
@@ -369,8 +391,20 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public ResponseDto listCatsOrderByCreateTime(Integer pageNum, Integer pageSize) throws CymmtjException {
-        List<Cat> cats = catMapper.selectAllOrderByCreateTime();
+    public ResponseDto listCatsOrderByCreateTime(Integer pageNum, Integer pageSize, Integer regionId) throws CymmtjException {
+
+        List<Cat> cats = null;
+        if (regionId == 0) {
+            cats = catMapper.selectAllOrderByCreateTime();
+        } else {
+            cats = listAllCatsByRegionId(regionId);
+            Collections.sort(cats, (o1, o2) -> {
+                if (o1.getCreateTime().isAfter(o2.getCreateTime())) {
+                    return 1;
+                }
+                return -1;
+            });
+        }
         HashMap<String, ArrayList<CatIntroRep>> resultMap = generateIndexInfo(cats);
 
         ArrayList<CatIntroRep> popularCatIntroReps = resultMap.get("popularCatIntroReps");
@@ -453,6 +487,18 @@ public class CatServiceImpl implements CatService {
             pics.add(picMapper.selectByPrimaryKey(catPic.getPicId()));
         }
         return pics;
+    }
+
+    /**
+     * 根据 RegionId 直接获取 Cats
+     *
+     * @param regionId
+     * @return
+     */
+    public ArrayList<Cat> listAllCatsByRegionId(Integer regionId) {
+        List<CatRegion> catRegions = catRegionMapper.selectAllByRegionId(regionId);
+        ArrayList<Cat> cats = listAllCatsByCatRegionInfo(catRegions);
+        return cats;
     }
 
     /**
