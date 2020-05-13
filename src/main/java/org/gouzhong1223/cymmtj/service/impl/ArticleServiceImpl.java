@@ -175,6 +175,27 @@ public class ArticleServiceImpl implements ArticleService {
         return ResponseDto.SUCCESS(articleReps);
     }
 
+    @Override
+    public ResponseDto deleteArticle(Integer articleId, String token) {
+
+        Article article = articleMapper.selectByPrimaryKey(articleId);
+        // 检查 token是否相等
+        if (Objects.equals(article.getToken(), token)) {
+            return new ResponseDto(ResultCode.FAIL.getCode(), "删除文章失败啦！");
+        }
+        // 删除文章
+        articleMapper.deleteByPrimaryKey(articleId);
+        List<ArticleComment> articleComments = articleCommentMapper.selectAllByActicleId(articleId);
+        // 删除文章的评论
+        articleCommentMapper.deleteByActicleId(articleId);
+        articleComments.forEach(e -> {
+            // 删除用户对评论的点赞记录
+            awesomeCommentWechatUserMapper.deleteByCommentId(e.getCommentId());
+        });
+
+        return ResponseDto.SUCCESS();
+    }
+
     /**
      * 根据ArticleComment获取所有的评论
      *

@@ -25,7 +25,6 @@ public interface ArticleCommentMapper {
 
     int deleteByActicleIdAndCommentId(@Param("acticleId")Integer acticleId,@Param("commentId")Integer commentId);
 
-
-
+    int deleteByActicleId(@Param("acticleId")Integer acticleId);
 
 }

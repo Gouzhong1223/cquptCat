@@ -86,4 +86,13 @@ public interface ArticleService {
      * @return
      */
     ResponseDto listAllArticleByToken(String token);
+
+    /**
+     * 根据文章 ID 删除帖子
+     *
+     * @param articleId 帖子 ID
+     * @param token     微信用户 token
+     * @return
+     */
+    ResponseDto deleteArticle(Integer articleId, String token);
 }
