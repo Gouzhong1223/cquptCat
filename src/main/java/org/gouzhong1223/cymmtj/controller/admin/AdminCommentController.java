@@ -19,7 +19,7 @@ package org.gouzhong1223.cymmtj.controller.admin;
 import com.alibaba.fastjson.JSONObject;
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
-import org.gouzhong1223.cymmtj.service.ArticleService;
+import org.gouzhong1223.cymmtj.service.CommentService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
  * @Description :
- * @Date : create by QingSong in 2020-05-13 19:26
+ * @Date : create by QingSong in 2020-05-13 21:57
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
  * @PackageName : org.gouzhong1223.cymmtj.controller.admin
@@ -39,21 +39,23 @@ import javax.servlet.http.HttpServletRequest;
  * @Version : 1.0.0
  */
 @RestController
-@RequestMapping("admin/article")
-public class AdminArticleController {
+@RequestMapping("admin/comment")
+public class AdminCommentController {
 
-    private final ArticleService articleService;
 
-    public AdminArticleController(ArticleService articleService) {
-        this.articleService = articleService;
+    private final CommentService commentService;
+
+    public AdminCommentController(CommentService commentService) {
+        this.commentService = commentService;
     }
 
-    @DeleteMapping("deleteArticle")
-    public ResponseDto deleteArticleByArticleId(@RequestBody JSONObject jsonObject,
-                                                HttpServletRequest request) throws CymmtjException {
+    @DeleteMapping("delectComment")
+    public ResponseDto deleteComment(@RequestBody JSONObject jsonObject,
+                                     HttpServletRequest request) throws CymmtjException {
         String token = request.getHeader("token");
+        Integer commentId = jsonObject.getInteger("commentId");
+        Integer catId = jsonObject.getInteger("catId");
         Integer articleId = jsonObject.getInteger("articleId");
-        return articleService.deleteArticle(articleId, token);
+        return commentService.deleteComment(token, commentId, catId, articleId);
     }
-
 }

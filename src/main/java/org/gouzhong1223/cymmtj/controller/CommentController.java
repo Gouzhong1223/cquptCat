@@ -79,14 +79,4 @@ public class CommentController {
         return commentService.listCommentByCatId(catId, token);
     }
 
-    @DeleteMapping("delectComment")
-    public ResponseDto deleteComment(@RequestBody JSONObject jsonObject,
-                                     HttpServletRequest request) throws CymmtjException {
-        String token = request.getHeader("token");
-        Integer commentId = jsonObject.getInteger("commentId");
-        Integer catId = jsonObject.getInteger("catId");
-        Integer articleId = jsonObject.getInteger("articleId");
-        return commentService.deleteComment(token, commentId, catId, articleId);
-    }
-
 }
