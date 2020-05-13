@@ -89,8 +89,8 @@ public class ArticleServiceImpl implements ArticleService {
                 token, wechatUser.getNickName(), wechatUser.getAvatarUrl(), 0);
 
         try {
-            List<Pic> pics = picService.insertPics(fileList, null);
             articleMapper.insertSelective(record);
+            List<Pic> pics = picService.insertPics(fileList, null, record.getId());
             pics.forEach(e -> {
                 articlePicMapper.insertSelective(new ArticlePic(e.getId(), record.getId()));
             });

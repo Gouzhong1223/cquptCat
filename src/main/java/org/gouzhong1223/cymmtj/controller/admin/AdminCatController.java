@@ -16,23 +16,17 @@
 
 package org.gouzhong1223.cymmtj.controller.admin;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.gouzhong1223.cymmtj.common.ResultCode;
-import org.gouzhong1223.cymmtj.common.ResultMessage;
+import com.alibaba.fastjson.JSONObject;
+import netscape.javascript.JSObject;
+import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
-import org.gouzhong1223.cymmtj.dto.req.CatRequest;
-import org.gouzhong1223.cymmtj.entity.Cat;
-import org.gouzhong1223.cymmtj.entity.Pic;
 import org.gouzhong1223.cymmtj.service.CatService;
-import org.gouzhong1223.cymmtj.service.PicService;
-import org.gouzhong1223.cymmtj.service.UserService;
-import org.gouzhong1223.cymmtj.util.RandomNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -54,31 +48,17 @@ public class AdminCatController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminCatController.class);
 
     private final CatService catService;
-    private final PicService picService;
-    private final UserService userService;
 
-    public AdminCatController(CatService catService, PicService picService, UserService userService) {
+    public AdminCatController(CatService catService) {
         this.catService = catService;
-        this.picService = picService;
-        this.userService = userService;
     }
 
     @PostMapping(value = "/insertCat")
-    // TODO 这个接口要改
-    public ResponseDto insertCat(@RequestBody CatRequest catRequest, @RequestParam("files") List<MultipartFile> files) {
-
-        if (catRequest != null && CollectionUtils.isNotEmpty(files)) {
-            Integer catId = RandomNumber.createNumber();
-            List<Pic> pics = picService.insertPics(files, catId);
-            if (CollectionUtils.isNotEmpty(pics)) {
-                Cat cat = new Cat();
-                BeanUtils.copyProperties(catRequest, cat);
-                cat.setId(catId);
-                catService.insertOrUpdateCat(cat);
-                return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage());
-            }
-        }
-        return ResponseDto.builder().code(ResultCode.FAIL.getCode()).message(ResultMessage.FAIL.getMessaage()).build();
+    public ResponseDto insertCat(@RequestBody JSONObject jsonObject,
+                                 @RequestPart("files") List<MultipartFile> files,
+                                 HttpServletRequest request) throws CymmtjException {
+        String token = request.getHeader("token");
+        return catService.insertCat(jsonObject, files, token);
     }
 }
 

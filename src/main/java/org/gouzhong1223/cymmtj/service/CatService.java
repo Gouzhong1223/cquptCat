@@ -17,12 +17,16 @@
 package org.gouzhong1223.cymmtj.service;
 
 import com.alibaba.fastjson.JSONObject;
+import netscape.javascript.JSObject;
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.dto.rep.CatIntroRep;
 import org.gouzhong1223.cymmtj.dto.rep.CatResponse;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.entity.Cat;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @Author : Gouzhong
@@ -80,10 +84,10 @@ public interface CatService {
      * 小程序用户推荐 Cat
      *
      * @param jsonObject
-     * @param openId
+     * @param token
      * @return
      */
-    ResponseDto contributeCat(JSONObject jsonObject, String openId) throws CymmtjException;
+    ResponseDto contributeCat(JSONObject jsonObject, String token) throws CymmtjException;
 
     /**
      * 审核 Cat
@@ -185,4 +189,14 @@ public interface CatService {
      * @return
      */
     ResponseDto unCollect(Integer catId, String token) throws CymmtjException;
+
+    /**
+     * 管理员新增 Cats
+     *
+     * @param jsonObject 猫咪信息
+     * @param files      猫咪图片
+     * @param token      微信用户 token
+     * @return
+     */
+    ResponseDto insertCat(JSONObject jsonObject, List<MultipartFile> files, String token) throws CymmtjException;
 }

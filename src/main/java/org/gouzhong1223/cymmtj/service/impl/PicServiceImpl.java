@@ -16,8 +16,10 @@
 
 package org.gouzhong1223.cymmtj.service.impl;
 
+import org.gouzhong1223.cymmtj.entity.ArticlePic;
 import org.gouzhong1223.cymmtj.entity.CatPic;
 import org.gouzhong1223.cymmtj.entity.Pic;
+import org.gouzhong1223.cymmtj.mapper.ArticlePicMapper;
 import org.gouzhong1223.cymmtj.mapper.CatPicMapper;
 import org.gouzhong1223.cymmtj.mapper.PicMapper;
 import org.gouzhong1223.cymmtj.service.PicService;
@@ -57,16 +59,18 @@ public class PicServiceImpl implements PicService {
     private final OssUtil ossUtil;
     private final PicMapper picMapper;
     private final CatPicMapper catPicMapper;
+    private final ArticlePicMapper articlePicMapper;
 
 
-    public PicServiceImpl(OssUtil ossUtil, PicMapper picMapper, CatPicMapper catPicMapper) {
+    public PicServiceImpl(OssUtil ossUtil, PicMapper picMapper, CatPicMapper catPicMapper, ArticlePicMapper articlePicMapper) {
         this.ossUtil = ossUtil;
         this.picMapper = picMapper;
         this.catPicMapper = catPicMapper;
+        this.articlePicMapper = articlePicMapper;
     }
 
     @Override
-    public List<Pic> insertPics(List<MultipartFile> files, Integer catId) {
+    public List<Pic> insertPics(List<MultipartFile> files, Integer catId, Integer articleId) {
 
         // 线程池执行结果
         ArrayList<Future<HashMap<String, String>>> futures = new ArrayList<>();
@@ -109,16 +113,16 @@ public class PicServiceImpl implements PicService {
             return null;
         }
 
-        if (catId != null) {
+        if (catId != null && articleId == null) {
             pics.forEach(e -> {
-                try {
-                    catPicMapper.insertSelective(new CatPic(catId, e.getId()));
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                    return;
-                }
+                catPicMapper.insertSelective(new CatPic(catId, e.getId()));
+            });
+        } else {
+            pics.forEach(e->{
+                articlePicMapper.insertSelective(new ArticlePic(e.getId(), articleId));
             });
         }
+
         return pics;
     }
 

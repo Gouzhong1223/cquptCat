@@ -138,10 +138,8 @@ public class CatController {
     @PostMapping("contribute")
     public ResponseDto contribute(@RequestBody JSONObject jsonObject,
                                   HttpServletRequest request) throws CymmtjException {
-        HttpSession session = request.getSession();
-        String openId = (String) session.getAttribute("openId");
-
-        return catService.contributeCat(jsonObject, openId);
+        String token = request.getHeader("token");
+        return catService.contributeCat(jsonObject, token);
     }
 
     @GetMapping("listAllCatsByToken")

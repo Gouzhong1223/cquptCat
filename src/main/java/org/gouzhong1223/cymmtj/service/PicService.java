@@ -42,7 +42,7 @@ public interface PicService {
      * @param catId 猫咪 Id
      * @return {@link Pic}
      */
-    List<Pic> insertPics(List<MultipartFile> files, Integer catId);
+    List<Pic> insertPics(List<MultipartFile> files, Integer catId, Integer articleId);
 
     /**
      * 根据 Cat ID 查询所属第一张图片

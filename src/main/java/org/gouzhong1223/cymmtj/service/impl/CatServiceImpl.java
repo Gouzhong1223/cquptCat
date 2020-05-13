@@ -20,7 +20,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.collections.CollectionUtils;
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.common.ResultCode;
@@ -32,7 +31,6 @@ import org.gouzhong1223.cymmtj.service.CatService;
 import org.gouzhong1223.cymmtj.service.MailService;
 import org.gouzhong1223.cymmtj.service.PicService;
 import org.gouzhong1223.cymmtj.util.CheakEmail;
-import org.gouzhong1223.cymmtj.util.RandomNumber;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -149,7 +147,7 @@ public class CatServiceImpl implements CatService {
 
 
     @Override
-    public ResponseDto contributeCat(JSONObject jsonObject, String openId) throws CymmtjException {
+    public ResponseDto contributeCat(JSONObject jsonObject, String token) throws CymmtjException {
 
         // 获取上传的文件数组
         JSONArray jsonFiles = jsonObject.getJSONArray("files");
@@ -161,62 +159,47 @@ public class CatServiceImpl implements CatService {
             return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.EMAILCANNOTBEEMPTY.getMessaage());
         }
 
+        // 检查邮箱格式是否正确
         if (!CheakEmail.isEmail(email)) {
             return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.EMAILFORMATISINCORRECT.getMessaage());
         }
-        // 为猫咪生成 ID
-        Integer catId = RandomNumber.createNumber();
-
-        // 根据 openID 查询出微信用户
-        WechatUser wechatUser = wechatUserMapper.selectOneByOpenId(openId);
+        // 根据 token 查询出微信用户
+        WechatUser wechatUser = wechatUserMapper.selectOneByToken(token);
 
         String mailContent = "尊敬的" + wechatUser.getNickName() +
                 ":\n您的推荐申请我们已经收到，请耐心等待管理员审核，审核结果我们将会以邮件形式发送给您";
+        try {
 
+            // generateCatInfo
+            Cat cat = generateSimpleCat(jsonObject);
+
+            // set the cat referrer->wechatUser NickName
+            cat.setReferrer(wechatUser.getNickName());
+
+            catMapper.insertSelective(cat);
+
+            // 生成推荐人和 Cat 的关联信息
+            CatRefrrer catRefrrer = new CatRefrrer(cat.getId(), email, token);
+
+            // 开始插入图片
+            List<Pic> pics = picService.insertPics(files, cat.getId(), null);
+
+            // 插入推荐人关联信息
+            catRefrrerMapper.insertSelective(catRefrrer);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.UPLOADIMAGEFAILED.getMessaage());
+        }
+
+        // 发送邮件
         mailService.sendSimpleMail(email, MAILSUBJECT, mailContent);
+        mailService.sendSimpleMail("1162864960@qq.com", MAILSUBJECT, "微信昵称为：" + wechatUser.getNickName() + "的用户刚刚投稿啦，快去审核吧！");
 
         // 将邮件内容插入数据库
         MailLog mailLog = new MailLog(null, from, email, LocalDateTime.now(), MAILSUBJECT, mailContent);
         mailLogMapper.insertSelective(mailLog);
 
-        CatRefrrer catRefrrer = new CatRefrrer(catId, email, openId);
-        try {
-            catRefrrerMapper.insertSelective(catRefrrer);
-        } catch (Exception e) {
-            throw new CymmtjException(ResultCode.FAIL.getCode(), "将邮箱插入数据库失败,请重试！");
-        }
-
-
-        // 获取猫咪名字
-        String name = jsonObject.getString("name");
-        // 获取猫咪颜色
-        String color = jsonObject.getString("color");
-        // 获取猫咪性别
-        String sex = jsonObject.getString("sex");
-        // 获取猫咪外貌
-        String foreignTrade = jsonObject.getString("foreignTrade");
-        // 获取猫咪性格
-        String character = jsonObject.getString("character");
-        // 获取猫咪分类
-        String type = jsonObject.getString("type");
-
-
-        // 开始插入图片
-        List<Pic> pics = picService.insertPics(files, catId);
-
-
-        if (CollectionUtils.isNotEmpty(pics)) {
-            // 开始生成 Cat 对象
-            Cat cat = new Cat(catId, name, color, sex, foreignTrade, character,
-                    LocalDateTime.now(), type, DEFAULTVIEWED,
-                    wechatUser.getNickName(), DEFAULTAUDITED, LocalDateTime.now(), 0, 0);
-            cat.setId(catId);
-            // 插入 Cat
-            this.insertOrUpdateCat(cat);
-            return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage());
-        } else {
-            return new ResponseDto(ResultCode.FAIL.getCode(), ResultMessage.UPLOADIMAGEFAILED.getMessaage());
-        }
+        return new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage());
     }
 
     @Override
@@ -438,6 +421,52 @@ public class CatServiceImpl implements CatService {
             throw new CymmtjException(ResultCode.FAIL.getCode(), "取消收藏失败");
         }
         return ResponseDto.SUCCESS();
+    }
+
+    @Override
+    public ResponseDto insertCat(JSONObject jsonObject, List<MultipartFile> files, String token) throws CymmtjException {
+
+        Cat cat = generateSimpleCat(jsonObject);
+        cat.setReferrer("管理员");
+        cat.setAudit(1);
+        cat.setVisible(1);
+
+        try {
+            catMapper.insertSelective(cat);
+            List<Pic> pics = picService.insertPics(files, cat.getId(), null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "增加 Cat 失败！");
+        }
+        return ResponseDto.SUCCESS();
+    }
+
+    /**
+     * 根据传过来的 json 数据简单封装一个 Cat POJO
+     *
+     * @param jsonObject json 数据流
+     * @return {@link Cat}
+     */
+    public Cat generateSimpleCat(JSONObject jsonObject) {
+
+        // 获取猫咪名字
+        String name = jsonObject.getString("name");
+        // 获取猫咪颜色
+        String color = jsonObject.getString("color");
+        // 获取猫咪性别
+        String sex = jsonObject.getString("sex");
+        // 获取猫咪外貌
+        String foreignTrade = jsonObject.getString("foreignTrade");
+        // 获取猫咪性格
+        String character = jsonObject.getString("character");
+        // 获取猫咪分类
+        String type = jsonObject.getString("type");
+
+        Cat cat = new Cat(null, name, color, sex, foreignTrade, character,
+                LocalDateTime.now(), type, DEFAULTVIEWED,
+                null, DEFAULTAUDITED, LocalDateTime.now(), 0, 0);
+
+        return cat;
     }
 
     /**
