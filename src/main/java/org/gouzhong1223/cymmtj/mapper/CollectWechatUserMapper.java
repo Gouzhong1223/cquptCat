@@ -23,5 +23,4 @@ public interface CollectWechatUserMapper {
 
     CollectWechatUser selectOneByCatIdAndToken(@Param("catId") Integer catId, @Param("token") String token);
 
-
 }

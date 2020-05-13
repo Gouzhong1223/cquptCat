@@ -167,4 +167,22 @@ public interface CatService {
      * @return
      */
     ResponseDto listCatsOrderByCreateTime(Integer pageNum, Integer pageSize, Integer regionId) throws CymmtjException;
+
+    /**
+     * 收藏猫咪
+     *
+     * @param catId 猫咪 ID
+     * @param token 微信用户 token
+     * @return
+     */
+    ResponseDto collectCat(Integer catId, String token) throws CymmtjException;
+
+    /**
+     * 取消收藏 Cat
+     *
+     * @param catId 猫咪 ID
+     * @param token 微信用户 token
+     * @return
+     */
+    ResponseDto unCollect(Integer catId, String token) throws CymmtjException;
 }

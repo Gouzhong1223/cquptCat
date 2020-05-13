@@ -416,6 +416,30 @@ public class CatServiceImpl implements CatService {
         return ResponseDto.SUCCESS(new IndexRep(pageResult, popularCatIntroReps));
     }
 
+    @Override
+    public ResponseDto collectCat(Integer catId, String token) throws CymmtjException {
+        try {
+            catMapper.collect(catId);
+            collectWechatUserMapper.insertSelective(new CollectWechatUser(catId, token));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "收藏失败");
+        }
+        return ResponseDto.SUCCESS();
+    }
+
+    @Override
+    public ResponseDto unCollect(Integer catId, String token) throws CymmtjException {
+        try {
+            catMapper.unCollect(catId);
+            collectWechatUserMapper.deleteByCatIdAndToken(catId, token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "取消收藏失败");
+        }
+        return ResponseDto.SUCCESS();
+    }
+
     /**
      * 直接封装分页结果集
      *

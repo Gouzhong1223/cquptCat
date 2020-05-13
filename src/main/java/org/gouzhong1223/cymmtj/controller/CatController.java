@@ -91,6 +91,22 @@ public class CatController {
         return catService.listCatsOrderByCreateTime(pageNum, pageSize, regionId);
     }
 
+    @PostMapping("collectCat")
+    public ResponseDto collectCat(@RequestBody JSONObject jsonObject,
+                                  HttpServletRequest request) throws CymmtjException {
+        String token = request.getHeader("token");
+        Integer catId = jsonObject.getInteger("catId");
+        return catService.collectCat(catId, token);
+    }
+
+    @PostMapping("unCollectCat")
+    public ResponseDto unCollectCat(@RequestBody JSONObject jsonObject,
+                                    HttpServletRequest request) throws CymmtjException {
+        String token = request.getHeader("token");
+        Integer catId = jsonObject.getInteger("catId");
+        return catService.unCollect(catId, token);
+    }
+
     @PostMapping("catDetail")
     public ResponseDto getCatDetail(@RequestBody JSONObject jsonObject,
                                     HttpServletRequest request) {
@@ -135,6 +151,5 @@ public class CatController {
         String token = request.getHeader("token");
         return catService.listAllCatsByToken(pageNum, pageSize, token);
     }
-
 
 }
