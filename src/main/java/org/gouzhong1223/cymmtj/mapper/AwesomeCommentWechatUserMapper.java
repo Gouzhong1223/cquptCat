@@ -25,4 +25,8 @@ public interface AwesomeCommentWechatUserMapper {
 
     int deleteByCommentIdAndToken(@Param("commentId") Integer commentId, @Param("token") String token);
 
+    int deleteByCommentId(@Param("commentId")Integer commentId);
+
+
+
 }

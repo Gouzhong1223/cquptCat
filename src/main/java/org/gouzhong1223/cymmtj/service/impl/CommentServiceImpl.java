@@ -52,16 +52,18 @@ public class CommentServiceImpl implements CommentService {
     private final ArticleCommentMapper articleCommentMapper;
     private final CommentWechatUserMapper commentWechatUserMapper;
     private final AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper;
+    private final ArticleMapper articleMapper;
 
     public CommentServiceImpl(WechatUserMapper wechatUserMapper, CommentMapper commentMapper,
                               CatCommentMapper catCommentMapper, ArticleCommentMapper articleCommentMapper,
-                              CommentWechatUserMapper commentWechatUserMapper, AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper) {
+                              CommentWechatUserMapper commentWechatUserMapper, AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper, ArticleMapper articleMapper) {
         this.wechatUserMapper = wechatUserMapper;
         this.commentMapper = commentMapper;
         this.catCommentMapper = catCommentMapper;
         this.articleCommentMapper = articleCommentMapper;
         this.commentWechatUserMapper = commentWechatUserMapper;
         this.awesomeCommentWechatUserMapper = awesomeCommentWechatUserMapper;
+        this.articleMapper = articleMapper;
     }
 
     /**
@@ -160,6 +162,24 @@ public class CommentServiceImpl implements CommentService {
         }
 
         return ResponseDto.SUCCESS(commentReps);
+    }
+
+    @Override
+    public ResponseDto deleteComment(String token, Integer commentId, Integer catId, Integer articleId) throws CymmtjException {
+        try {
+            commentMapper.deleteByPrimaryKey(commentId);
+            awesomeCommentWechatUserMapper.deleteByCommentId(commentId);
+            if (catId == 0 && articleId != 0) {
+                articleMapper.unComment(articleId);
+                articleCommentMapper.deleteByActicleIdAndCommentId(articleId, commentId);
+                return ResponseDto.SUCCESS();
+            }
+            catCommentMapper.deleteByCommentIdAndCatId(commentId, catId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "删除评论失败啦！");
+        }
+        return ResponseDto.SUCCESS();
     }
 
     /**

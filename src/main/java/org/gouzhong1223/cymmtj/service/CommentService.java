@@ -68,4 +68,15 @@ public interface CommentService {
      * @return
      */
     ResponseDto listCommentByCatId(Integer catId, String token) throws CymmtjException;
+
+    /**
+     * 删除评论
+     *
+     * @param token     微信用户 token
+     * @param commentId 评论 ID
+     * @param catId     猫咪 ID
+     * @param articleId 帖子 ID
+     * @return
+     */
+    ResponseDto deleteComment(String token, Integer commentId, Integer catId, Integer articleId) throws CymmtjException;
 }

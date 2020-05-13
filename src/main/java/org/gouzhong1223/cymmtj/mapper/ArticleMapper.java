@@ -37,5 +37,8 @@ public interface ArticleMapper {
 
     List<Article> selectAllByToken(@Param("token") String token);
 
+    int unComment(@Param("id") Integer id);
+
+
 
 }
