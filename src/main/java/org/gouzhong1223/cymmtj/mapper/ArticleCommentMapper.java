@@ -39,8 +39,8 @@ public interface ArticleCommentMapper {
 
     List<ArticleComment> selectAllByActicleId(@Param("acticleId") Integer acticleId);
 
-    int deleteByActicleIdAndCommentId(@Param("acticleId")Integer acticleId,@Param("commentId")Integer commentId);
+    int deleteByActicleIdAndCommentId(@Param("acticleId") Integer acticleId, @Param("commentId") Integer commentId);
 
-    int deleteByActicleId(@Param("acticleId")Integer acticleId);
+    int deleteByActicleId(@Param("acticleId") Integer acticleId);
 
 }

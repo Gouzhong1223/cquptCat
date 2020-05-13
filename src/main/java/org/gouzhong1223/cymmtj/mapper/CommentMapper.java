@@ -47,8 +47,7 @@ public interface CommentMapper {
 
     int unAwesomeComment(@Param("id") Integer id);
 
-    int deleteById(@Param("id")Integer id);
-
+    int deleteById(@Param("id") Integer id);
 
 
 }

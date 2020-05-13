@@ -118,7 +118,7 @@ public class PicServiceImpl implements PicService {
                 catPicMapper.insertSelective(new CatPic(catId, e.getId()));
             });
         } else {
-            pics.forEach(e->{
+            pics.forEach(e -> {
                 articlePicMapper.insertSelective(new ArticlePic(e.getId(), articleId));
             });
         }
