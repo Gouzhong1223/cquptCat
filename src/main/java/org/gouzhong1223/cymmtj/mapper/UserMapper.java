@@ -1,6 +1,7 @@
 package org.gouzhong1223.cymmtj.mapper;
 
-import org.apache.ibatis.annotations.Param;import org.gouzhong1223.cymmtj.entity.User;
+import org.apache.ibatis.annotations.Param;
+import org.gouzhong1223.cymmtj.entity.User;
 
 /**
  * @Author : Gouzhong
@@ -28,7 +29,7 @@ public interface UserMapper {
 
     User selectOneByUsername(@Param("username") String username);
 
-    User selectOneByToken(@Param("token")String token);
+    User selectOneByToken(@Param("token") String token);
 
 
 }
