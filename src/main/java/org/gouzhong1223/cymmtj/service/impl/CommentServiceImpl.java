@@ -182,6 +182,16 @@ public class CommentServiceImpl implements CommentService {
         return ResponseDto.SUCCESS();
     }
 
+    @Override
+    public void batchDeleteComments(ArrayList<Comment> comments) {
+        for (Comment comment : comments) {
+            // 删除用户给评论的点赞记录
+            awesomeCommentWechatUserMapper.deleteByCommentId(comment.getId());
+            // 删除评论
+            commentMapper.deleteByPrimaryKey(comment.getId());
+        }
+    }
+
     /**
      * 根据 catComment 信息获取该 Cat 对应的所有 Comments
      *

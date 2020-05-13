@@ -18,6 +18,9 @@ package org.gouzhong1223.cymmtj.service;
 
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
+import org.gouzhong1223.cymmtj.entity.Comment;
+
+import java.util.ArrayList;
 
 /**
  * @Author : Gouzhong
@@ -79,4 +82,11 @@ public interface CommentService {
      * @return
      */
     ResponseDto deleteComment(String token, Integer commentId, Integer catId, Integer articleId) throws CymmtjException;
+
+    /**
+     * 批量删除评论
+     *
+     * @param comments 评论元数据
+     */
+    void batchDeleteComments(ArrayList<Comment> comments);
 }

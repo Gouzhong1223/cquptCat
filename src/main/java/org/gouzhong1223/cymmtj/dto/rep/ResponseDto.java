@@ -66,4 +66,8 @@ public class ResponseDto<T> {
     public static <T> ResponseDto<T> FAIL(T data) {
         return new ResponseDto<T>(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage(), data);
     }
+
+    public static <T> ResponseDto<T> FAIL() {
+        return new ResponseDto<T>(ResultCode.FAIL.getCode(), ResultMessage.FAIL.getMessaage(), null);
+    }
 }

@@ -14,41 +14,24 @@
  *    limitations under the License.
  */
 
-package org.gouzhong1223.cymmtj.mapper;
+package org.gouzhong1223.cymmtj.controller.admin;
 
-import org.apache.ibatis.annotations.Param;
-import org.gouzhong1223.cymmtj.entity.Comment;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
  * @Description :
- * @Date : create by QingSong in 2020-05-10 18:12
+ * @Date : create by QingSong in 2020-05-13 19:26
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
- * @PackageName : org.gouzhong1223.cymmtj.mapper
+ * @PackageName : org.gouzhong1223.cymmtj.controller.admin
  * @ProjectName : cymmtj
  * @Version : 1.0.0
  */
-public interface CommentMapper {
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(Comment record);
-
-    int insertSelective(Comment record);
-
-    Comment selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(Comment record);
-
-    int updateByPrimaryKey(Comment record);
-
-    int awesomeComment(@Param("id") Integer id);
-
-    int unAwesomeComment(@Param("id") Integer id);
-
-    int deleteById(@Param("id")Integer id);
-
-
+@RestController
+@RequestMapping("admin/article")
+public class AdminArticleController {
 
 }

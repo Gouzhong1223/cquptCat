@@ -27,6 +27,7 @@ import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.entity.*;
 import org.gouzhong1223.cymmtj.mapper.*;
 import org.gouzhong1223.cymmtj.service.ArticleService;
+import org.gouzhong1223.cymmtj.service.CommentService;
 import org.gouzhong1223.cymmtj.service.PicService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,13 +61,14 @@ public class ArticleServiceImpl implements ArticleService {
     private final AwesomeArticleWechatUserMapper awesomeArticleWechatUserMapper;
     private final ArticleCommentMapper articleCommentMapper;
     private final CommentMapper commentMapper;
+    private final CommentService commentService;
 
     public ArticleServiceImpl(ArticleMapper articleMapper, WechatUserMapper wechatUserMapper,
                               PicService picService, ArticlePicMapper articlePicMapper,
                               AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper,
                               AwesomeArticleWechatUserMapper awesomeArticleWechatUserMapper,
                               ArticleCommentMapper articleCommentMapper,
-                              CommentMapper commentMapper) {
+                              CommentMapper commentMapper, CommentService commentService) {
         this.articleMapper = articleMapper;
         this.wechatUserMapper = wechatUserMapper;
         this.picService = picService;
@@ -75,6 +77,7 @@ public class ArticleServiceImpl implements ArticleService {
         this.awesomeArticleWechatUserMapper = awesomeArticleWechatUserMapper;
         this.articleCommentMapper = articleCommentMapper;
         this.commentMapper = commentMapper;
+        this.commentService = commentService;
     }
 
     @Override
@@ -176,22 +179,23 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ResponseDto deleteArticle(Integer articleId, String token) {
+    public ResponseDto deleteArticle(Integer articleId, String token) throws CymmtjException {
 
-        Article article = articleMapper.selectByPrimaryKey(articleId);
-        // 检查 token是否相等
-        if (Objects.equals(article.getToken(), token)) {
-            return new ResponseDto(ResultCode.FAIL.getCode(), "删除文章失败啦！");
+        try {
+            // 删除文章
+            articleMapper.deleteByPrimaryKey(articleId);
+            // 获取文章相关评论
+            List<ArticleComment> articleComments = articleCommentMapper.selectAllByActicleId(articleId);
+            ArrayList<Comment> comments = listAllCommentsByArticleCommentInfo(articleComments);
+
+            // 删除文章的评论
+            commentService.batchDeleteComments(comments);
+            // 删除帖子评论的关联记录
+            articleCommentMapper.deleteByActicleId(articleId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "删除文章失败！");
         }
-        // 删除文章
-        articleMapper.deleteByPrimaryKey(articleId);
-        List<ArticleComment> articleComments = articleCommentMapper.selectAllByActicleId(articleId);
-        // 删除文章的评论
-        articleCommentMapper.deleteByActicleId(articleId);
-        articleComments.forEach(e -> {
-            // 删除用户对评论的点赞记录
-            awesomeCommentWechatUserMapper.deleteByCommentId(e.getCommentId());
-        });
 
         return ResponseDto.SUCCESS();
     }

@@ -28,6 +28,7 @@ import org.gouzhong1223.cymmtj.dto.rep.*;
 import org.gouzhong1223.cymmtj.entity.*;
 import org.gouzhong1223.cymmtj.mapper.*;
 import org.gouzhong1223.cymmtj.service.CatService;
+import org.gouzhong1223.cymmtj.service.CommentService;
 import org.gouzhong1223.cymmtj.service.MailService;
 import org.gouzhong1223.cymmtj.service.PicService;
 import org.gouzhong1223.cymmtj.util.CheakEmail;
@@ -62,7 +63,6 @@ public class CatServiceImpl implements CatService {
     private static final Integer DEFAULTVIEWED = 0;
     private static final Integer DEFAULTAUDITED = 0;
     private final CatMapper catMapper;
-    private final PraiseWechatUserMapper praiseWechatUserMapper;
     private final PicService picService;
     private final WechatUserMapper wechatUserMapper;
     private final MailService mailService;
@@ -77,19 +77,19 @@ public class CatServiceImpl implements CatService {
     private final PicMapper picMapper;
     private final CatRegionMapper catRegionMapper;
     private final RegionMapper regionMapper;
+    private final UserMapper userMapper;
+    private final CommentService commentService;
 
     @Value("${spring.mail.from}")
     private String from;
 
-    public CatServiceImpl(CatMapper catMapper, PraiseWechatUserMapper praiseWechatUserMapper,
-                          PicService picService, WechatUserMapper wechatUserMapper,
+    public CatServiceImpl(CatMapper catMapper, PicService picService, WechatUserMapper wechatUserMapper,
                           MailService mailService, CatRefrrerMapper catRefrrerMapper,
                           MailLogMapper mailLogMapper, CatCommentMapper catCommentMapper, CommentMapper commentMapper,
                           AwesomeCatWechatUserMapper awesomeCatWechatUserMapper, CollectWechatUserMapper collectWechatUserMapper,
                           AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper, CatPicMapper catPicMapper,
-                          PicMapper picMapper, CatRegionMapper catRegionMapper, RegionMapper regionMapper) {
+                          PicMapper picMapper, CatRegionMapper catRegionMapper, RegionMapper regionMapper, UserMapper userMapper, CommentService commentService) {
         this.catMapper = catMapper;
-        this.praiseWechatUserMapper = praiseWechatUserMapper;
         this.picService = picService;
         this.wechatUserMapper = wechatUserMapper;
         this.mailService = mailService;
@@ -104,6 +104,8 @@ public class CatServiceImpl implements CatService {
         this.picMapper = picMapper;
         this.catRegionMapper = catRegionMapper;
         this.regionMapper = regionMapper;
+        this.userMapper = userMapper;
+        this.commentService = commentService;
     }
 
     @Override
@@ -433,10 +435,39 @@ public class CatServiceImpl implements CatService {
 
         try {
             catMapper.insertSelective(cat);
-            List<Pic> pics = picService.insertPics(files, cat.getId(), null);
+            picService.insertPics(files, cat.getId(), null);
         } catch (Exception e) {
             e.printStackTrace();
             throw new CymmtjException(ResultCode.FAIL.getCode(), "增加 Cat 失败！");
+        }
+        return ResponseDto.SUCCESS();
+    }
+
+    @Override
+    public ResponseDto deleteCatByCatId(Integer catId, String token) throws CymmtjException {
+        // 判断是否是管理员
+        User user = userMapper.selectOneByToken(token);
+        if (user.getUsername() == null) {
+            return ResponseDto.FAIL();
+        }
+
+        try {
+            // 删除 Cat
+            catMapper.deleteByPrimaryKey(catId);
+
+            // 获取相关评论
+            List<CatComment> catComments = catCommentMapper.selectAllByCatId(catId);
+            ArrayList<Comment> comments = listAllCommentsByCatCommentInfo(catComments);
+
+            // 删除评论
+            commentService.batchDeleteComments(comments);
+
+            // 删除 Cat 和评论的中间记录
+            catCommentMapper.deleteByCatId(catId);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CymmtjException(ResultCode.FAIL.getCode(), "删除猫咪失败");
         }
         return ResponseDto.SUCCESS();
     }

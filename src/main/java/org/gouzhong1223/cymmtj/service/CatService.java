@@ -17,7 +17,6 @@
 package org.gouzhong1223.cymmtj.service;
 
 import com.alibaba.fastjson.JSONObject;
-import netscape.javascript.JSObject;
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.dto.rep.CatIntroRep;
@@ -199,4 +198,13 @@ public interface CatService {
      * @return
      */
     ResponseDto insertCat(JSONObject jsonObject, List<MultipartFile> files, String token) throws CymmtjException;
+
+    /**
+     * 根据 id 删除 Cat
+     *
+     * @param catId catId
+     * @param token
+     * @return
+     */
+    ResponseDto deleteCatByCatId(Integer catId, String token) throws CymmtjException;
 }

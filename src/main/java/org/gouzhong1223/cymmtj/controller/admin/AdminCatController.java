@@ -17,7 +17,6 @@
 package org.gouzhong1223.cymmtj.controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
-import netscape.javascript.JSObject;
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.service.CatService;
@@ -53,12 +52,19 @@ public class AdminCatController {
         this.catService = catService;
     }
 
-    @PostMapping(value = "/insertCat")
+    @PostMapping(value = "insertCat")
     public ResponseDto insertCat(@RequestBody JSONObject jsonObject,
                                  @RequestPart("files") List<MultipartFile> files,
                                  HttpServletRequest request) throws CymmtjException {
         String token = request.getHeader("token");
         return catService.insertCat(jsonObject, files, token);
+    }
+
+    @DeleteMapping("deleteCat/{catId}")
+    public ResponseDto deleteCat(HttpServletRequest request,
+                                 @PathVariable("catId") Integer catId) throws CymmtjException {
+        String token = request.getHeader("token");
+        return catService.deleteCatByCatId(catId, token);
     }
 }
 

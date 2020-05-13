@@ -100,7 +100,7 @@ public class ArticleController {
 
     @DeleteMapping("deleteArticle")
     public ResponseDto deleteArticleByArticleId(@RequestBody JSONObject jsonObject,
-                                                HttpServletRequest request) {
+                                                HttpServletRequest request) throws CymmtjException {
         String token = request.getHeader("token");
         Integer articleId = jsonObject.getInteger("articleId");
         return articleService.deleteArticle(articleId, token);

@@ -94,5 +94,5 @@ public interface ArticleService {
      * @param token     微信用户 token
      * @return
      */
-    ResponseDto deleteArticle(Integer articleId, String token);
+    ResponseDto deleteArticle(Integer articleId, String token) throws CymmtjException;
 }
