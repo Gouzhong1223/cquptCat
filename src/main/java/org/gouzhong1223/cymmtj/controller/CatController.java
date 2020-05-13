@@ -22,7 +22,6 @@ import org.gouzhong1223.cymmtj.common.PageResult;
 import org.gouzhong1223.cymmtj.dto.rep.CatIntroRep;
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.service.CatService;
-import org.gouzhong1223.cymmtj.service.PicService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,11 +44,9 @@ import javax.servlet.http.HttpSession;
 public class CatController {
 
     private final CatService catService;
-    private final PicService picService;
 
-    public CatController(CatService catService, PicService picService) {
+    public CatController(CatService catService) {
         this.catService = catService;
-        this.picService = picService;
     }
 
     @GetMapping("pagingListCat")
@@ -77,21 +74,21 @@ public class CatController {
     public ResponseDto listCatsOrderByAwesomeCount(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                    @PathVariable("regionId") Integer regionId) throws CymmtjException {
-        return catService.listCatsOrderByAwesomeCount(pageNum, pageSize,regionId);
+        return catService.listCatsOrderByAwesomeCount(pageNum, pageSize, regionId);
     }
 
     @GetMapping("listCatsOrderByCollect/{regionId}")
     public ResponseDto listCatsOrderByCollectCount(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                    @PathVariable("regionId") Integer regionId) throws CymmtjException {
-        return catService.listCatsOrderByCollectCount(pageNum, pageSize,regionId);
+        return catService.listCatsOrderByCollectCount(pageNum, pageSize, regionId);
     }
 
     @GetMapping("listCatsOrderByCreateTime/{regionId}")
     public ResponseDto listCatsOrderByCreateTime(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                  @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                  @PathVariable("regionId") Integer regionId) throws CymmtjException {
-        return catService.listCatsOrderByCreateTime(pageNum, pageSize,regionId);
+        return catService.listCatsOrderByCreateTime(pageNum, pageSize, regionId);
     }
 
     @PostMapping("catDetail")

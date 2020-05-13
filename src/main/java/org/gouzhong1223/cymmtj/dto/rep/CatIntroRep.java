@@ -24,7 +24,7 @@ import org.gouzhong1223.cymmtj.entity.Pic;
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description :
+ * @Description : 猫咪简介
  * @Date : create by QingSong in 2020-05-12 14:57
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8

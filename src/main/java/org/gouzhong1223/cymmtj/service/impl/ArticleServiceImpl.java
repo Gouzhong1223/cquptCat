@@ -56,7 +56,6 @@ public class ArticleServiceImpl implements ArticleService {
     private final WechatUserMapper wechatUserMapper;
     private final PicService picService;
     private final ArticlePicMapper articlePicMapper;
-    private final ArticleAwesomeMapper articleAwesomeMapper;
     private final AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper;
     private final AwesomeArticleWechatUserMapper awesomeArticleWechatUserMapper;
     private final ArticleCommentMapper articleCommentMapper;
@@ -64,14 +63,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     public ArticleServiceImpl(ArticleMapper articleMapper, WechatUserMapper wechatUserMapper,
                               PicService picService, ArticlePicMapper articlePicMapper,
-                              ArticleAwesomeMapper articleAwesomeMapper, AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper,
-                              AwesomeArticleWechatUserMapper awesomeArticleWechatUserMapper, ArticleCommentMapper articleCommentMapper,
+                              AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper,
+                              AwesomeArticleWechatUserMapper awesomeArticleWechatUserMapper,
+                              ArticleCommentMapper articleCommentMapper,
                               CommentMapper commentMapper) {
         this.articleMapper = articleMapper;
         this.wechatUserMapper = wechatUserMapper;
         this.picService = picService;
         this.articlePicMapper = articlePicMapper;
-        this.articleAwesomeMapper = articleAwesomeMapper;
         this.awesomeCommentWechatUserMapper = awesomeCommentWechatUserMapper;
         this.awesomeArticleWechatUserMapper = awesomeArticleWechatUserMapper;
         this.articleCommentMapper = articleCommentMapper;

@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description :
+ * @Description : 帖子简介，附带用户是否已经点赞
  * @Date : create by QingSong in 2020-05-11 16:34
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8

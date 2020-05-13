@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description :
+ * @Description : 猫咪详情，附带图片，评论数，评论，用户是否已经点赞，用户是否已经收藏，猫咪所属区域
  * @Date : create by QingSong in 2020-05-11 21:39
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8

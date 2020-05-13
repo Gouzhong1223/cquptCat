@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description :
+ * @Description : 文章详情（附带评论，点赞数，评论数）
  * @Date : create by QingSong in 2020-05-11 18:32
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8

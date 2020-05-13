@@ -286,8 +286,10 @@ public class CatServiceImpl implements CatService {
         List<CatPic> catPics = catPicMapper.selectAllByCatId(catId);
         ArrayList<Pic> pics = listAllPicsByCatPicInfo(catPics);
 
-        CatDetailRep catDetailRep = new CatDetailRep(cat.getId(), cat.getName(), cat.getColor(), cat.getSex(), cat.getForeignTrade(), cat.getCharacter(), cat.getUpdateTime(), cat.getType(),
-                cat.getVisible(), cat.getReferrer(), cat.getAudit(), cat.getCreateTime(), cat.getAwesomeCount(), cat.getCollectCount(), pics, commentReps.size(),
+        CatDetailRep catDetailRep = new CatDetailRep(cat.getId(), cat.getName(), cat.getColor(), cat.getSex(),
+                cat.getForeignTrade(), cat.getCharacter(), cat.getUpdateTime(), cat.getType(),
+                cat.getVisible(), cat.getReferrer(), cat.getAudit(), cat.getCreateTime(), cat.getAwesomeCount(),
+                cat.getCollectCount(), pics, commentReps.size(),
                 commentReps, awesome, collect, regions);
 
         return ResponseDto.SUCCESS(catDetailRep);
