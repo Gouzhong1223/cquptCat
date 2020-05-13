@@ -39,9 +39,11 @@ public interface CatCommentMapper {
 
     List<CatComment> selectAllByCatId(@Param("catId") Integer catId);
 
-    int deleteByCommentIdAndCatId(@Param("commentId") Integer commentId, @Param("catId") Integer catId);
+    int deleteByCommentIdAndCatId(@Param("commentId")Integer commentId,@Param("catId")Integer catId);
 
-    int deleteByCatId(@Param("catId") Integer catId);
+    int deleteByCatId(@Param("catId")Integer catId);
+
+
 
 
 }
