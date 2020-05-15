@@ -88,7 +88,8 @@ public class CatServiceImpl implements CatService {
                           MailLogMapper mailLogMapper, CatCommentMapper catCommentMapper, CommentMapper commentMapper,
                           AwesomeCatWechatUserMapper awesomeCatWechatUserMapper, CollectWechatUserMapper collectWechatUserMapper,
                           AwesomeCommentWechatUserMapper awesomeCommentWechatUserMapper, CatPicMapper catPicMapper,
-                          PicMapper picMapper, CatRegionMapper catRegionMapper, RegionMapper regionMapper, UserMapper userMapper, CommentService commentService) {
+                          PicMapper picMapper, CatRegionMapper catRegionMapper, RegionMapper regionMapper,
+                          UserMapper userMapper, CommentService commentService) {
         this.catMapper = catMapper;
         this.picService = picService;
         this.wechatUserMapper = wechatUserMapper;
@@ -149,7 +150,7 @@ public class CatServiceImpl implements CatService {
 
 
     @Override
-    public ResponseDto contributeCat(JSONObject jsonObject, String token) throws CymmtjException {
+    public ResponseDto contributeCat(JSONObject jsonObject, String token) {
 
         // 获取上传的文件数组
         JSONArray jsonFiles = jsonObject.getJSONArray("files");

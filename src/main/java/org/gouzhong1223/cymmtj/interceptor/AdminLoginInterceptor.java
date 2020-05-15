@@ -19,8 +19,8 @@ package org.gouzhong1223.cymmtj.interceptor;
 import org.gouzhong1223.cymmtj.common.CymmtjException;
 import org.gouzhong1223.cymmtj.common.ResultCode;
 import org.gouzhong1223.cymmtj.common.ResultMessage;
-import org.gouzhong1223.cymmtj.entity.WechatUser;
-import org.gouzhong1223.cymmtj.mapper.WechatUserMapper;
+import org.gouzhong1223.cymmtj.entity.User;
+import org.gouzhong1223.cymmtj.mapper.UserMapper;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -33,7 +33,7 @@ import java.util.Objects;
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
  * @Description :
- * @Date : create by QingSong in 2020-04-21 12:37 下午
+ * @Date : create by QingSong in 2020-05-13 22:01
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
  * @PackageName : org.gouzhong1223.cymmtj.interceptor
@@ -41,29 +41,26 @@ import java.util.Objects;
  * @Version : 1.0.0
  */
 @Component
-public class WeChatLoginInterceptor implements HandlerInterceptor {
+public class AdminLoginInterceptor implements HandlerInterceptor {
 
-    private final WechatUserMapper wechatUserMapper;
+    private final UserMapper userMapper;
     private final StringRedisTemplate stringRedisTemplate;
 
-    public WeChatLoginInterceptor(WechatUserMapper wechatUserMapper, StringRedisTemplate stringRedisTemplate) {
-        this.wechatUserMapper = wechatUserMapper;
+    public AdminLoginInterceptor(UserMapper userMapper, StringRedisTemplate stringRedisTemplate) {
+        this.userMapper = userMapper;
         this.stringRedisTemplate = stringRedisTemplate;
     }
-
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("token");
-
-        if (token == null) {
+        User user = userMapper.selectOneByToken(token);
+        if (user.getUsername() == null) {
             throw new CymmtjException(ResultCode.UNLOGIN.getCode(), ResultMessage.UNLOGIN.getMessaage());
-        } else {
-            WechatUser wechatUser = wechatUserMapper.selectOneByToken(token);
-            String resultToken = stringRedisTemplate.opsForValue().get(wechatUser.getOpenId());
-            if (!Objects.equals(token, resultToken)) {
-                throw new CymmtjException(ResultCode.UNLOGIN.getCode(), "登录超时");
-            }
+        }
+        String result = stringRedisTemplate.opsForValue().get(user.getUsername());
+        if (result == null && !Objects.equals(result, token)) {
+            throw new CymmtjException(ResultCode.UNLOGIN.getCode(), "登录超时啦！");
         }
         return true;
     }
