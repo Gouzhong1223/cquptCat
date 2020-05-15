@@ -149,4 +149,10 @@ public class CatController {
         return catService.listAllCatsByToken(pageNum, pageSize, token);
     }
 
+    @GetMapping("awesomeCatsByToken")
+    public ResponseDto listAllAwesomeCatsByToken(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        return catService.listAllAwesomeCatsByToken(token);
+    }
+
 }

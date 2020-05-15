@@ -207,4 +207,12 @@ public interface CatService {
      * @return
      */
     ResponseDto deleteCatByCatId(Integer catId, String token) throws CymmtjException;
+
+    /**
+     * 根据 token 查询用户左右赞过的 Cats
+     *
+     * @param token
+     * @return
+     */
+    ResponseDto listAllAwesomeCatsByToken(String token);
 }

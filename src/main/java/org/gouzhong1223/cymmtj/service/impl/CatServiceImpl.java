@@ -473,6 +473,28 @@ public class CatServiceImpl implements CatService {
         return ResponseDto.SUCCESS();
     }
 
+    @Override
+    public ResponseDto listAllAwesomeCatsByToken(String token) {
+        List<AwesomeCatWechatUser> awesomeCatWechatUsers = awesomeCatWechatUserMapper.selectAllByToken(token);
+        ArrayList<Cat> cats = listAllCatsByAwesomeCatWechatUser(awesomeCatWechatUsers);
+        ArrayList<CatIntroRep> catIntroReps = generateCatIntroRepByCats(cats);
+        return ResponseDto.SUCCESS(catIntroReps);
+    }
+
+    /**
+     * 根据List<AwesomeCatWechatUser> awesomeCatWechatUsers 获取左右的 Cats
+     *
+     * @param awesomeCatWechatUsers
+     * @return ArrayList<Cat>
+     */
+    public ArrayList<Cat> listAllCatsByAwesomeCatWechatUser(List<AwesomeCatWechatUser> awesomeCatWechatUsers) {
+        ArrayList<Cat> cats = new ArrayList<>();
+        for (AwesomeCatWechatUser awesomeCatWechatUser : awesomeCatWechatUsers) {
+            cats.add(catMapper.selectByPrimaryKey(awesomeCatWechatUser.getCatId()));
+        }
+        return cats;
+    }
+
     /**
      * 根据传过来的 json 数据简单封装一个 Cat POJO
      *

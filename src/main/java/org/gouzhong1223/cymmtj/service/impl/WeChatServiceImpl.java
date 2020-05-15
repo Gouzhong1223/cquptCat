@@ -26,10 +26,12 @@ import org.gouzhong1223.cymmtj.entity.WechatUser;
 import org.gouzhong1223.cymmtj.mapper.WechatUserMapper;
 import org.gouzhong1223.cymmtj.service.WeChatService;
 import org.gouzhong1223.cymmtj.util.WechatUtil;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author : Gouzhong
@@ -47,9 +49,11 @@ public class WeChatServiceImpl implements WeChatService {
 
 
     private final WechatUserMapper wechatUserMapper;
+    private final StringRedisTemplate stringRedisTemplate;
 
-    public WeChatServiceImpl(WechatUserMapper wechatUserMapper) {
+    public WeChatServiceImpl(WechatUserMapper wechatUserMapper, StringRedisTemplate stringRedisTemplate) {
         this.wechatUserMapper = wechatUserMapper;
+        this.stringRedisTemplate = stringRedisTemplate;
     }
 
     @Override
@@ -107,6 +111,7 @@ public class WeChatServiceImpl implements WeChatService {
         // encrypteData比rowData多了appid和openid
         // JSONObject userInfo = WechatUtil.getUserInfo(encrypteData, sessionKey, iv);
         // 6. 把新的skey返回给小程序
+        stringRedisTemplate.opsForValue().set(openid, token, 60, TimeUnit.MINUTES);
         ResponseDto result = new ResponseDto(ResultCode.SUCCESS.getCode(), ResultMessage.SUCCESS.getMessaage(), user.getToken());
         return result;
     }
