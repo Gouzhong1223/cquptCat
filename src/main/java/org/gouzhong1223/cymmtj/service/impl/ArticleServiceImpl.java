@@ -35,6 +35,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -222,6 +223,12 @@ public class ArticleServiceImpl implements ArticleService {
         for (AwesomeArticleWechatUser awesomeArticleWechatUser : awesomeArticleWechatUsers) {
             articles.add(articleMapper.selectByPrimaryKey(awesomeArticleWechatUser.getArticleId()));
         }
+        Collections.sort(articles, (o1, o2) -> {
+            if (o1.getCreateTime().isAfter(o2.getCreateTime())) {
+                return 1;
+            }
+            return -1;
+        });
         return articles;
     }
 
