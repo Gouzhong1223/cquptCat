@@ -19,10 +19,9 @@ package org.gouzhong1223.cymmtj.controller;
 
 import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
 import org.gouzhong1223.cymmtj.service.WeChatService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -54,5 +53,11 @@ public class WeChatController {
                                    @RequestParam(value = "iv", required = false) String iv) {
         ResponseDto responseDto = weChatService.login(code, rawData, signature, encrypteData, iv);
         return responseDto;
+    }
+
+    @GetMapping("index")
+    public ResponseDto wechatUserIndex(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        return weChatService.wechatUserIndex(token);
     }
 }

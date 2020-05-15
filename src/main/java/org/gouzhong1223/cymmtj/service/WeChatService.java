@@ -51,4 +51,12 @@ public interface WeChatService {
      * @return
      */
     WechatUser selectUserByToken(String skey);
+
+    /**
+     * 获取用户首页元素
+     *
+     * @param token
+     * @return
+     */
+    ResponseDto wechatUserIndex(String token);
 }

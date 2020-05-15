@@ -117,4 +117,10 @@ public class WeChatServiceImpl implements WeChatService {
         return wechatUser;
     }
 
+    @Override
+    public ResponseDto wechatUserIndex(String token) {
+        WechatUser wechatUser = wechatUserMapper.selectOneByToken(token);
+        return ResponseDto.SUCCESS(wechatUser);
+    }
+
 }
