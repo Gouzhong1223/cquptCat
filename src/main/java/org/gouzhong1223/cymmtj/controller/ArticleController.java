@@ -106,4 +106,10 @@ public class ArticleController {
         return articleService.deleteArticle(articleId, token);
     }
 
+    @GetMapping("awesomeArticlesByToken")
+    public ResponseDto listAllAwesomeArticlesByToken(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        return articleService.listAllAwesomeArticlesByToken(token);
+    }
+
 }

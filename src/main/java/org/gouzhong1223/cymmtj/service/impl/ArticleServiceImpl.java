@@ -200,6 +200,31 @@ public class ArticleServiceImpl implements ArticleService {
         return ResponseDto.SUCCESS();
     }
 
+    @Override
+    public ResponseDto listAllAwesomeArticlesByToken(String token) {
+        // 获取用户赞过的帖子主键
+        List<AwesomeArticleWechatUser> awesomeArticleWechatUsers = awesomeArticleWechatUserMapper.selectAllByToken(token);
+        // 获取用户赞过的帖子
+        ArrayList<Article> articles = listAllArticlesByawesomeArticleWechatUsers(awesomeArticleWechatUsers);
+        // 重新封装帖子
+        ArrayList<ArticleRep> articleReps = dealArticleWithToken(articles, token);
+        return ResponseDto.SUCCESS(articleReps);
+    }
+
+    /**
+     * 根据 List<AwesomeArticleWechatUser> awesomeArticleWechatUsers 获取所有帖子
+     *
+     * @param awesomeArticleWechatUsers
+     * @return
+     */
+    public ArrayList<Article> listAllArticlesByawesomeArticleWechatUsers(List<AwesomeArticleWechatUser> awesomeArticleWechatUsers) {
+        ArrayList<Article> articles = new ArrayList<>();
+        for (AwesomeArticleWechatUser awesomeArticleWechatUser : awesomeArticleWechatUsers) {
+            articles.add(articleMapper.selectByPrimaryKey(awesomeArticleWechatUser.getArticleId()));
+        }
+        return articles;
+    }
+
     /**
      * 根据ArticleComment获取所有的评论
      *
