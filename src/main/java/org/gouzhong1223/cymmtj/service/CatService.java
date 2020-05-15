@@ -215,4 +215,12 @@ public interface CatService {
      * @return
      */
     ResponseDto listAllAwesomeCatsByToken(String token);
+
+    /**
+     * 根据 token 查询用户收藏的 Cats
+     *
+     * @param token 微信用户 token
+     * @return
+     */
+    ResponseDto listAllCollectCatsByToken(String token);
 }

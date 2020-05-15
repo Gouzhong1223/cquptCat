@@ -155,4 +155,10 @@ public class CatController {
         return catService.listAllAwesomeCatsByToken(token);
     }
 
+    @GetMapping("collectCatsByToken")
+    public ResponseDto listAllCollectCatsByToken(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        return catService.listAllCollectCatsByToken(token);
+    }
+
 }

@@ -475,10 +475,38 @@ public class CatServiceImpl implements CatService {
 
     @Override
     public ResponseDto listAllAwesomeCatsByToken(String token) {
+        // 查询所有赞过的 Cat 主键
         List<AwesomeCatWechatUser> awesomeCatWechatUsers = awesomeCatWechatUserMapper.selectAllByToken(token);
+        // 获取所有的 Cats
         ArrayList<Cat> cats = listAllCatsByAwesomeCatWechatUser(awesomeCatWechatUsers);
+        // 重新封装 Cats
         ArrayList<CatIntroRep> catIntroReps = generateCatIntroRepByCats(cats);
         return ResponseDto.SUCCESS(catIntroReps);
+    }
+
+    @Override
+    public ResponseDto listAllCollectCatsByToken(String token) {
+        // 获取所有收藏的 Cat 主键
+        List<CollectWechatUser> collectWechatUsers = collectWechatUserMapper.selectAllByToken(token);
+        // 获取所有的 Cats
+        ArrayList<Cat> cats = listAllCatsByCollectWechatUser(collectWechatUsers);
+        // 重新封装 Cats
+        ArrayList<CatIntroRep> catIntroReps = generateCatIntroRepByCats(cats);
+        return ResponseDto.SUCCESS(catIntroReps);
+    }
+
+    /**
+     * 根据 List<CollectWechatUser> collectWechatUsers 获取所有的 Cats
+     *
+     * @param collectWechatUsers
+     * @return ArrayList<Cat>
+     */
+    public ArrayList<Cat> listAllCatsByCollectWechatUser(List<CollectWechatUser> collectWechatUsers) {
+        ArrayList<Cat> cats = new ArrayList<>();
+        for (CollectWechatUser collectWechatUser : collectWechatUsers) {
+            cats.add(catMapper.selectByPrimaryKey(collectWechatUser.getCatId()));
+        }
+        return cats;
     }
 
     /**
