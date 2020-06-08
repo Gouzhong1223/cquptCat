@@ -15,10 +15,11 @@
  */
 
 package org.gouzhong1223.cymmtj.mapper;
-import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.gouzhong1223.cymmtj.entity.CollectWechatUser;
+
+import java.util.List;
 
 /**
  * @Author : Gouzhong
@@ -40,8 +41,7 @@ public interface CollectWechatUserMapper {
 
     CollectWechatUser selectOneByCatIdAndToken(@Param("catId") Integer catId, @Param("token") String token);
 
-    List<CollectWechatUser> selectAllByToken(@Param("token")String token);
-
+    List<CollectWechatUser> selectAllByToken(@Param("token") String token);
 
 
 }
