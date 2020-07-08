@@ -16,8 +16,15 @@
 
 package org.gouzhong1223.cymmtj.controller.admin;
 
+import org.gouzhong1223.cymmtj.common.CymmtjException;
+import org.gouzhong1223.cymmtj.dto.rep.ResponseDto;
+import org.gouzhong1223.cymmtj.service.ArticleService;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Author : Gouzhong
@@ -34,4 +41,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("admin/article")
 public class AdminArticleController {
 
+    public final ArticleService articleService;
+
+    public AdminArticleController(ArticleService articleService) {
+        this.articleService = articleService;
+    }
+
+
+    @DeleteMapping("deleteArticleById/{id}")
+    public ResponseDto deleteArticleById(HttpServletRequest request,
+                                         @PathVariable("id") Integer id) throws CymmtjException {
+        String token = request.getHeader("token");
+        ResponseDto responseDto = articleService.deleteArticle(id, token);
+        return responseDto;
+    }
 }
