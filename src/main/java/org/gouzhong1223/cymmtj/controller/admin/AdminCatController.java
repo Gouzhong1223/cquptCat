@@ -57,6 +57,7 @@ public class AdminCatController {
                                  @RequestPart("files") List<MultipartFile> files,
                                  HttpServletRequest request) throws CymmtjException {
         String token = request.getHeader("token");
+        LOGGER.info("新增 Cat");
         return catService.insertCat(jsonObject, files, token);
     }
 
