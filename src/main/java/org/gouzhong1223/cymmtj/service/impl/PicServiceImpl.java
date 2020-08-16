@@ -35,10 +35,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 /**
  * @Author : Gouzhong
@@ -75,12 +72,15 @@ public class PicServiceImpl implements PicService {
         // 线程池执行结果
         ArrayList<Future<HashMap<String, String>>> futures = new ArrayList<>();
 
-        ExecutorService executorService = Executors.newCachedThreadPool();
+        // 创建线程池
+        ExecutorService executorService = new ThreadPoolExecutor(5, 10,
+                60L, TimeUnit.SECONDS,
+                new SynchronousQueue<>());
         files.forEach(file -> {
             // 执行上传图片的任务并得到返回结果
             Future<HashMap<String, String>> submit = executorService.submit(() -> {
                 LOGGER.info("开始上传图片");
-                HashMap<String, String> resultMap = null;
+                HashMap<String, String> resultMap;
                 try {
                     resultMap = ossUtil.upload(file);
                 } catch (Exception e) {
@@ -97,10 +97,8 @@ public class PicServiceImpl implements PicService {
         futures.forEach(e -> {
             try {
                 pics.add(new Pic(RandomNumber.createNumber(), e.get().get("link"), e.get().get("url"), LocalDateTime.now()));
-            } catch (InterruptedException interruptedException) {
+            } catch (InterruptedException | ExecutionException interruptedException) {
                 interruptedException.printStackTrace();
-            } catch (ExecutionException executionException) {
-                executionException.printStackTrace();
             }
         });
 
@@ -115,10 +113,12 @@ public class PicServiceImpl implements PicService {
 
         if (catId != null && articleId == null) {
             pics.forEach(e -> {
+                // 在数据库中插入猫咪主键以及图片主键
                 catPicMapper.insertSelective(new CatPic(catId, e.getId()));
             });
         } else {
             pics.forEach(e -> {
+                // 在数据库中插入文章主键以及图片主键
                 articlePicMapper.insertSelective(new ArticlePic(e.getId(), articleId));
             });
         }
