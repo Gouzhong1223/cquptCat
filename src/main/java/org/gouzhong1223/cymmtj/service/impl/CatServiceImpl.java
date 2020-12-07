@@ -39,7 +39,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -149,7 +148,7 @@ public class CatServiceImpl implements CatService {
 
 
     @Override
-    public ResponseDto contributeCat(JSONObject jsonObject, String token) throws CymmtjException {
+    public ResponseDto contributeCat(JSONObject jsonObject, String token) {
 
         // 获取上传的文件数组
         JSONArray jsonFiles = jsonObject.getJSONArray("files");
@@ -208,8 +207,8 @@ public class CatServiceImpl implements CatService {
     public ResponseDto auditCat(Integer id, Integer auditStatus, String reasonForFailure) throws CymmtjException {
 
         Integer audited = 1;
-        Integer visible;
-        String mailContent = "";
+        int visible;
+        String mailContent;
 
         CatRefrrer catRefrrer = catRefrrerMapper.selectOneByCatId(id);
         Cat cat = catMapper.selectByPrimaryKey(id);
@@ -243,8 +242,8 @@ public class CatServiceImpl implements CatService {
     @Override
     public ResponseDto catDetail(String token, Integer catId) {
 
-        Boolean awesome = false;
-        Boolean collect = false;
+        boolean awesome = false;
+        boolean collect = false;
 
         // 查询对应猫咪信息
         Cat cat = selectCatByid(catId);
@@ -333,12 +332,12 @@ public class CatServiceImpl implements CatService {
 
     @Override
     public ResponseDto listCatsOrderByAwesomeCount(Integer pageNum, Integer pageSize, Integer regionId) throws CymmtjException {
-        List<Cat> cats = null;
+        List<Cat> cats;
         if (regionId == 0) {
             cats = catMapper.selectAllOrderByAwesomeCount();
         } else {
             cats = listAllCatsByRegionId(regionId);
-            Collections.sort(cats, (o1, o2) -> {
+            cats.sort((o1, o2) -> {
                 if (o1.getAwesomeCount() > o2.getAwesomeCount()) {
                     return 1;
                 }
@@ -356,12 +355,12 @@ public class CatServiceImpl implements CatService {
 
     @Override
     public ResponseDto listCatsOrderByCollectCount(Integer pageNum, Integer pageSize, Integer regionId) throws CymmtjException {
-        List<Cat> cats = null;
+        List<Cat> cats;
         if (regionId == 0) {
             cats = catMapper.selectAllOrderByCollectCount();
         } else {
             cats = listAllCatsByRegionId(regionId);
-            Collections.sort(cats, (o1, o2) -> {
+            cats.sort((o1, o2) -> {
                 if (o1.getCollectCount() > o2.getCollectCount()) {
                     return 1;
                 }
@@ -380,12 +379,12 @@ public class CatServiceImpl implements CatService {
     @Override
     public ResponseDto listCatsOrderByCreateTime(Integer pageNum, Integer pageSize, Integer regionId) throws CymmtjException {
 
-        List<Cat> cats = null;
+        List<Cat> cats;
         if (regionId == 0) {
             cats = catMapper.selectAllOrderByCreateTime();
         } else {
             cats = listAllCatsByRegionId(regionId);
-            Collections.sort(cats, (o1, o2) -> {
+            cats.sort((o1, o2) -> {
                 if (o1.getCreateTime().isAfter(o2.getCreateTime())) {
                     return 1;
                 }
@@ -493,11 +492,9 @@ public class CatServiceImpl implements CatService {
         // 获取猫咪分类
         String type = jsonObject.getString("type");
 
-        Cat cat = new Cat(null, name, color, sex, foreignTrade, character,
+        return new Cat(null, name, color, sex, foreignTrade, character,
                 LocalDateTime.now(), type, DEFAULTVIEWED,
                 null, DEFAULTAUDITED, LocalDateTime.now(), 0, 0);
-
-        return cat;
     }
 
     /**
@@ -510,8 +507,7 @@ public class CatServiceImpl implements CatService {
      */
     public PageResult generatePageResult(Integer pageNum, Integer pageSize, HashMap<String, ArrayList<CatIntroRep>> resultMap) {
         ArrayList<CatIntroRep> catIntroReps = resultMap.get("catIntroReps");
-        PageResult pageResult = dealPageResult(pageNum, pageSize, catIntroReps);
-        return pageResult;
+        return dealPageResult(pageNum, pageSize, catIntroReps);
     }
 
     /**
@@ -541,10 +537,8 @@ public class CatServiceImpl implements CatService {
 
         PageInfo<CatIntroRep> resultCatPageInfo = new PageInfo<>(catIntroReps);
 
-        PageResult<CatIntroRep> catIntroRepPageResult = new PageResult<>(resultCatPageInfo.getPageNum(), resultCatPageInfo.getPageSize(),
+        return new PageResult<>(resultCatPageInfo.getPageNum(), resultCatPageInfo.getPageSize(),
                 resultCatPageInfo.getTotal(), resultCatPageInfo.getPages(), resultCatPageInfo.getList());
-
-        return catIntroRepPageResult;
     }
 
     /**
@@ -583,8 +577,7 @@ public class CatServiceImpl implements CatService {
      */
     public ArrayList<Cat> listAllCatsByRegionId(Integer regionId) {
         List<CatRegion> catRegions = catRegionMapper.selectAllByRegionId(regionId);
-        ArrayList<Cat> cats = listAllCatsByCatRegionInfo(catRegions);
-        return cats;
+        return listAllCatsByCatRegionInfo(catRegions);
     }
 
     /**
@@ -639,8 +632,8 @@ public class CatServiceImpl implements CatService {
      * @throws CymmtjException
      */
     public HashMap<String, ArrayList<CatIntroRep>> generateIndexInfo(List<Cat> cats) throws CymmtjException {
-        ArrayList<CatIntroRep> catIntroReps = null;
-        ArrayList<CatIntroRep> popularCatIntroReps = null;
+        ArrayList<CatIntroRep> catIntroReps;
+        ArrayList<CatIntroRep> popularCatIntroReps;
         try {
             List<Cat> popularCats = catMapper.selectPopularCats();
             popularCatIntroReps = generateCatIntroRepByCats(popularCats);
