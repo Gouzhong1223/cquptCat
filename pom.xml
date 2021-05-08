@@ -40,7 +40,7 @@
         <swagger-bootstrap-ui.version>1.9.3</swagger-bootstrap-ui.version>
         <aliyun-sdk-oss.version>2.5.0</aliyun-sdk-oss.version>
         <fastjson.version>1.2.62</fastjson.version>
-        <shiro-core.version>1.4.2</shiro-core.version>
+        <shiro-core.version>1.6.0</shiro-core.version>
         <commonmark.version>0.10.0</commonmark.version>
     </properties>
 
